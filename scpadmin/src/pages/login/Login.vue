@@ -146,11 +146,12 @@ export default {
   },
   methods: {
     login() {
-    //   this.$refs.loginForm.validate(valid => {
+      //   this.$refs.loginForm.validate(valid => {
       // if (valid) {
       //   this.$store.dispatch("setAuthorization", window.config.Authorization);
       let index = window.location.href.lastIndexOf("/");
       let suffix = window.location.href.substring(0, index + 1);
+      console.log(suffix + "Main");
       window.location.href = suffix + "Main";
       //   this.$loginAjax
       //     .login({
@@ -165,7 +166,7 @@ export default {
       // } else {
       //   this.$cToast.error("请正确填写内容");
       // }
-    //   });
+      //   });
     },
     loginSuccessResponse(body) {
       if (body) {

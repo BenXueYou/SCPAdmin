@@ -1,30 +1,35 @@
 <template>
 	<div class="box">
-		<left-menu class="left-menu"></left-menu>
-		<el-row class="main">
-			<keep-alive>
-				<router-view></router-view>
-			</keep-alive>
-			<!-- <router-view v-if="!$route.meta.keepAlive"></router-view> -->
-		</el-row>
+		<el-container>
+			<el-header>Header</el-header>
+			<el-container class="container">
+				<left-menu class="left-menu"></left-menu>
+				<el-main>
+					<keep-alive>
+						<router-view></router-view>
+					</keep-alive>
+				</el-main>
+			</el-container>
+		</el-container>
+		<el-header></el-header>
 	</div>
 </template>
 
 <script>
-import leftMenu from '@/components/leftMenu.vue';
+import leftMenu from "@/components/leftMenu.vue";
 export default {
   components: { leftMenu },
   props: {},
-  data () {
+  data() {
     return {};
   },
-  created () {},
-  mounted () {
+  created() {},
+  mounted() {
     // this.$router.push({ name: "AccessGroupConfig" });
   },
   methods: {},
   watch: {},
-  destroyed () {}
+  destroyed() {}
 };
 </script>
 <style>
@@ -52,10 +57,18 @@ export default {
 		font-size: 13px;
 		color: #ff5f5f;
 	}
+	.el-container,
+	.container {
+		width: 100%;
+		.el-aside {
+			width: 20%;
+		}
+	}
 }
 .box .left-menu {
 	width: 20%;
 	max-width: 200px;
+	background: $--color-left-menu;
 }
 .box .main {
 	width: calc(100% - 200px);

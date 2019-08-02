@@ -6,7 +6,7 @@ import ElementUI from 'element-ui';
 import App from './App';
 
 import store from '@/store/store.js';
-import './permission.js';
+// import './permission.js';
 
 Vue.use(ElementUI);
 
