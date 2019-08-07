@@ -8,53 +8,54 @@
 					@open="handleOpen"
 					@close="handleClose"
 					@select="handleSelect"
-					background-color="#00000000"
+					background-color="#354054"
 					text-color="#DDDDDD"
 					:router="true"
-					active-text-color="#26D39D"
+					active-text-color="#ff5f5f"
 				>
 					<el-submenu index="1" :class="menuTitle === '1'? 'submenuActiveClass' : ''">
 						<template slot="title">
-							<img
+							<!-- <img
 								class="access_autn_select"
-								src="/assets/images/vistorManage/vistorManage.png"
+								src="@/assets/images/leftMenu/vistorManage.png"
 								alt
-							/>
+							/> -->
+							<i class="el-icon-price-tag"></i>
 							<span>访客记录</span>
 							<img
 								v-show="menuTitle === '1'"
 								class="left_menu_box_right_icon"
-								src="/assets/images/select-down.png"
+								src="@/assets/images/select-down.png"
 							/>
 							<img
 								v-show="menuTitle !== '1'"
 								class="left_menu_box_right_icon"
-								src="/assets/images/leftMenu/left_menu_down_icon.png"
+								src="@/assets/images/leftMenu/left_menu_down_icon.png"
 								alt
 							/>
 						</template>
-						<el-menu-item index="/VistorMange/VistorRecord">访客记录</el-menu-item>
-						<el-menu-item index="/VistorMange/VistorList">访客列表</el-menu-item>
-						<el-menu-item index="/VistorMange/VistorOpenRecord">访客开门记录</el-menu-item>
-						<el-menu-item index="/VistorMange/AppointInviteRecord">预约/邀请记录</el-menu-item>
+						<el-menu-item index="/Main/ChargePile">访客记录</el-menu-item>
+						<el-menu-item index="/Main/ChargeStation">访客列表</el-menu-item>
+						<el-menu-item index="/Main/ChargeAddress">访客开门记录</el-menu-item>
+						<el-menu-item index="/Main/ChargeFactory">预约/邀请记录</el-menu-item>
 					</el-submenu>
 					<el-submenu index="2" :class="menuTitle === '2'? 'submenuActiveClass' : ''">
 						<template slot="title">
 							<img
 								class="access_autn_select"
-								src="/assets/images/leftMenu/access_authority.png"
+								src="@/assets/images/leftMenu/access_authority.png"
 								alt
 							/>
 							<span slot="title">访客权限</span>
 							<img
 								v-show="menuTitle === '2'"
 								class="left_menu_box_right_icon"
-								src="/assets/images/select-down.png"
+								src="@/assets/images/select-down.png"
 							/>
 							<img
 								v-show="menuTitle !== '2'"
 								class="left_menu_box_right_icon"
-								src="/assets/images/leftMenu/left_menu_down_icon.png"
+								src="@/assets/images/leftMenu/left_menu_down_icon.png"
 								alt
 							/>
 						</template>
@@ -62,7 +63,7 @@
 					</el-submenu>
 					<el-submenu index="3" :class="menuTitle === '3'? 'submenuActiveClass' : ''">
 						<template slot="title">
-							<img class="access_autn_select" src="/assets/images/leftMenu/access_set.png" alt />
+							<img class="access_autn_select" src="@/assets/images/leftMenu/access_set.png" alt />
 							<span slot="title">访客配置</span>
 							<img
 								v-show="menuTitle === '3'"
@@ -185,19 +186,22 @@ export default {
 }
 .left_menu_box .activeClass {
 	color: #26d39d !important;
-	background-color: rgb(35, 70, 62) !important;
+	// background-color: rgb(35, 70, 62) !important;
+	background-color: transparent;
 }
 
 .el-menu:hover,
 .el-menu-item:hover {
-	background-color: rgb(33, 45, 51);
+	// background-color: rgb(33, 45, 51);
+	background-color:transparent;
 }
 .el-menu-item.isActive {
 	border-left: 2px solid #26d39d !important;
 }
 .left_menu_box .el-menu-item.is-active {
 	color: rgb(220, 221, 222) !important;
-	background-color: rgba(38, 211, 157, 0.6) !important;
+	// background-color: rgba(38, 211, 157, 0.6) !important;
+	background-color: transparent;
 }
 .left_menu_box .submenuActiveClass .el-submenu__title {
 	background-color:$--color-left-submenu !important;
@@ -225,6 +229,7 @@ export default {
 .left_menu_box {
 	overflow-y: auto;
 	overflow-x: hidden;
+	text-align: left;
 }
 .el-menu {
 	background: rgba(39, 42, 45, 0.9);
@@ -253,8 +258,7 @@ export default {
 .el-submenu__title:hover,
 .el-menu-item:hover,
 .el-menu-item:focus {
-	/* background-color: rgba(40, 255, 187, 0.08); */
-	background-color: rgb(35, 57, 54) !important;
+	background-color: $--color-primary;
 	color: #72757f;
 }
 li {

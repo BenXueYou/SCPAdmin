@@ -1,7 +1,9 @@
 <template>
 	<div class="box">
 		<el-container>
-			<el-header>Header</el-header>
+			<el-header>
+				<sk-header></sk-header>
+			</el-header>
 			<el-container class="container">
 				<left-menu class="left-menu"></left-menu>
 				<el-main>
@@ -11,14 +13,14 @@
 				</el-main>
 			</el-container>
 		</el-container>
-		<el-header></el-header>
 	</div>
 </template>
 
 <script>
 import leftMenu from "@/components/leftMenu.vue";
+import skHeader from "@/components/header.vue";
 export default {
-  components: { leftMenu },
+  components: { leftMenu, skHeader },
   props: {},
   data() {
     return {};
@@ -60,24 +62,17 @@ export default {
 	.el-container,
 	.container {
 		width: 100%;
-		.el-aside {
-			width: 20%;
+		.el-header{
+			padding: 0;
 		}
-	}
-}
-.box .left-menu {
-	width: 20%;
-	max-width: 200px;
-	background: $--color-left-menu;
-}
-.box .main {
-	width: calc(100% - 200px);
-	height: 100%;
-	// min-width: 1296px;
-	// overflow-x: auto;
-	padding: $rightContentMargin;
-	.footer {
-		text-align: right;
+		.left-menu {
+			width: 20%;
+			max-width: 200px;
+			background: $--color-left-menu;
+		}
+		.el-main{
+			background-color: #efefef;
+		}
 	}
 }
 </style>
