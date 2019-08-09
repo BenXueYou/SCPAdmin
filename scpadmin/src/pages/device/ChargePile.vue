@@ -110,7 +110,7 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-pile-add v-show="isShowAddDialog" ref="houseTable" />
+		<charge-pile-add :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" />
 	</el-row>
 </template>
 <script>
@@ -138,6 +138,9 @@ export default {
     };
   },
   methods: {
+    close() {
+      this.isShowAddDialog = false;
+    },
     queryBtnAct() {},
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
