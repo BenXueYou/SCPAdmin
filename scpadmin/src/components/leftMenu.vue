@@ -19,9 +19,9 @@
 								class="access_autn_select"
 								src="@/assets/images/leftMenu/vistorManage.png"
 								alt
-							/> -->
+							/>-->
 							<i class="el-icon-price-tag"></i>
-							<span>访客记录</span>
+							<span>设备管理</span>
 							<img
 								v-show="menuTitle === '1'"
 								class="left_menu_box_right_icon"
@@ -34,19 +34,15 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/ChargePile">访客记录</el-menu-item>
-						<el-menu-item index="/Main/ChargeStation">访客列表</el-menu-item>
-						<el-menu-item index="/Main/ChargeAddress">访客开门记录</el-menu-item>
-						<el-menu-item index="/Main/ChargeFactory">预约/邀请记录</el-menu-item>
+						<el-menu-item index="/Main/ChargePile">充电桩</el-menu-item>
+						<el-menu-item index="/Main/ChargeStation">充电站</el-menu-item>
+						<el-menu-item index="/Main/ChargeAddress">充电桩地址</el-menu-item>
+						<el-menu-item index="/Main/ChargeFactory">充电桩厂商</el-menu-item>
 					</el-submenu>
 					<el-submenu index="2" :class="menuTitle === '2'? 'submenuActiveClass' : ''">
 						<template slot="title">
-							<img
-								class="access_autn_select"
-								src="@/assets/images/leftMenu/access_authority.png"
-								alt
-							/>
-							<span slot="title">访客权限</span>
+							<img class="access_autn_select" src="@/assets/images/leftMenu/access_authority.png" alt />
+							<span slot="title">用户管理</span>
 							<img
 								v-show="menuTitle === '2'"
 								class="left_menu_box_right_icon"
@@ -64,7 +60,7 @@
 					<el-submenu index="3" :class="menuTitle === '3'? 'submenuActiveClass' : ''">
 						<template slot="title">
 							<img class="access_autn_select" src="@/assets/images/leftMenu/access_set.png" alt />
-							<span slot="title">访客配置</span>
+							<span slot="title">运营管理</span>
 							<img
 								v-show="menuTitle === '3'"
 								class="left_menu_box_right_icon"
@@ -87,7 +83,7 @@
 								src="@/assets/images/leftMenu/left_menu_blacklist_icon.png"
 								alt
 							/>
-							<span slot="title">访客黑名单</span>
+							<span slot="title">运营统计</span>
 							<img
 								v-show="menuTitle === '3'"
 								class="left_menu_box_right_icon"
@@ -161,7 +157,7 @@ export default {
 }
 .left_menu_box .el-menu-item {
 	padding-left: 55px !important;
-	font-family: 'PingFangSC-Regular';
+	font-family: "PingFangSC-Regular";
 	font-size: 13px !important;
 	color: #dddddd;
 	text-align: justify;
@@ -193,18 +189,17 @@ export default {
 .el-menu:hover,
 .el-menu-item:hover {
 	// background-color: rgb(33, 45, 51);
-	background-color:transparent;
+	background-color: transparent;
 }
 .el-menu-item.isActive {
 	border-left: 2px solid #26d39d !important;
 }
 .left_menu_box .el-menu-item.is-active {
 	color: rgb(220, 221, 222) !important;
-	// background-color: rgba(38, 211, 157, 0.6) !important;
-	background-color: transparent;
+	background-color: $--color-primary !important;
 }
 .left_menu_box .submenuActiveClass .el-submenu__title {
-	background-color:$--color-left-submenu !important;
+	background-color: $--color-left-submenu !important;
 }
 .el-menu--collapse {
 	width: 100%;
