@@ -1,8 +1,8 @@
 <template>
 	<el-dialog
 		width="28%"
-		:title="isAdd?`新增充电桩`:`修改充电桩`"
-		class="dialog-pile-add"
+		:title="isAdd?`新增充电站`:`修改充电站`"
+		class="dialog-station-add"
 		center
 		:visible.sync="isCurrentShow"
 		:before-close="onClickCancel"
@@ -20,7 +20,7 @@
 			>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="运营商：" prop="business">
+						<el-form-item label="运营商：" prop="Business">
 							<el-select
 								class="time-interal"
 								v-model="formLabelAlign.business"
@@ -38,95 +38,98 @@
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="充电站：" prop="chargeStation">
+						<el-form-item label="充电站：" prop="chargeStationName">
+							<el-input class="time-interal" v-model="formLabelAlign.chargeStationName" size="small"></el-input>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row type="flex" justify="space-between">
+					<el-form-item label="开放时间" required>
+						<el-col :span="10">
+							<el-form-item prop="date1">
+								<el-date-picker
+									type="date"
+									placeholder="选择日期"
+									v-model="formLabelAlign.openingHours"
+									style="width: 100%;"
+								></el-date-picker>
+							</el-form-item>
+						</el-col>
+						<el-col class="line" :span="3" style="color:#cfcfcf；padding:0 20px;text-align:center">——</el-col>
+						<el-col :span="10">
+							<el-form-item prop="date2">
+								<el-time-picker placeholder="选择时间" v-model="formLabelAlign.endHours" style="width: 100%;"></el-time-picker>
+							</el-form-item>
+						</el-col>
+					</el-form-item>
+				</el-row>
+				<el-row type="flex" justify="space-between">
+					<el-form-item label="省市区：" prop="chargeStationModel">
+						<el-col :span="8">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.chargeStation"
+								v-model="formLabelAlign.chargeStationModel"
 								size="small"
 								clearable
-								placeholder="请选择"
+								placeholder="请选择省"
 							>
 								<el-option
-									v-for="item in chargeStationOptions"
+									v-for="item in chargeStationModelOptions"
 									:key="item.typeStr"
 									:label="item.typeName"
 									:value="item.typeStr"
 								></el-option>
 							</el-select>
+						</el-col>
+						<el-col :span="8">
+							<el-select
+								class="time-interal"
+								v-model="formLabelAlign.chargeStationModel"
+								size="small"
+								clearable
+								placeholder="请选择市"
+							>
+								<el-option
+									v-for="item in chargeStationModelOptions"
+									:key="item.typeStr"
+									:label="item.typeName"
+									:value="item.typeStr"
+								></el-option>
+							</el-select>
+						</el-col>
+						<el-col :span="8">
+							<el-select
+								class="time-interal"
+								v-model="formLabelAlign.chargeStationModel"
+								size="small"
+								clearable
+								placeholder="请选择区/县"
+							>
+								<el-option
+									v-for="item in chargeStationModelOptions"
+									:key="item.typeStr"
+									:label="item.typeName"
+									:value="item.typeStr"
+								></el-option>
+							</el-select>
+						</el-col>
+					</el-form-item>
+				</el-row>
+				<el-row type="flex" justify="space-between">
+					<el-col :span="24">
+						<el-form-item label="地址：" prop="chargePriceModel">
+							<el-input class="time-interal" v-model="formLabelAlign.bulkNumber" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="桩名称：" prop="chargePileName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
-						</el-form-item>
-					</el-col>
-					<el-col :span="12">
-						<el-form-item label="桩厂商：" prop="chargePileFactory">
-							<el-select
-								class="time-interal"
-								v-model="formLabelAlign.chargePileFactory"
-								size="small"
-								clearable
-								placeholder="请选择"
-							>
-								<el-option
-									v-for="item in chargePileFactoryOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</el-form-item>
-					</el-col>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-col :span="12">
-						<el-form-item label="桩型号：" prop="chargePileModel">
-							<el-select
-								class="time-interal"
-								v-model="formLabelAlign.chargePileModel"
-								size="small"
-								clearable
-								placeholder="请选择"
-							>
-								<el-option
-									v-for="item in chargePileModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</el-form-item>
-					</el-col>
-					<el-col :span="12">
-						<el-form-item label="计费模板：" prop="chargePriceModel">
-							<el-select
-								class="time-interal"
-								v-model="formLabelAlign.chargePriceModel"
-								size="small"
-								clearable
-								placeholder="请选择"
-							>
-								<el-option
-									v-for="item in chargePriceModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</el-form-item>
-					</el-col>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-col :span="12">
-						<el-form-item label="批量增加:">
+						<el-form-item label="停车收费:">
 							<el-switch v-model="formLabelAlign.bulk"></el-switch>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12" v-if="formLabelAlign.bulk">
-						<el-form-item label="设置个数：" prop="roomsType">
+						<el-form-item label="停车费(元/时)：" prop="roomsType">
 							<el-input class="time-interal" v-model="formLabelAlign.bulkNumber" size="small"></el-input>
 						</el-form-item>
 					</el-col>
@@ -163,40 +166,40 @@ export default {
   },
   data() {
     return {
-      chargePileFactoryOptions: [],
+      endHoursOptions: [],
       chargePriceModelOptions: [],
-      chargePileModelOptions: [],
+      chargeStationModelOptions: [],
       chargeStationOptions: [],
       businessOptions: [],
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        chargeStation: null,
+        openingHours: null,
         business: null,
-        chargePileName: null,
-        chargePileFactory: null,
-        chargePileModel: null,
+        chargeStationName: null,
+        endHours: null,
+        chargeStationModel: null,
         chargePriceModel: null,
         bulkNumber: null,
         version: null,
         bulk: false
       },
       rules: {
-        chargePileName: [
+        chargeStationName: [
           { required: true, message: "名称不能为空", trigger: "blur" },
           { whitespace: true, message: "不允许输入空格", trigger: "blur" },
           { min: 1, max: 32, message: "长度在 1 到 32 个字符", trigger: "blur" }
         ],
-        chargeStation: [
+        openingHours: [
           { required: true, message: "充电站不能为空", trigger: "change" }
         ],
         chargePriceModel: [
           { required: true, message: "计费模板不能为空", trigger: "change" }
         ],
-        chargePileFactory: [
+        endHours: [
           { required: true, message: "充电桩厂商不能为空", trigger: "change" }
         ],
-        chargePileModel: [
+        chargeStationModel: [
           { required: true, message: "充电桩型号不能为空", trigger: "change" }
         ],
         business: [
@@ -239,12 +242,12 @@ export default {
 };
 </script>
 <style>
-.dialog-pile-add .el-dialog__header {
+.dialog-station-add .el-dialog__header {
 	border-bottom: 1px solid #eeeeee;
 }
 </style>
 <style lang="scss" scoped>
-.dialog-pile-add {
+.dialog-station-add {
 	.dialog-content {
 		box-sizing: border-box;
 	}

@@ -102,13 +102,19 @@
 				></el-pagination>
 			</div>
 		</div>
+		<charge-station-add :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" />
 	</el-row>
 </template>
 <script>
+import ChargeStationAdd from "@/components/ChargeStationAdd";
 export default {
+  components: {
+    ChargeStationAdd
+  },
   mounted: function() {},
   data: function() {
     return {
+      isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
       pageSize: 15,
       currentPage: 1,
@@ -124,8 +130,13 @@ export default {
     };
   },
   methods: {
+    close() {
+      this.isShowAddDialog = !this.isShowAddDialog;
+    },
     queryBtnAct() {},
-    addBtnAct() {},
+    addBtnAct() {
+      this.isShowAddDialog = !this.isShowAddDialog;
+    },
     deleteBtnAct() {},
     exportBtnAct() {},
     handleClick(row) {
