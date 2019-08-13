@@ -10,80 +10,75 @@
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu flex-sbw">
-				<div class="flex-sbw-div">
-					<span class="topTitleTxt">运营商：</span>
-					<el-select
-						class="left-space time-interal"
-						v-model="operator"
-						clearable
-						placeholder="报警类型"
-						size="small"
-					>
-						<el-option
-							v-for="item in operatorOptions"
-							:key="item.typeStr"
-							:label="item.typeName"
-							:value="item.typeStr"
-						></el-option>
-					</el-select>
+				<div class="flex-sbw">
+					<div class="flex-sbw-div">
+						<span class="topTitleTxt">省：</span>
+						<el-select
+							class="left-space time-interal"
+							v-model="operator"
+							clearable
+							placeholder="报警类型"
+							size="small"
+						>
+							<el-option
+								v-for="item in operatorOptions"
+								:key="item.typeStr"
+								:label="item.typeName"
+								:value="item.typeStr"
+							></el-option>
+						</el-select>
+					</div>
+					<div class="flex-sbw-div">
+						<span class="topTitleTxt">市：</span>
+						<el-select
+							class="left-space time-interal"
+							v-model="station"
+							clearable
+							placeholder="处理状态"
+							size="small"
+						>
+							<el-option
+								v-for="item in stationOptions"
+								:key="item.typeStr"
+								:label="item.typeName"
+								:value="item.typeStr"
+							></el-option>
+						</el-select>
+					</div>
+					<div class="flex-sbw-div">
+						<span class="topTitleTxt">区：</span>
+						<el-select
+							class="left-space time-interal"
+							v-model="station"
+							clearable
+							placeholder="处理状态"
+							size="small"
+						>
+							<el-option
+								v-for="item in stationOptions"
+								:key="item.typeStr"
+								:label="item.typeName"
+								:value="item.typeStr"
+							></el-option>
+						</el-select>
+					</div>
+					<div class="flex-sbw-div topTitleTxt">
+						<span>地址：</span>
+						<el-input style="width:auto" v-model="station"></el-input>
+					</div>
 				</div>
-				<div class="flex-sbw-div">
-					<span class="topTitleTxt">充电站：</span>
-					<el-select
-						class="left-space time-interal"
-						v-model="station"
-						clearable
-						placeholder="处理状态"
-						size="small"
-					>
-						<el-option
-							v-for="item in stationOptions"
-							:key="item.typeStr"
-							:label="item.typeName"
-							:value="item.typeStr"
-						></el-option>
-					</el-select>
-				</div>
-				<div class="flex-sbw-div">
-					<span class="topTitleTxt">时间：</span>
-					<el-date-picker
-						v-model="beginTime"
-						type="datetime"
-						class="time-interal-date"
-						size="small"
-						placeholder="选择日期"
-						value-format="yyyy-MM-dd HH:mm:ss"
-					></el-date-picker>
-					<span class="time-line"></span>
-					<el-date-picker
-						v-model="endTime"
-						type="datetime"
-						class="time-interal-date"
-						placeholder="选择日期"
-						size="small"
-						value-format="yyyy-MM-dd HH:mm:ss"
-					></el-date-picker>
-				</div>
-				<el-button type="mini" @click="queryBtnAct">查询</el-button>
-			</div>
-			<div class="topMenu">
-				<el-button type="primary" @click="addBtnAct" style="margin-bottom:10px;">新增</el-button>
-				<el-button type="primary" @click="deleteBtnAct">删除</el-button>
-				<el-button type="primary" @click="exportBtnAct">导出</el-button>
+				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;">查询</el-button>
 			</div>
 			<el-table :data="tableData" border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="桩名"></el-table-column>
-				<el-table-column prop="name" label="桩ID"></el-table-column>
-				<el-table-column prop="province" label="运营商"></el-table-column>
-				<el-table-column prop="city" label="充电站"></el-table-column>
-				<el-table-column prop="province" label="费率模板"></el-table-column>
-				<el-table-column prop="zip" label="桩厂商"></el-table-column>
-				<el-table-column prop="city" label="桩型号"></el-table-column>
-				<el-table-column prop="zip" label="建桩日期"></el-table-column>
-				<el-table-column prop="address" label="详细地址" show-overflow-tooltip></el-table-column>
-				<el-table-column label="操作" width="100">
+				<el-table-column prop="date" label="省"></el-table-column>
+				<el-table-column prop="name" label="市"></el-table-column>
+				<el-table-column prop="province" label="区"></el-table-column>
+				<el-table-column prop="city" label="地址" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="province" label="经度"></el-table-column>
+				<el-table-column prop="zip" label="纬度"></el-table-column>
+				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
 						<el-button type="text" size="small">编辑</el-button>
@@ -102,13 +97,19 @@
 				></el-pagination>
 			</div>
 		</div>
+		<charge-address-edit :isShow="isShowEidtDialog" @onCancel="close()" ref="houseTable" />
 	</el-row>
 </template>
 <script>
+import ChargeAddressEdit from "@/components/ChargeAddressEdit";
 export default {
+  components: {
+    ChargeAddressEdit
+  },
   mounted: function() {},
   data: function() {
     return {
+      isShowEidtDialog: false,
       pageSize: 15,
       pageSizeArr: window.config.pageSizeArr,
       currentPage: 1,
@@ -124,8 +125,13 @@ export default {
     };
   },
   methods: {
+    close() {
+      this.isShowEidtDialog = !this.isShowEidtDialog;
+    },
     queryBtnAct() {},
-    addBtnAct() {},
+    addBtnAct() {
+      this.isShowEidtDialog = !this.isShowEidtDialog;
+    },
     deleteBtnAct() {},
     exportBtnAct() {},
     handleClick(row) {
@@ -167,6 +173,9 @@ export default {
 			display: flex;
 			justify-content: space-between;
 			padding-bottom: 15px;
+			.flex-sbw-div{
+				margin: 0 25px 0 15px;
+			}
 			.el-button {
 				color: #ffffff;
 				background-color: #5b9cf8;

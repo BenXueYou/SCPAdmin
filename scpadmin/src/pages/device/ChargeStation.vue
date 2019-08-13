@@ -74,16 +74,12 @@
 			<el-table :data="tableData" border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="桩名"></el-table-column>
-				<el-table-column prop="name" label="桩ID"></el-table-column>
+				<el-table-column prop="date" label="充电站"></el-table-column>
+				<el-table-column prop="name" label="地址"></el-table-column>
 				<el-table-column prop="province" label="运营商"></el-table-column>
-				<el-table-column prop="city" label="充电站"></el-table-column>
-				<el-table-column prop="province" label="费率模板"></el-table-column>
-				<el-table-column prop="zip" label="桩厂商"></el-table-column>
-				<el-table-column prop="city" label="桩型号"></el-table-column>
-				<el-table-column prop="zip" label="建桩日期"></el-table-column>
-				<el-table-column prop="address" label="详细地址" show-overflow-tooltip></el-table-column>
-				<el-table-column label="操作" width="100">
+				<el-table-column prop="city" label="开放时间"></el-table-column>
+				<el-table-column prop="zip" label="建站日期"></el-table-column>
+				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
 						<el-button type="text" size="small">编辑</el-button>

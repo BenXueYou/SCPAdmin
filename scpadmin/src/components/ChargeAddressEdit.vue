@@ -2,7 +2,7 @@
 	<el-dialog
 		width="480px"
 		:title="isAdd?`新增充电站`:`修改充电站`"
-		class="dialog-station-add"
+		class="dialog-address-edit"
 		center
 		:visible.sync="isCurrentShow"
 		:before-close="onClickCancel"
@@ -251,26 +251,26 @@ export default {
 };
 </script>
 <style>
-.dialog-station-add .el-dialog__header {
+.dialog-address-edit .el-dialog__header {
 	border-bottom: 1px solid #eeeeee;
 }
-.dialog-station-add .el-dialog--center .el-dialog__body {
+.dialog-address-edit .el-dialog--center .el-dialog__body {
 	text-align: initial;
 	padding: 25px 35px 5px 5px;
 }
-.dialog-station-add .timePickerClass {
+.dialog-address-edit .timePickerClass {
 	width: 100%;
 	height: 32px;
 	line-height: 32px;
 }
-.dialog-station-add .timePickerClass .el-input__icon,
-.dialog-station-add .timePickerClass .el-input__inner {
+.dialog-address-edit .timePickerClass .el-input__icon,
+.dialog-address-edit .timePickerClass .el-input__inner {
 	height: 32px;
 	line-height: 32px;
 }
 </style>
 <style lang="scss" scoped>
-.dialog-station-add {
+.dialog-address-edit {
 	.dialog-content {
 		box-sizing: border-box;
 	}

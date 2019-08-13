@@ -1,8 +1,8 @@
 <template>
 	<el-dialog
-		width="480px"
-		:title="isAdd?`新增充电站`:`修改充电站`"
-		class="dialog-station-add"
+		width="28%"
+		:title="isAdd?`新增充电桩`:`修改充电桩`"
+		class="dialog-factory-add"
 		center
 		:visible.sync="isCurrentShow"
 		:before-close="onClickCancel"
@@ -20,7 +20,7 @@
 			>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="运营商：" prop="Business">
+						<el-form-item label="运营商：" prop="business">
 							<el-select
 								class="time-interal"
 								v-model="formLabelAlign.business"
@@ -38,107 +38,95 @@
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="充电站：" prop="chargeStationName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargeStationName" size="small"></el-input>
-						</el-form-item>
-					</el-col>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-form-item style="margin-bottom:0px!important" label="开放时间:" required>
-						<el-col :span="10">
-							<el-form-item prop="openingHours">
-								<el-time-picker
-									type="date"
-									placeholder="选择开始时间"
-									v-model="formLabelAlign.openingHours"
-									class="timePickerClass"
-								></el-time-picker>
-							</el-form-item>
-						</el-col>
-						<el-col class="line" :span="3" style="color:#dcdfe6;padding:0 8px;text-align:center">—</el-col>
-						<el-col :span="10">
-							<el-form-item prop="endHours">
-								<el-time-picker
-									placeholder="选择结束时间"
-									v-model="formLabelAlign.endHours"
-									class="timePickerClass"
-								></el-time-picker>
-							</el-form-item>
-						</el-col>
-					</el-form-item>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-form-item label="省市区：" prop="chargeStationModel">
-						<el-col :span="8">
+						<el-form-item label="充电站：" prop="chargeStation">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
+								v-model="formLabelAlign.chargeStation"
 								size="small"
 								clearable
-								placeholder="请选择省"
+								placeholder="请选择"
 							>
 								<el-option
-									v-for="item in chargeStationModelOptions"
+									v-for="item in chargeStationOptions"
 									:key="item.typeStr"
 									:label="item.typeName"
 									:value="item.typeStr"
 								></el-option>
 							</el-select>
-						</el-col>
-						<el-col :span="8">
-							<el-select
-								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
-								size="small"
-								clearable
-								placeholder="请选择市"
-							>
-								<el-option
-									v-for="item in chargeStationModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</el-col>
-						<el-col :span="8">
-							<el-select
-								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
-								size="small"
-								clearable
-								placeholder="请选择区/县"
-							>
-								<el-option
-									v-for="item in chargeStationModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</el-col>
-					</el-form-item>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-col :span="24">
-						<el-form-item label="地址：" prop="chargePriceModel">
-							<el-input
-								class="time-interal"
-								style="width:96%;box-sizing: border-box;"
-								v-model="formLabelAlign.bulkNumber"
-								size="small"
-							></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="停车收费:">
+						<el-form-item label="桩名称：" prop="chargePileName">
+							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="桩厂商：" prop="chargePileFactory">
+							<el-select
+								class="time-interal"
+								v-model="formLabelAlign.chargePileFactory"
+								size="small"
+								clearable
+								placeholder="请选择"
+							>
+								<el-option
+									v-for="item in chargePileFactoryOptions"
+									:key="item.typeStr"
+									:label="item.typeName"
+									:value="item.typeStr"
+								></el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row type="flex" justify="space-between">
+					<el-col :span="12">
+						<el-form-item label="桩型号：" prop="chargePileModel">
+							<el-select
+								class="time-interal"
+								v-model="formLabelAlign.chargePileModel"
+								size="small"
+								clearable
+								placeholder="请选择"
+							>
+								<el-option
+									v-for="item in chargePileModelOptions"
+									:key="item.typeStr"
+									:label="item.typeName"
+									:value="item.typeStr"
+								></el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="计费模板：" prop="chargePriceModel">
+							<el-select
+								class="time-interal"
+								v-model="formLabelAlign.chargePriceModel"
+								size="small"
+								clearable
+								placeholder="请选择"
+							>
+								<el-option
+									v-for="item in chargePriceModelOptions"
+									:key="item.typeStr"
+									:label="item.typeName"
+									:value="item.typeStr"
+								></el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row type="flex" justify="space-between">
+					<el-col :span="12">
+						<el-form-item label="批量增加:">
 							<el-switch v-model="formLabelAlign.bulk"></el-switch>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12" v-if="formLabelAlign.bulk">
-						<el-form-item label="停车费(元/时)：" prop="roomsType">
+						<el-form-item label="设置个数：" prop="roomsType">
 							<el-input class="time-interal" v-model="formLabelAlign.bulkNumber" size="small"></el-input>
 						</el-form-item>
 					</el-col>
@@ -153,8 +141,6 @@
 </template>
 
 <script>
-// import PopoverTreeForBottom from "@/pages/buildingsHouse/components/PopoverTreeForBottom";
-
 export default {
   components: {
     // PopoverTreeForBottom,
@@ -175,40 +161,40 @@ export default {
   },
   data() {
     return {
-      endHoursOptions: [],
+      chargePileFactoryOptions: [],
       chargePriceModelOptions: [],
-      chargeStationModelOptions: [],
+      chargePileModelOptions: [],
       chargeStationOptions: [],
       businessOptions: [],
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        openingHours: '00:00:00',
+        chargeStation: null,
         business: null,
-        chargeStationName: null,
-        endHours: '23:59:59',
-        chargeStationModel: null,
+        chargePileName: null,
+        chargePileFactory: null,
+        chargePileModel: null,
         chargePriceModel: null,
         bulkNumber: null,
         version: null,
         bulk: false
       },
       rules: {
-        chargeStationName: [
+        chargePileName: [
           { required: true, message: "名称不能为空", trigger: "blur" },
           { whitespace: true, message: "不允许输入空格", trigger: "blur" },
           { min: 1, max: 32, message: "长度在 1 到 32 个字符", trigger: "blur" }
         ],
-        openingHours: [
+        chargeStation: [
           { required: true, message: "充电站不能为空", trigger: "change" }
         ],
         chargePriceModel: [
           { required: true, message: "计费模板不能为空", trigger: "change" }
         ],
-        endHours: [
+        chargePileFactory: [
           { required: true, message: "充电桩厂商不能为空", trigger: "change" }
         ],
-        chargeStationModel: [
+        chargePileModel: [
           { required: true, message: "充电桩型号不能为空", trigger: "change" }
         ],
         business: [
@@ -251,26 +237,12 @@ export default {
 };
 </script>
 <style>
-.dialog-station-add .el-dialog__header {
+.dialog-factory-add .el-dialog__header {
 	border-bottom: 1px solid #eeeeee;
-}
-.dialog-station-add .el-dialog--center .el-dialog__body {
-	text-align: initial;
-	padding: 25px 35px 5px 5px;
-}
-.dialog-station-add .timePickerClass {
-	width: 100%;
-	height: 32px;
-	line-height: 32px;
-}
-.dialog-station-add .timePickerClass .el-input__icon,
-.dialog-station-add .timePickerClass .el-input__inner {
-	height: 32px;
-	line-height: 32px;
 }
 </style>
 <style lang="scss" scoped>
-.dialog-station-add {
+.dialog-factory-add {
 	.dialog-content {
 		box-sizing: border-box;
 	}
@@ -291,7 +263,7 @@ export default {
 		margin: 0 auto;
 	}
 	.el-form-item {
-		margin-bottom: 15px;
+		margin-bottom: 12px;
 	}
 }
 .el-dialog__header {
