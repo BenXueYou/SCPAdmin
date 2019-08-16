@@ -13,6 +13,11 @@ img,
 /*************************************** 表格样式 *******************************************/
 .el-table th {
   text-align: center;
+  background-color: rgb(240,240,240);
+  border-right:1px solid #e3e5ea;
+}
+.el-table td {
+  text-align: center;
 }
 /**************************************滚动条样式*********************************************/
 ::-webkit-scrollbar {

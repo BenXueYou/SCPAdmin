@@ -69,7 +69,7 @@
 				</div>
 				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;">查询</el-button>
 			</div>
-			<el-table :data="tableData" border style="width: 100%">
+			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
 				<el-table-column prop="date" label="省"></el-table-column>
@@ -80,8 +80,7 @@
 				<el-table-column prop="zip" label="纬度"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-						<el-button type="text" size="small">编辑</el-button>
+						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -135,6 +134,7 @@ export default {
     deleteBtnAct() {},
     exportBtnAct() {},
     handleClick(row) {
+      this.isShowEidtDialog = !this.isShowEidtDialog;
       console.log(row);
     },
     handleCurrentChange(val) {
@@ -149,6 +149,12 @@ export default {
   watch: {}
 };
 </script>
+<style>
+.chargeAddress .el-input__inner {
+	width: 120px;
+	height: 32px;
+}
+</style>
 <style lang='scss' scoped>
 @import "@/style/variables.scss";
 .chargeAddress {
@@ -173,8 +179,13 @@ export default {
 			display: flex;
 			justify-content: space-between;
 			padding-bottom: 15px;
-			.flex-sbw-div{
+			.flex-sbw-div {
 				margin: 0 25px 0 15px;
+				.el-input {
+					.el-input__inner {
+						width: 120px;
+					}
+				}
 			}
 			.el-button {
 				color: #ffffff;

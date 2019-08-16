@@ -1,6 +1,6 @@
 <template>
 	<el-dialog
-		width="480px"
+		width="560px"
 		:title="isAdd?`新增充电站`:`修改充电站`"
 		class="dialog-station-add"
 		center

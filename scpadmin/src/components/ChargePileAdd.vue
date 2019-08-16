@@ -1,6 +1,6 @@
 <template>
 	<el-dialog
-		width="28%"
+		width="580px"
 		:title="isAdd?`新增充电桩`:`修改充电桩`"
 		class="dialog-pile-add"
 		center
@@ -241,6 +241,10 @@ export default {
 <style>
 .dialog-pile-add .el-dialog__header {
 	border-bottom: 1px solid #eeeeee;
+}
+.dialog-pile-add .el-dialog--center .el-dialog__body {
+	text-align: initial;
+	padding: 25px 35px 5px 15px;
 }
 </style>
 <style lang="scss" scoped>

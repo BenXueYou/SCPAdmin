@@ -55,7 +55,9 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/vistorMange/VistorAccessConfig">访客权限组</el-menu-item>
+						<el-menu-item index="/Main/AppUser">微信/APP用户</el-menu-item>
+						<el-menu-item index="/Main/Operator">运营商管理</el-menu-item>
+						<!-- <el-menu-item index="/Main/CardUser">充电卡管理</el-menu-item> -->
 					</el-submenu>
 					<el-submenu index="3" :class="menuTitle === '3'? 'submenuActiveClass' : ''">
 						<template slot="title">
@@ -73,8 +75,8 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/VistorMange/VistorNotificationSet">访客预约邀请</el-menu-item>
-						<el-menu-item index="/VistorMange/VistorSignOff">访客签离</el-menu-item>
+						<el-menu-item index="/Main/RechargeRecord">充值记录</el-menu-item>
+						<el-menu-item index="/Main/ChargeRecord">充电记录</el-menu-item>
 					</el-submenu>
 					<el-submenu index="4" :class="menuTitle === '4'? 'submenuActiveClass' : ''">
 						<template slot="title">
@@ -96,8 +98,8 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/VistorMange/VistorBlacklist">黑名单管理</el-menu-item>
-						<el-menu-item index="/VistorMange/VistorBlacklistAlarm">黑名单报警</el-menu-item>
+						<el-menu-item index="/Main/VistorBlacklist">黑名单管理</el-menu-item>
+						<el-menu-item index="/Main/VistorBlacklistAlarm">黑名单报警</el-menu-item>
 					</el-submenu>
 				</el-menu>
 			</el-col>

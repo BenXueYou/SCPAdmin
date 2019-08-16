@@ -1,7 +1,7 @@
 <template>
 	<el-dialog
 		width="480px"
-		:title="isAdd?`新增充电站`:`修改充电站`"
+		:title="isAdd?`修改充电桩地址`:`修改充电桩地址`"
 		class="dialog-address-edit"
 		center
 		:visible.sync="isCurrentShow"
@@ -19,129 +19,63 @@
 				class="info-form"
 			>
 				<el-row type="flex" justify="space-between">
-					<el-col :span="12">
-						<el-form-item label="运营商：" prop="Business">
-							<el-select
-								class="time-interal"
-								v-model="formLabelAlign.business"
-								size="small"
-								clearable
-								placeholder="请选择"
-							>
-								<el-option
-									v-for="item in businessOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</el-form-item>
-					</el-col>
-					<el-col :span="12">
-						<el-form-item label="充电站：" prop="chargeStationName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargeStationName" size="small"></el-input>
-						</el-form-item>
-					</el-col>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-form-item style="margin-bottom:0px!important" label="开放时间:" required>
-						<el-col :span="10">
-							<el-form-item prop="openingHours">
-								<el-time-picker
-									type="date"
-									placeholder="选择开始时间"
-									v-model="formLabelAlign.openingHours"
-									class="timePickerClass"
-								></el-time-picker>
-							</el-form-item>
-						</el-col>
-						<el-col class="line" :span="3" style="color:#dcdfe6;padding:0 8px;text-align:center">—</el-col>
-						<el-col :span="10">
-							<el-form-item prop="endHours">
-								<el-time-picker
-									placeholder="选择结束时间"
-									v-model="formLabelAlign.endHours"
-									class="timePickerClass"
-								></el-time-picker>
-							</el-form-item>
-						</el-col>
+					<el-form-item label="省：" prop="chargeStationModel">
+						<el-select
+							class="time-interal"
+							v-model="formLabelAlign.chargeStationModel"
+							size="small"
+							clearable
+							placeholder="请选择省"
+						>
+							<el-option
+								v-for="item in chargeStationModelOptions"
+								:key="item.typeStr"
+								:label="item.typeName"
+								:value="item.typeStr"
+							></el-option>
+						</el-select>
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-form-item label="省市区：" prop="chargeStationModel">
-						<el-col :span="8">
-							<el-select
-								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
-								size="small"
-								clearable
-								placeholder="请选择省"
-							>
-								<el-option
-									v-for="item in chargeStationModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</el-col>
-						<el-col :span="8">
-							<el-select
-								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
-								size="small"
-								clearable
-								placeholder="请选择市"
-							>
-								<el-option
-									v-for="item in chargeStationModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</el-col>
-						<el-col :span="8">
-							<el-select
-								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
-								size="small"
-								clearable
-								placeholder="请选择区/县"
-							>
-								<el-option
-									v-for="item in chargeStationModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</el-col>
+					<el-form-item label="市：" prop="chargeStationModel">
+						<el-select
+							class="time-interal"
+							v-model="formLabelAlign.chargeStationModel"
+							size="small"
+							clearable
+							placeholder="请选择市"
+						>
+							<el-option
+								v-for="item in chargeStationModelOptions"
+								:key="item.typeStr"
+								:label="item.typeName"
+								:value="item.typeStr"
+							></el-option>
+						</el-select>
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-col :span="24">
-						<el-form-item label="地址：" prop="chargePriceModel">
-							<el-input
-								class="time-interal"
-								style="width:96%;box-sizing: border-box;"
-								v-model="formLabelAlign.bulkNumber"
-								size="small"
-							></el-input>
-						</el-form-item>
-					</el-col>
+					<el-form-item label="区：" prop="chargeStationModel">
+						<el-select
+							class="time-interal"
+							v-model="formLabelAlign.chargeStationModel"
+							size="small"
+							clearable
+							placeholder="请选择区"
+						>
+							<el-option
+								v-for="item in chargeStationModelOptions"
+								:key="item.typeStr"
+								:label="item.typeName"
+								:value="item.typeStr"
+							></el-option>
+						</el-select>
+					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-col :span="12">
-						<el-form-item label="停车收费:">
-							<el-switch v-model="formLabelAlign.bulk"></el-switch>
-						</el-form-item>
-					</el-col>
-					<el-col :span="12" v-if="formLabelAlign.bulk">
-						<el-form-item label="停车费(元/时)：" prop="roomsType">
-							<el-input class="time-interal" v-model="formLabelAlign.bulkNumber" size="small"></el-input>
-						</el-form-item>
-					</el-col>
+					<el-form-item label="地址：" prop="chargeStationModel">
+						<el-input style="width:auto" v-model="formLabelAlign.chargeStationModel"></el-input>
+					</el-form-item>
 				</el-row>
 			</el-form>
 		</div>
@@ -183,10 +117,10 @@ export default {
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        openingHours: '00:00:00',
+        openingHours: "00:00:00",
         business: null,
         chargeStationName: null,
-        endHours: '23:59:59',
+        endHours: "23:59:59",
         chargeStationModel: null,
         chargePriceModel: null,
         bulkNumber: null,
@@ -256,17 +190,21 @@ export default {
 }
 .dialog-address-edit .el-dialog--center .el-dialog__body {
 	text-align: initial;
-	padding: 25px 35px 5px 5px;
+	padding: 25px 35px 5px 35px;
 }
 .dialog-address-edit .timePickerClass {
 	width: 100%;
 	height: 32px;
 	line-height: 32px;
 }
+.dialog-address-edit .el-input .el-input__inner{
+	width: 100%;
+}
 .dialog-address-edit .timePickerClass .el-input__icon,
 .dialog-address-edit .timePickerClass .el-input__inner {
 	height: 32px;
 	line-height: 32px;
+	width: 100%;
 }
 </style>
 <style lang="scss" scoped>

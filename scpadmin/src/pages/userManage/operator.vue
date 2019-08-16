@@ -1,24 +1,24 @@
 <template>
 	<el-row
-		class="chargeFactory"
+		class="chargePileOperator"
 		v-loading="mainScreenLoading"
 		element-loading-background="rgba(0, 0, 0, 0.8)"
 	>
 		<div class="titleBox">
 			位置：
-			<span>设备管理／充电桩厂商</span>
+			<span>用户管理／运营商</span>
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu flex-sbw">
 				<div class="flex-sbw">
 					<el-button type="primary" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
 					<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">删除</el-button>
-					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px;">
+					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px 0 30px;">
 						<span>运营商：</span>
 						<el-input style="width:auto" v-model="station"></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px;">
-						<span>地址：</span>
+						<span>联系电话：</span>
 						<el-input style="width:auto" v-model="station"></el-input>
 					</div>
 				</div>
@@ -27,13 +27,12 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="桩厂商"></el-table-column>
-				<el-table-column prop="name" label="桩型号"></el-table-column>
-				<el-table-column prop="province" label="桩类型"></el-table-column>
-				<el-table-column prop="city" label="桩相数"></el-table-column>
-				<el-table-column prop="province" label="桩枪数"></el-table-column>
-				<el-table-column prop="zip" label="纬度"></el-table-column>
-				<el-table-column label="操作" width="100">
+				<el-table-column prop="date" label="运营商" width="150"></el-table-column>
+				<el-table-column prop="name" label="联系人" width="150"></el-table-column>
+				<el-table-column prop="province" label="联系电话" width="180"></el-table-column>
+				<el-table-column prop="city" label="邮箱" width="180"></el-table-column>
+				<el-table-column prop="province" label="地址"></el-table-column>
+				<el-table-column label="操作" >
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>
@@ -51,14 +50,14 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-factory-add :isShow="isShowEidtDialog" @onCancel="close()" ref="houseTable" />
+		<charge-pile-operator-add :isShow="isShowEidtDialog" @onCancel="close()" ref="houseTable" />
 	</el-row>
 </template>
 <script>
-import ChargeFactoryAdd from "@/components/ChargeFactoryAdd";
+import chargePileOperatorAdd from "@/components/chargePileOperatorAdd";
 export default {
   components: {
-    ChargeFactoryAdd
+    chargePileOperatorAdd
   },
   mounted: function() {},
   data: function() {
@@ -105,7 +104,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 @import "@/style/variables.scss";
-.chargeFactory {
+.chargePileOperator {
 	text-align: center;
 	height: 100%;
 	.titleBox {

@@ -1,7 +1,7 @@
 <template>
 	<el-dialog
 		width="580px"
-		:title="isAdd?`新增充电桩厂商`:`修改充电桩厂商`"
+		:title="isAdd?`新增运营商`:`修改运营商`"
 		class="dialog-factory-add"
 		center
 		:visible.sync="isCurrentShow"
@@ -20,79 +20,34 @@
 			>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="桩厂商：" prop="chargePileName">
+						<el-form-item label="运营商：" prop="chargePileName">
 							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="桩厂商代号：" prop="chargePileName">
+						<el-form-item label="联系人：" prop="chargePileName">
 							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="桩型号：" prop="chargePileName">
+						<el-form-item label="电话：" prop="chargePileName">
 							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="桩功率(kW)：" prop="chargePileName">
+						<el-form-item label="邮箱：" prop="chargePileName">
 							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-				<el-form-item label="桩参数：" prop="chargeStationModel">
-						<el-col :span="8">
-							<el-select
-								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
-								size="small"
-								clearable
-								placeholder="请选择桩类型"
-							>
-								<el-option
-									v-for="item in chargeStationModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</el-col>
-						<el-col :span="8">
-							<el-select
-								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
-								size="small"
-								clearable
-								placeholder="请选择桩相数"
-							>
-								<el-option
-									v-for="item in chargeStationModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</el-col>
-						<el-col :span="8">
-							<el-select
-								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
-								size="small"
-								clearable
-								placeholder="请选择桩枪数"
-							>
-								<el-option
-									v-for="item in chargeStationModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</el-col>
-					</el-form-item>
+					<el-col :span="24">
+						<el-form-item label="地址：" prop="chargeStationModel">
+							<el-input style="width:96.5%" class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
+						</el-form-item>
+					</el-col>
 				</el-row>
 			</el-form>
 		</div>
@@ -124,7 +79,7 @@ export default {
       chargePileFactoryOptions: [],
       chargePriceModelOptions: [],
       chargePileModelOptions: [],
-      chargeStationOptions: [],
+      chargeStationModelOptions: [],
       businessOptions: [],
       isCurrentShow: false,
       labelPosition: "right",
@@ -201,8 +156,8 @@ export default {
 	border-bottom: 1px solid #eeeeee;
 }
 .dialog-factory-add .el-dialog--center .el-dialog__body {
-    text-align: initial;
-    padding: 25px 35px 20px 5px;
+	text-align: initial;
+	padding: 25px 35px 20px 5px;
 }
 </style>
 <style lang="scss" scoped>

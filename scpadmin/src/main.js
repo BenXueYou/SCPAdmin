@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import router from './router';
-import './style/index.scss';
 import './style/element-variables.scss';
+import './style/index.scss';
 import ElementUI from 'element-ui';
 import App from './App';
 

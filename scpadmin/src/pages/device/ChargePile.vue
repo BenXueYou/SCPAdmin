@@ -71,7 +71,7 @@
 				<el-button type="primary" @click="deleteBtnAct">删除</el-button>
 				<el-button type="primary" @click="exportBtnAct">导出</el-button>
 			</div>
-			<el-table :data="tableData" border style="width: 100%">
+			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
 				<el-table-column prop="date" label="桩名"></el-table-column>
