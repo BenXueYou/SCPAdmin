@@ -66,7 +66,7 @@ export default {
 			padding: 0;
 		}
 		.left-menu {
-			width: 20%;
+			// width: 20%;
 			max-width: 200px;
 			background: $--color-left-menu;
 		}

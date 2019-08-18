@@ -1,12 +1,12 @@
 <template>
 	<el-row
-		class="RechargeRecord"
+		class="RefrundRecord"
 		v-loading="mainScreenLoading"
 		element-loading-background="rgba(0, 0, 0, 0.8)"
 	>
 		<div class="titleBox">
 			位置：
-			<span>运营管理／充值记录</span>
+			<span>运营管理／退款记录</span>
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu flex-sbw" style="padding-bottom:5px">
@@ -21,7 +21,7 @@
 							<el-input v-model="station"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>支付状态：</span>
+							<span>退款状态：</span>
 							<!-- <el-input v-model="station"></el-input> -->
 							<el-select
 								class="left-space time-interal"
@@ -62,7 +62,7 @@
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
-				<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">批量删除</el-button>
+				<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">批量导出</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
 			<el-table :data="tableData" stripe border style="width: 100%">
@@ -72,11 +72,11 @@
 				<el-table-column prop="date" label="用户ID"></el-table-column>
 				<el-table-column prop="date" label="用户名"></el-table-column>
 				<el-table-column prop="name" label="电话"></el-table-column>
-				<el-table-column prop="province" label="充值金额"></el-table-column>
-				<el-table-column prop="province" label="充值前金额"></el-table-column>
-				<el-table-column prop="province" label="充值后金额"></el-table-column>
-				<el-table-column prop="city" label="支付时间"></el-table-column>
-				<el-table-column prop="city" label="交易状态"></el-table-column>
+				<el-table-column prop="province" label="退款金额"></el-table-column>
+				<el-table-column prop="province" label="退款前金额"></el-table-column>
+				<el-table-column prop="province" label="退款后金额"></el-table-column>
+				<el-table-column prop="city" label="退款时间"></el-table-column>
+				<el-table-column prop="city" label="退款状态"></el-table-column>
 			</el-table>
 			<div class="footer">
 				<el-pagination
@@ -144,38 +144,38 @@ export default {
 };
 </script>
 <style>
-.RechargeRecord .flex-sbw-item {
+.RefrundRecord .flex-sbw-item {
 	margin: 0 10px;
 }
-.RechargeRecord .dateBox {
+.RefrundRecord .dateBox {
 	margin-left: 30px;
 }
-.RechargeRecord .flex-sbw-item .el-input,
-.RechargeRecord .flex-sbw-item .el-input__inner {
+.RefrundRecord .flex-sbw-item .el-input,
+.RefrundRecord .flex-sbw-item .el-input__inner {
 	width: 150px;
 	height: 32px;
 }
-.RechargeRecord .el-date-editor.el-input,
-.RechargeRecord .el-date-editor.el-input__inner {
+.RefrundRecord .el-date-editor.el-input,
+.RefrundRecord .el-date-editor.el-input__inner {
 	width: 180px;
 }
-.RechargeRecord .el-input--suffix .el-input__inner {
+.RefrundRecord .el-input--suffix .el-input__inner {
 	padding-right: 10px;
 }
 
 @media screen and (max-width: 1512px) {
-	.RechargeRecord .flex-sbw-item {
+	.RefrundRecord .flex-sbw-item {
 		margin-right: 5px !important;
 	}
-	.RechargeRecord .flex-sbw-item .el-input,
-	.RechargeRecord .flex-sbw-item .el-input__inner {
+	.RefrundRecord .flex-sbw-item .el-input,
+	.RefrundRecord .flex-sbw-item .el-input__inner {
 		width: 120px;
 		height: 32px;
 	}
-	.RechargeRecord .el-input--suffix .el-input__inner {
+	.RefrundRecord .el-input--suffix .el-input__inner {
 		padding-right: 10px !important;
 	}
-	.RechargeRecord .dateBox {
+	.RefrundRecord .dateBox {
 		margin-left: 30px !important;
 	}
 }
@@ -183,7 +183,7 @@ export default {
 
 <style lang='scss' scoped>
 @import "@/style/variables.scss";
-.RechargeRecord {
+.RefrundRecord {
 	text-align: center;
 	height: 100%;
 	.titleBox {

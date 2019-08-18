@@ -1,45 +1,27 @@
 <template>
 	<el-row
-		class="RechargeRecord"
+		class="OperatorStatics"
 		v-loading="mainScreenLoading"
 		element-loading-background="rgba(0, 0, 0, 0.8)"
 	>
 		<div class="titleBox">
 			位置：
-			<span>运营管理／充值记录</span>
+			<span>运营统计／运营商统计</span>
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu flex-sbw" style="padding-bottom:5px">
 				<div class="flex-sbw-div">
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>用户名：</span>
+							<span>运营商名：</span>
 							<el-input v-model="station"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>订单流水号：</span>
+							<span>运营商ID：</span>
 							<el-input v-model="station"></el-input>
-						</div>
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>支付状态：</span>
-							<!-- <el-input v-model="station"></el-input> -->
-							<el-select
-								class="left-space time-interal"
-								v-model="station"
-								clearable
-								placeholder="处理状态"
-								size="small"
-							>
-								<el-option
-									v-for="item in stationOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
 						</div>
 						<div class="dateBox">
-							<span class="topTitleTxt">支付时间：</span>
+							<span class="topTitleTxt">时间：</span>
 							<el-date-picker
 								v-model="beginTime"
 								type="datetime"
@@ -68,15 +50,14 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="订单号"></el-table-column>
-				<el-table-column prop="date" label="用户ID"></el-table-column>
-				<el-table-column prop="date" label="用户名"></el-table-column>
-				<el-table-column prop="name" label="电话"></el-table-column>
-				<el-table-column prop="province" label="充值金额"></el-table-column>
-				<el-table-column prop="province" label="充值前金额"></el-table-column>
-				<el-table-column prop="province" label="充值后金额"></el-table-column>
-				<el-table-column prop="city" label="支付时间"></el-table-column>
-				<el-table-column prop="city" label="交易状态"></el-table-column>
+				<el-table-column prop="date" label="运营商名"></el-table-column>
+				<el-table-column prop="date" label="运营商ID"></el-table-column>
+				<el-table-column prop="date" label="充电次数"></el-table-column>
+				<el-table-column prop="name" label="充电时长"></el-table-column>
+				<el-table-column prop="province" label="充电电量(kWh)"></el-table-column>
+				<el-table-column prop="province" label="服务费(元)"></el-table-column>
+				<el-table-column prop="province" label="基础电费(元)"></el-table-column>
+				<el-table-column prop="city" label="充电总费用(元)"></el-table-column>
 			</el-table>
 			<div class="footer">
 				<el-pagination
@@ -144,38 +125,38 @@ export default {
 };
 </script>
 <style>
-.RechargeRecord .flex-sbw-item {
+.OperatorStatics .flex-sbw-item {
 	margin: 0 10px;
 }
-.RechargeRecord .dateBox {
+.OperatorStatics .dateBox {
 	margin-left: 30px;
 }
-.RechargeRecord .flex-sbw-item .el-input,
-.RechargeRecord .flex-sbw-item .el-input__inner {
+.OperatorStatics .flex-sbw-item .el-input,
+.OperatorStatics .flex-sbw-item .el-input__inner {
 	width: 150px;
 	height: 32px;
 }
-.RechargeRecord .el-date-editor.el-input,
-.RechargeRecord .el-date-editor.el-input__inner {
+.OperatorStatics .el-date-editor.el-input,
+.OperatorStatics .el-date-editor.el-input__inner {
 	width: 180px;
 }
-.RechargeRecord .el-input--suffix .el-input__inner {
+.OperatorStatics .el-input--suffix .el-input__inner {
 	padding-right: 10px;
 }
 
 @media screen and (max-width: 1512px) {
-	.RechargeRecord .flex-sbw-item {
+	.OperatorStatics .flex-sbw-item {
 		margin-right: 5px !important;
 	}
-	.RechargeRecord .flex-sbw-item .el-input,
-	.RechargeRecord .flex-sbw-item .el-input__inner {
+	.OperatorStatics .flex-sbw-item .el-input,
+	.OperatorStatics .flex-sbw-item .el-input__inner {
 		width: 120px;
 		height: 32px;
 	}
-	.RechargeRecord .el-input--suffix .el-input__inner {
+	.OperatorStatics .el-input--suffix .el-input__inner {
 		padding-right: 10px !important;
 	}
-	.RechargeRecord .dateBox {
+	.OperatorStatics .dateBox {
 		margin-left: 30px !important;
 	}
 }
@@ -183,7 +164,7 @@ export default {
 
 <style lang='scss' scoped>
 @import "@/style/variables.scss";
-.RechargeRecord {
+.OperatorStatics {
 	text-align: center;
 	height: 100%;
 	.titleBox {

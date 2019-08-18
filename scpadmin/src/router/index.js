@@ -13,6 +13,13 @@ const CardUser = () => import(/* webpackChunkName: "group-foo" */ '@/pages/userM
 
 const RechargeRecord = () => import(/* webpackChunkName: "group-foo" */ '@/pages/businessRecord/RechargeRecord');
 const ChargeRecord = () => import(/* webpackChunkName: "group-foo" */ '@/pages/businessRecord/ChargeRecord');
+const RefrundRecord = () => import(/* webpackChunkName: "group-foo" */ '@/pages/businessRecord/RefrundRecord');
+
+const AppUserStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/AppUserStatics');
+const ChargePileStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/ChargePileStatics');
+const ChargeStationStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/ChargeStationStatics');
+const OperatorStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/OperatorStatics');
+
 Vue.use(Router);
 
 export default new Router({
@@ -84,6 +91,36 @@ export default new Router({
           name: "RechargeRecord",
           component: RechargeRecord,
           title: "充值记录"
+        },
+        {
+          path: "RefrundRecord",
+          name: "RefrundRecord",
+          component: RefrundRecord,
+          title: "退款记录"
+        },
+        {
+          path: "AppUserStatics",
+          name: "AppUserStatics",
+          component: AppUserStatics,
+          title: "app用户统计"
+        },
+        {
+          path: "ChargePileStatics",
+          name: "ChargePileStatics",
+          component: ChargePileStatics,
+          title: "充电桩统计"
+        },
+        {
+          path: "ChargeStationStatics",
+          name: "ChargeStationStatics",
+          component: ChargeStationStatics,
+          title: "充电站统计"
+        },
+        {
+          path: "OperatorStatics",
+          name: "OperatorStatics",
+          component: OperatorStatics,
+          title: "运营商统计"
         },
       ]
     }

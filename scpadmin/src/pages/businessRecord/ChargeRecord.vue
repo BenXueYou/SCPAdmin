@@ -90,32 +90,23 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="运营商"></el-table-column>
-				<el-table-column prop="name" label="充电站"></el-table-column>
-				<el-table-column prop="name" label="充电桩序列号"></el-table-column>
-				<el-table-column prop="province" label="充电类型"></el-table-column>
-				<el-table-column prop="city" label="充电模式"></el-table-column>
-				<el-table-column prop="city" label="停机原因"></el-table-column>
-				<el-table-column prop="zip" label="交易状态"></el-table-column>
-				<el-table-column prop="zip" label="充电开始时间"></el-table-column>
-				<el-table-column prop="zip" label="充电结束时间"></el-table-column>
-				<el-table-column prop="zip" label="大占比段"></el-table-column>
-				<el-table-column prop="zip" label="充电卡号/用户ID"></el-table-column>
-				<el-table-column prop="zip" label="订单编号"></el-table-column>
-				<el-table-column prop="zip" label="用户姓名"></el-table-column>
-				<el-table-column prop="zip" label="手机号"></el-table-column>
-				<el-table-column prop="zip" label="充电电量"></el-table-column>
-				<el-table-column prop="zip" label="充电站编号"></el-table-column>
-				<el-table-column prop="zip" label="充电总金额"></el-table-column>
-				<el-table-column prop="zip" label="服务费"></el-table-column>
-				<el-table-column prop="zip" label="基础电费"></el-table-column>
-				<el-table-column prop="zip" label="充电时长"></el-table-column>
-				<el-table-column prop="zip" label="充电前金额"></el-table-column>
-				<el-table-column prop="zip" label="充电后金额"></el-table-column>
-				<el-table-column prop="zip" label="电表总电量"></el-table-column>
+				<el-table-column prop="date" label="运营商" width="120"></el-table-column>
+				<el-table-column prop="name" label="充电站" width="150"></el-table-column>
+				<el-table-column prop="id" label="充电桩序列号" width="180"></el-table-column>
+				<el-table-column prop="index" label="枪号" width="60"></el-table-column>
+				<el-table-column prop="province" label="充电类型" width="100"></el-table-column>
+				<el-table-column prop="city" label="充电模式" width="100"></el-table-column>
+				<el-table-column prop="zip" label="充电开始时间" width="180"></el-table-column>
+				<el-table-column prop="zip" label="充电结束时间" width="180"></el-table-column>
+				<el-table-column prop="zip" label="交易状态" width="100"></el-table-column>
+				<el-table-column prop="zip" label="订单编号" width="300"></el-table-column>
+				<el-table-column prop="zip" label="用户姓名" width="120"></el-table-column>
+				<el-table-column prop="zip" label="充电时长" width="180"></el-table-column>
+				<el-table-column prop="zip" label="充电电量" width="120"></el-table-column>
+				<el-table-column prop="zip" label="充电总金额" width="100"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+						<el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -131,12 +122,14 @@
 				></el-pagination>
 			</div>
 		</div>
+		<charge-record-detail :visible.sync="isShowAddDialog" @onCancel="close()" ref="houseTable" />
 	</el-row>
 </template>
 <script>
+import ChargeRecordDetail from "@/components/ChargeRecordDetail";
 export default {
   components: {
-    // ChargeRecordAdd
+    ChargeRecordDetail
   },
   mounted: function() {},
   data: function() {

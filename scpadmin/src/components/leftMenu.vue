@@ -76,6 +76,7 @@
 							/>
 						</template>
 						<el-menu-item index="/Main/RechargeRecord">充值记录</el-menu-item>
+						<el-menu-item index="/Main/RefrundRecord">退款记录</el-menu-item>
 						<el-menu-item index="/Main/ChargeRecord">充电记录</el-menu-item>
 					</el-submenu>
 					<el-submenu index="4" :class="menuTitle === '4'? 'submenuActiveClass' : ''">
@@ -98,8 +99,10 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/VistorBlacklist">黑名单管理</el-menu-item>
-						<el-menu-item index="/Main/VistorBlacklistAlarm">黑名单报警</el-menu-item>
+						<el-menu-item index="/Main/AppUserStatics">app用户统计</el-menu-item>
+						<el-menu-item index="/Main/ChargePileStatics">充电桩统计</el-menu-item>
+						<el-menu-item index="/Main/ChargeStationStatics">充电站统计</el-menu-item>
+						<el-menu-item index="/Main/OperatorStatics">运营商统计</el-menu-item>
 					</el-submenu>
 				</el-menu>
 			</el-col>
