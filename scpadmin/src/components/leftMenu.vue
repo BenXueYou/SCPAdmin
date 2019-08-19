@@ -13,36 +13,14 @@
 					:router="true"
 					active-text-color="#ff5f5f"
 				>
-					<el-submenu index="1" :class="menuTitle === '1'? 'submenuActiveClass' : ''">
-						<template slot="title">
-							<!-- <img
-								class="access_autn_select"
-								src="@/assets/images/leftMenu/vistorManage.png"
-								alt
-							/>-->
-							<i class="el-icon-price-tag"></i>
-							<span>设备管理</span>
-							<img
-								v-show="menuTitle === '1'"
-								class="left_menu_box_right_icon"
-								src="@/assets/images/select-down.png"
-							/>
-							<img
-								v-show="menuTitle !== '1'"
-								class="left_menu_box_right_icon"
-								src="@/assets/images/leftMenu/left_menu_down_icon.png"
-								alt
-							/>
-						</template>
-						<el-menu-item index="/Main/ChargePile">充电桩</el-menu-item>
-						<el-menu-item index="/Main/ChargeStation">充电站</el-menu-item>
-						<el-menu-item index="/Main/ChargeAddress">充电桩地址</el-menu-item>
-						<el-menu-item index="/Main/ChargeFactory">充电桩厂商</el-menu-item>
-					</el-submenu>
+					<el-menu-item index="/main/Home" style="padding-left:20px;background-color:rgb(53,64,84)">
+						<i class="el-icon-s-platform"></i>
+						系统概览
+					</el-menu-item>
 					<el-submenu index="2" :class="menuTitle === '2'? 'submenuActiveClass' : ''">
 						<template slot="title">
-							<img class="access_autn_select" src="@/assets/images/leftMenu/access_authority.png" alt />
-							<span slot="title">用户管理</span>
+							<i class="el-icon-data-line"></i>
+							<span>设备监控</span>
 							<img
 								v-show="menuTitle === '2'"
 								class="left_menu_box_right_icon"
@@ -55,14 +33,19 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/AppUser">微信/APP用户</el-menu-item>
-						<el-menu-item index="/Main/Operator">运营商管理</el-menu-item>
-						<!-- <el-menu-item index="/Main/CardUser">充电卡管理</el-menu-item> -->
+						<el-menu-item index="/Main/ChargePile">充电监控</el-menu-item>
+						<el-menu-item index="/Main/ChargeStation">变位监控</el-menu-item>
+						<el-menu-item index="/Main/ChargeAddress">故障监控</el-menu-item>
 					</el-submenu>
 					<el-submenu index="3" :class="menuTitle === '3'? 'submenuActiveClass' : ''">
 						<template slot="title">
-							<img class="access_autn_select" src="@/assets/images/leftMenu/access_set.png" alt />
-							<span slot="title">运营管理</span>
+							<!-- <img
+								class="access_autn_select"
+								src="@/assets/images/leftMenu/vistorManage.png"
+								alt
+							/>-->
+							<i class="el-icon-price-tag"></i>
+							<span>设备管理</span>
 							<img
 								v-show="menuTitle === '3'"
 								class="left_menu_box_right_icon"
@@ -75,25 +58,63 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/RechargeRecord">充值记录</el-menu-item>
-						<el-menu-item index="/Main/RefrundRecord">退款记录</el-menu-item>
-						<el-menu-item index="/Main/ChargeRecord">充电记录</el-menu-item>
+						<el-menu-item index="/Main/ChargePile">充电桩</el-menu-item>
+						<el-menu-item index="/Main/ChargeStation">充电站</el-menu-item>
+						<el-menu-item index="/Main/ChargeAddress">充电桩地址</el-menu-item>
+						<el-menu-item index="/Main/ChargeFactory">充电桩厂商</el-menu-item>
 					</el-submenu>
 					<el-submenu index="4" :class="menuTitle === '4'? 'submenuActiveClass' : ''">
 						<template slot="title">
+							<!-- <img class="access_autn_select" src="@/assets/images/leftMenu/access_authority.png" alt /> -->
+							<i class="el-icon-s-custom"></i>
+							<span slot="title">用户管理</span>
 							<img
-								class="access_autn_select"
-								src="@/assets/images/leftMenu/left_menu_blacklist_icon.png"
-								alt
-							/>
-							<span slot="title">运营统计</span>
-							<img
-								v-show="menuTitle === '3'"
+								v-show="menuTitle === '4'"
 								class="left_menu_box_right_icon"
 								src="@/assets/images/select-down.png"
 							/>
 							<img
-								v-show="menuTitle !== '3'"
+								v-show="menuTitle !== '4'"
+								class="left_menu_box_right_icon"
+								src="@/assets/images/leftMenu/left_menu_down_icon.png"
+								alt
+							/>
+						</template>
+						<el-menu-item index="/Main/AppUser">微信/APP用户</el-menu-item>
+						<el-menu-item index="/Main/Operator">运营商管理</el-menu-item>
+						<!-- <el-menu-item index="/Main/CardUser">充电卡管理</el-menu-item> -->
+					</el-submenu>
+					<el-submenu index="5" :class="menuTitle === '5'? 'submenuActiveClass' : ''">
+						<template slot="title">
+							<i class="el-icon-notebook-2"></i>
+							<span slot="title">运营管理</span>
+							<img
+								v-show="menuTitle === '5'"
+								class="left_menu_box_right_icon"
+								src="@/assets/images/select-down.png"
+							/>
+							<img
+								v-show="menuTitle !== '5'"
+								class="left_menu_box_right_icon"
+								src="@/assets/images/leftMenu/left_menu_down_icon.png"
+								alt
+							/>
+						</template>
+						<el-menu-item index="/Main/RechargeRecord">充值记录</el-menu-item>
+						<el-menu-item index="/Main/RefrundRecord">退款记录</el-menu-item>
+						<el-menu-item index="/Main/ChargeRecord">充电记录</el-menu-item>
+					</el-submenu>
+					<el-submenu index="6" :class="menuTitle === '6'? 'submenuActiveClass' : ''">
+						<template slot="title">
+							<i class="el-icon-medal"></i>
+							<span slot="title">运营统计</span>
+							<img
+								v-show="menuTitle === '6'"
+								class="left_menu_box_right_icon"
+								src="@/assets/images/select-down.png"
+							/>
+							<img
+								v-show="menuTitle !== '6'"
 								class="left_menu_box_right_icon"
 								src="@/assets/images/leftMenu/left_menu_down_icon.png"
 								alt
@@ -145,14 +166,13 @@ export default {
   }
 };
 </script>
+<style>
+.left_menu_box .el-icon-arrow-down:before {
+	content: "";
+}
+</style>
 <style lang="scss" scoped>
 @import "@/style/variables.scss";
-.left_menu_box .el-menu-item.doorStateClass {
-	padding-left: 20px !important;
-	font-size: 14px !important;
-	background-color: transparent !important;
-	height: 56px;
-}
 .left_menu_box .left_menu_box_right_icon {
 	width: 9.2px;
 	height: 6px;
@@ -160,13 +180,13 @@ export default {
 	top: 24px;
 	right: 18px;
 }
-.left_menu_box .el-menu-item {
-	padding-left: 55px !important;
+.left_menu_box .el-submenu .el-menu-item {
+	padding-left: 55px!important;
 	font-family: "PingFangSC-Regular";
 	font-size: 13px !important;
 	color: #dddddd;
 	text-align: justify;
-	background-color: rgba(27, 27, 27, 0.6) !important;
+	background-color: rgba(27, 27, 27, 0.6)!important;
 	height: 45px;
 }
 .left_menu_box .access_autn_select {
@@ -174,27 +194,12 @@ export default {
 	width: 15px;
 	height: 15px;
 }
-.el-menu-vertical {
-	background-color: transparent;
-}
 .el-submenu__title {
-	background-color: transparent !important;
 	position: relative;
 	font-family: "PingFangSC-Regular";
 	font-size: 14px !important;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
 	box-shadow: 8px 0 18px 0 rgba(0, 0, 0, 0.1);
-}
-.left_menu_box .activeClass {
-	color: #26d39d !important;
-	// background-color: rgb(35, 70, 62) !important;
-	background-color: transparent;
-}
-
-.el-menu:hover,
-.el-menu-item:hover {
-	// background-color: rgb(33, 45, 51);
-	background-color: transparent;
 }
 .el-menu-item.isActive {
 	border-left: 2px solid #26d39d !important;
@@ -212,7 +217,6 @@ export default {
 .el-menu--vertical {
 	background: rgba(39, 42, 45, 0.9);
 	width: 140px;
-	/* border: 1px solid red; */
 }
 .el-menu--vertical .el-menu {
 	background: rgba(39, 42, 45, 0.9);
@@ -241,9 +245,6 @@ export default {
 }
 .el-menu--horizontal {
 	border: none;
-}
-.el-menu--horizontal .el-menu-item {
-	background-color: red;
 }
 .el-menu--horizontal .el-menu-item {
 	transition: all 0.6s ease-in-out;

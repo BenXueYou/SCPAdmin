@@ -141,7 +141,7 @@ export default {
     if (this.$store.state.home.projectUuid) {
       let index = window.location.href.lastIndexOf("/");
       let suffix = window.location.href.substring(0, index + 1);
-      window.location.href = suffix + "Home";
+      window.location.href = suffix + "Main";
     }
   },
   methods: {

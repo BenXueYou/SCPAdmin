@@ -20,6 +20,7 @@ const ChargePileStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pa
 const ChargeStationStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/ChargeStationStatics');
 const OperatorStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/OperatorStatics');
 
+const Home = () => import(/* webpackChunkName: "group-foo" */ '@/pages/home/Home');
 Vue.use(Router);
 
 export default new Router({
@@ -121,6 +122,12 @@ export default new Router({
           name: "OperatorStatics",
           component: OperatorStatics,
           title: "运营商统计"
+        },
+        {
+          path: "Home",
+          name: "Home",
+          component: Home,
+          title: "概览"
         },
       ]
     }

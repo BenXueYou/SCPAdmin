@@ -71,7 +71,8 @@ export default {
 			background: $--color-left-menu;
 		}
 		.el-main{
-			background-color: #efefef;
+			background-color:rgba(245,245,245,0.8);
+			padding: 10px 20px;
 		}
 	}
 }

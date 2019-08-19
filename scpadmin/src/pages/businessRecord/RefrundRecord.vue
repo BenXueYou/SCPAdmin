@@ -9,8 +9,7 @@
 			<span>运营管理／退款记录</span>
 		</div>
 		<div class="bodyBox">
-			<div class="topMenu flex-sbw" style="padding-bottom:5px">
-				<div class="flex-sbw-div">
+			<div class="topMenu" style="padding-bottom:5px">
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>用户名：</span>
@@ -58,7 +57,6 @@
 								value-format="yyyy-MM-dd HH:mm:ss"
 							></el-date-picker>
 						</div>
-					</div>
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
@@ -144,12 +142,6 @@ export default {
 };
 </script>
 <style>
-.RefrundRecord .flex-sbw-item {
-	margin: 0 10px;
-}
-.RefrundRecord .dateBox {
-	margin-left: 30px;
-}
 .RefrundRecord .flex-sbw-item .el-input,
 .RefrundRecord .flex-sbw-item .el-input__inner {
 	width: 150px;
@@ -174,9 +166,6 @@ export default {
 	}
 	.RefrundRecord .el-input--suffix .el-input__inner {
 		padding-right: 10px !important;
-	}
-	.RefrundRecord .dateBox {
-		margin-left: 30px !important;
 	}
 }
 </style>

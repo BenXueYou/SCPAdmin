@@ -9,8 +9,7 @@
 			<span>运营管理／充电记录</span>
 		</div>
 		<div class="bodyBox">
-			<div class="topMenu flex-sbw" style="padding-bottom:10px">
-				<div class="flex-sbw-div">
+			<div class="topMenu" style="padding-bottom:10px">
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>用户名：</span>
@@ -44,7 +43,6 @@
 								value-format="yyyy-MM-dd HH:mm:ss"
 							></el-date-picker>
 						</div>
-					</div>
 				</div>
 			</div>
 			<div class="topMenu flex-st" style="margin-bottom: 15px;">
@@ -176,12 +174,6 @@ export default {
 };
 </script>
 <style>
-.ChargeRecord .flex-sbw-item {
-	margin: 0 10px;
-}
-.ChargeRecord .dateBox {
-	margin-left: 30px;
-}
 .ChargeRecord .flex-sbw-item .el-input,
 .ChargeRecord .flex-sbw-item .el-input__inner {
 	width: 160px;
@@ -210,9 +202,6 @@ export default {
 	}
 	.ChargeRecord .el-input--suffix .el-input__inner {
 		padding-right: 10px !important;
-	}
-	.ChargeRecord .dateBox {
-		margin-left: 30px !important;
 	}
 }
 </style>

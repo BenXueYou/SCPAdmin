@@ -9,8 +9,7 @@
 			<span>运营统计／APP用户统计</span>
 		</div>
 		<div class="bodyBox">
-			<div class="topMenu flex-sbw" style="padding-bottom:5px">
-				<div class="flex-sbw-div">
+			<div class="topMenu" style="padding-bottom:5px">
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>用户名：</span>
@@ -22,7 +21,6 @@
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>充电方式：</span>
-							<!-- <el-input v-model="station"></el-input> -->
 							<el-select
 								class="left-space time-interal"
 								v-model="station"
@@ -59,7 +57,6 @@
 							></el-date-picker>
 						</div>
 					</div>
-				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
 				<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">批量导出</el-button>
@@ -145,12 +142,9 @@ export default {
 };
 </script>
 <style>
-.AppUserStatics .flex-sbw-item {
+/* .AppUserStatics .flex-sbw-item {
 	margin: 0 10px;
-}
-.AppUserStatics .dateBox {
-	margin-left: 30px;
-}
+} */
 .AppUserStatics .flex-sbw-item .el-input,
 .AppUserStatics .flex-sbw-item .el-input__inner {
 	width: 150px;
@@ -175,9 +169,6 @@ export default {
 	}
 	.AppUserStatics .el-input--suffix .el-input__inner {
 		padding-right: 10px !important;
-	}
-	.AppUserStatics .dateBox {
-		margin-left: 30px !important;
 	}
 }
 </style>

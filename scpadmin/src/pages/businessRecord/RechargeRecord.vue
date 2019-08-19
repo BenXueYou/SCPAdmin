@@ -9,55 +9,53 @@
 			<span>运营管理／充值记录</span>
 		</div>
 		<div class="bodyBox">
-			<div class="topMenu flex-sbw" style="padding-bottom:5px">
-				<div class="flex-sbw-div">
-					<div class="flex-sbw">
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>用户名：</span>
-							<el-input v-model="station"></el-input>
-						</div>
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>订单流水号：</span>
-							<el-input v-model="station"></el-input>
-						</div>
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>支付状态：</span>
-							<!-- <el-input v-model="station"></el-input> -->
-							<el-select
-								class="left-space time-interal"
-								v-model="station"
-								clearable
-								placeholder="处理状态"
-								size="small"
-							>
-								<el-option
-									v-for="item in stationOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</div>
-						<div class="dateBox">
-							<span class="topTitleTxt">支付时间：</span>
-							<el-date-picker
-								v-model="beginTime"
-								type="datetime"
-								class="time-interal-date"
-								size="small"
-								placeholder="选择日期"
-								value-format="yyyy-MM-dd HH:mm:ss"
-							></el-date-picker>
-							<span class="time-line">—</span>
-							<el-date-picker
-								v-model="endTime"
-								type="datetime"
-								class="time-interal-date"
-								placeholder="选择日期"
-								size="small"
-								value-format="yyyy-MM-dd HH:mm:ss"
-							></el-date-picker>
-						</div>
+			<div class="topMenu" style="padding-bottom:5px">
+				<div class="flex-sbw">
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>用户名：</span>
+						<el-input v-model="station"></el-input>
+					</div>
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>订单流水号：</span>
+						<el-input v-model="station"></el-input>
+					</div>
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>支付状态：</span>
+						<!-- <el-input v-model="station"></el-input> -->
+						<el-select
+							class="left-space time-interal"
+							v-model="station"
+							clearable
+							placeholder="处理状态"
+							size="small"
+						>
+							<el-option
+								v-for="item in stationOptions"
+								:key="item.typeStr"
+								:label="item.typeName"
+								:value="item.typeStr"
+							></el-option>
+						</el-select>
+					</div>
+					<div class="dateBox">
+						<span class="topTitleTxt">支付时间：</span>
+						<el-date-picker
+							v-model="beginTime"
+							type="datetime"
+							class="time-interal-date"
+							size="small"
+							placeholder="选择日期"
+							value-format="yyyy-MM-dd HH:mm:ss"
+						></el-date-picker>
+						<span class="time-line">—</span>
+						<el-date-picker
+							v-model="endTime"
+							type="datetime"
+							class="time-interal-date"
+							placeholder="选择日期"
+							size="small"
+							value-format="yyyy-MM-dd HH:mm:ss"
+						></el-date-picker>
 					</div>
 				</div>
 			</div>
@@ -144,12 +142,6 @@ export default {
 };
 </script>
 <style>
-.RechargeRecord .flex-sbw-item {
-	margin: 0 10px;
-}
-.RechargeRecord .dateBox {
-	margin-left: 30px;
-}
 .RechargeRecord .flex-sbw-item .el-input,
 .RechargeRecord .flex-sbw-item .el-input__inner {
 	width: 150px;
@@ -174,9 +166,6 @@ export default {
 	}
 	.RechargeRecord .el-input--suffix .el-input__inner {
 		padding-right: 10px !important;
-	}
-	.RechargeRecord .dateBox {
-		margin-left: 30px !important;
 	}
 }
 </style>

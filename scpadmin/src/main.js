@@ -7,7 +7,8 @@ import App from './App';
 
 import store from '@/store/store.js';
 // import './permission.js';
-
+import echarts from 'echarts';
+Vue.prototype.$echarts = echarts;
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
