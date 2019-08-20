@@ -348,6 +348,7 @@ export default {
 		background-color: #ffffff;
 		padding: 25px 32px;
 		border-radius: 5px;
+		height: calc(100% - 100px);
 		.topMenu {
 			text-align: left;
 			.topTitleTxt {
@@ -371,7 +372,7 @@ export default {
 			.el-button {
 				color: #ffffff;
 				background-color: #5b9cf8;
-                border-color: #5b9cf8;
+				border-color: #5b9cf8;
 			}
 		}
 		.footer {
