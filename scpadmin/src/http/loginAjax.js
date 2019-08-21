@@ -1,30 +1,29 @@
 import axios from "@/utils/Request";
 import RestApi from "@/utils/RestApi";
-let ip = window.config.ip;
-let protocolHeader = window.config.protocolHeader;
 export var loginAjax = {
-  login(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.login.login}`;
+  login(data) {
+    let url = RestApi.api.login.login;
+    // return axios.post(url, data);
     return axios({
-      method: "post",
+      method: 'POST',
       url,
-      params: xhr
+      data
     });
   },
-  logout(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.login.logout}`;
+  logout(data) {
+    let url = `${RestApi.api.login.logout}`;
     return axios({
       method: "post",
       url,
-      params: xhr
+      data
     });
   },
-  modifyPassword(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.login.modifyPassword}`;
+  modifyPassword(data) {
+    let url = `${RestApi.api.login.modifyPassword}`;
     return axios({
       method: "post",
       url,
-      params: xhr
+      data
     });
   },
 };

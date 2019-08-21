@@ -1,11 +1,13 @@
 import store from '@/store/store.js';
-let httpUrlHeader = window.config.httpUrlHeader;
+
+// let httpUrlHeader = window.config.httpUrlHeader;
+let httpUrlHeader = '/apis';
 export default {
   api: {
     /**
      * 图片下载地址
      */
-    imageUrl: window.config.protocolHeader + window.config.ip + `/fileforward-server-v1/project/${store.state.home.projectUuid}/fileforward/fileByUrl?fileUrl=`,
+    imageUrl: `${httpUrlHeader}/fileforward-server-v1/project/${store.state.home.projectUuid}/fileforward/fileByUrl?fileUrl=`,
     /**
      * 全部翻译获取接口
      */

@@ -16,7 +16,8 @@ const whiteList = ['/Login'];// 不重定向白名单
 router.beforeEach((to, from, next) => {
   // NProgress.start() // 开启Progress
   // eslint-disable-next-line no-constant-condition
-  if (store.state.home.Authorization && store.state.home.Authorization.substr(0, 5) !== "Basic") { // 判断是否有token 目前先置为 true !!!!
+  if (store.state.home.Authorization) { // 判断是否有token 目前先置为 true !!!!
+    console.log(store.state.home.Authorization);
     if (to.path === '/Login') {
       // next({ path: '/' })
       next();

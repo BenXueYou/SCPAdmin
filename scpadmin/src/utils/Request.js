@@ -17,9 +17,12 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // Do something before request is sent
+    // config.headers['Content-Type'] = 'text/plain';
     // 获取token
     let Authorization = store.state.home.Authorization;
-    config.headers["Authorization"] = Authorization;
+    let operatorId = store.state.home.operatorId;
+    config.headers["token"] = Authorization;
+    config.headers["operatorId"] = operatorId;
     return config;
   },
   error => {
@@ -40,15 +43,15 @@ service.interceptors.response.use(
           name: "Login"
         });
       } else {
-        Toast.error(response.data.msg);
-        return Promise.reject("error");
+        Toast.error(response.data.errorMessage);
+        return Promise.reject(new Error('error'));
       }
     } else {
       if (response.data) {
         return response;
       } else {
         Toast.error("获取本地资源请求错误！");
-        return Promise.reject("error");
+        return Promise.reject(new Error('error'));
       }
     }
   },

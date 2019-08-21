@@ -1,5 +1,4 @@
-import { Message } from 'element-ui'
-
+import { Message } from 'element-ui';
 
 export var Toast = {
   toast(message, type) {
@@ -38,10 +37,8 @@ export var Toast = {
   }
 };
 
-
-
 function install(Vue) {
-    Vue.prototype.$cToast = Toast;
+  Vue.prototype.$cToast = Toast;
 };
 
 export default install;

@@ -67,9 +67,9 @@ const home = {
     //   state.username = username;
     //   Storage.saveSession("username", username);
     // },
-    SET_PROJECT_UUID: (state, projectUuid) => {
-      state.projectUuid = projectUuid;
-      Storage.saveSession("projectUuid", projectUuid);
+    SET_OPERATOR_ID: (state, operatorId) => {
+      state.operatorId = operatorId;
+      Storage.saveSession("operatorId", operatorId);
     },
     SET_PROJECT_LIST: (state, projectList) => {
       state.projectList = projectList;
@@ -106,8 +106,8 @@ const home = {
     // setUserName({ commit }, username) {
     //   commit("SET_UserName", username);
     // },
-    setProjectUuid({ commit }, projectUuid) {
-      commit("SET_PROJECT_UUID", projectUuid);
+    setOperatorId({ commit }, projectUuid) {
+      commit("SET_OPERATOR_ID", projectUuid);
     },
     setAccount({ commit }, account) {
       commit("SET_ACCOUNT", account);

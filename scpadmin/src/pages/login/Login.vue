@@ -76,12 +76,13 @@ export default {
     };
     let validatePwd = (rule, value, callback) => {
       /* eslint-disable */
-			var eReg = /^(?![^a-zA-Z]+$)(?!\D+$)/;
-			if (!eReg.test(value)) {
-				callback(new Error("至少包含数字，字母这两种（区分大小写）"));
-			} else {
-				callback();
-			}
+			// var eReg = /^(?![^a-zA-Z]+$)(?!\D+$)/;
+			// var eReg = true;
+			// if (!eReg.test(value)) {
+			// 	callback(new Error("至少包含数字，字母这两种（区分大小写）"));
+			// } else {
+			callback();
+			// }
 			/* eslint-enable */
     };
     let noSpace = (rule, value, callback) => {
@@ -122,7 +123,7 @@ export default {
           { required: true, message: "密码不能为空", trigger: "blur" },
           { whitespace: true, message: "不允许输入空格", trigger: "blur" },
           {
-            min: 6,
+            min: 4,
             max: 16,
             message: "长度在 6 到 16 个字符",
             trigger: "blur"
@@ -138,7 +139,7 @@ export default {
   },
   mounted() {
     this.formLabelAlign.username = this.$store.state.home.account;
-    if (this.$store.state.home.projectUuid) {
+    if (this.$store.state.home.Authorization) {
       let index = window.location.href.lastIndexOf("/");
       let suffix = window.location.href.substring(0, index + 1);
       window.location.href = suffix + "Main";
@@ -146,27 +147,21 @@ export default {
   },
   methods: {
     login() {
-      //   this.$refs.loginForm.validate(valid => {
-      // if (valid) {
-      //   this.$store.dispatch("setAuthorization", window.config.Authorization);
-      let index = window.location.href.lastIndexOf("/");
-      let suffix = window.location.href.substring(0, index + 1);
-      console.log(suffix + "Main");
-      window.location.href = suffix + "Main";
-      //   this.$loginAjax
-      //     .login({
-      //       username: this.formLabelAlign.username,
-      //       password: this.formLabelAlign.password,
-      //       grant_type: "password"
-      //     })
-      //     .then(res => {
-      //       let body = res.data;
-      //       this.loginSuccessResponse(body);
-      //     });
-      // } else {
-      //   this.$cToast.error("请正确填写内容");
-      // }
-      //   });
+      this.$refs.loginForm.validate(valid => {
+        if (valid) {
+          this.$loginAjax
+            .login({
+              loginId: this.formLabelAlign.username,
+              password: this.formLabelAlign.password,
+            })
+            .then(res => {
+              let body = res.data;
+              this.loginSuccessResponse(body);
+            });
+        } else {
+          this.$cToast.error("请正确填写内容");
+        }
+      });
     },
     loginSuccessResponse(body) {
       if (body) {
@@ -177,37 +172,15 @@ export default {
           this.$store.dispatch("setAccount", "");
           this.$store.dispatch("SET_USERUUID", "");
         }
-        let Authorization =
-					body.data.token.tokenType + " " + body.data.token.accessToken;
+        let Authorization = body.model.token;
         this.$store.dispatch("setAuthorization", Authorization);
 
-        // 存储ProjectList
-        console.log(body.data.adminUser.projects || []);
-        this.$store.commit(
-          "SET_PROJECT_LIST",
-          body.data.adminUser.projects || []
-        );
         // 设置ProjectUuid 默认设置第一个，其他Uuid可以在切换项目更改
-        this.$store.dispatch(
-          "setProjectUuid",
-          body.data.adminUser.projects[0].projectUuid
-        );
+        this.$store.dispatch("setOperatorId", body.model.operatorId);
         // 刷新页面以便于更新projectUuid
         this.$nextTick(() => {
           window.location.reload();
         });
-
-        // 如果要从登陆页面跳转到项目选择的页面，则执行下面的代码
-        // this.$router.push("/projectManage");
-
-        // localStorage.setItem("username", body.data.adminUser.username);
-        // this.$store.dispatch("setUserName", body.data.adminUser.username);
-        // this.$router.push({
-        //   name: "Home"
-        // });
-        /* this.$router.push({
-          name: "Home"
-        }); */
       }
     }
   },
