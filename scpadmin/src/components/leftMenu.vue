@@ -33,9 +33,9 @@
 								alt
 							/>
 						</template>
-						<el-menu-item index="/Main/ChargePile">充电监控</el-menu-item>
-						<el-menu-item index="/Main/ChargeStation">变位监控</el-menu-item>
-						<el-menu-item index="/Main/ChargeAddress">故障监控</el-menu-item>
+						<el-menu-item index="/Main/PileRealData">充电监控</el-menu-item>
+						<el-menu-item index="/Main/SwitchData">变位监控</el-menu-item>
+						<el-menu-item index="/Main/FaultAlarmData">故障监控</el-menu-item>
 					</el-submenu>
 					<el-submenu index="3" :class="menuTitle === '3'? 'submenuActiveClass' : ''">
 						<template slot="title">

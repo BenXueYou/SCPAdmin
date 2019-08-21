@@ -20,6 +20,10 @@ const ChargePileStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pa
 const ChargeStationStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/ChargeStationStatics');
 const OperatorStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/OperatorStatics');
 
+const PileRealData = () => import(/* webpackChunkName: "group-foo" */ '@/pages/realData/PileRealData');
+const FaultAlarmData = () => import(/* webpackChunkName: "group-foo" */ '@/pages/realData/FaultAlarmData');
+const SwitchData = () => import(/* webpackChunkName: "group-foo" */ '@/pages/realData/SwitchData');
+
 const Home = () => import(/* webpackChunkName: "group-foo" */ '@/pages/home/Home');
 Vue.use(Router);
 
@@ -128,6 +132,24 @@ export default new Router({
           name: "Home",
           component: Home,
           title: "概览"
+        },
+        {
+          path: "SwitchData",
+          name: "SwitchData",
+          component: SwitchData,
+          title: "变位数据"
+        },
+        {
+          path: "PileRealData",
+          name: "PileRealData",
+          component: PileRealData,
+          title: "充电监控"
+        },
+        {
+          path: "FaultAlarmData",
+          name: "FaultAlarmData",
+          component: FaultAlarmData,
+          title: "故障报警"
         },
       ]
     }

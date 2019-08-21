@@ -134,9 +134,7 @@ export default {
       }
     };
   },
-  created() {
-    // this.$store.dispatch("setAuthorization", window.config.Authorization);
-  },
+  created() {},
   mounted() {
     this.formLabelAlign.username = this.$store.state.home.account;
     if (this.$store.state.home.Authorization) {
@@ -152,7 +150,7 @@ export default {
           this.$loginAjax
             .login({
               loginId: this.formLabelAlign.username,
-              password: this.formLabelAlign.password,
+              password: this.formLabelAlign.password
             })
             .then(res => {
               let body = res.data;
