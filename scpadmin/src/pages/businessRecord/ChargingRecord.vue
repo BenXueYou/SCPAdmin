@@ -6,7 +6,7 @@
 	>
 		<div class="titleBox">
 			位置：
-			<span>运营管理／充电记录</span>
+			<span>运营管理／扣费记录</span>
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu" style="padding-bottom:10px">
@@ -88,20 +88,23 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="运营商" width="120"></el-table-column>
-				<el-table-column prop="name" label="充电站" width="150"></el-table-column>
+				<el-table-column prop="zip" label="订单编号" width="300"></el-table-column>
 				<el-table-column prop="id" label="充电桩序列号" width="180"></el-table-column>
 				<el-table-column prop="index" label="枪号" width="60"></el-table-column>
+				<el-table-column prop="name" label="充电站" width="150"></el-table-column>
+				<el-table-column prop="date" label="运营商" width="120"></el-table-column>
 				<el-table-column prop="province" label="充电类型" width="100"></el-table-column>
 				<el-table-column prop="city" label="充电模式" width="100"></el-table-column>
 				<el-table-column prop="zip" label="充电开始时间" width="180"></el-table-column>
 				<el-table-column prop="zip" label="充电结束时间" width="180"></el-table-column>
 				<el-table-column prop="zip" label="交易状态" width="100"></el-table-column>
-				<el-table-column prop="zip" label="订单编号" width="300"></el-table-column>
 				<el-table-column prop="zip" label="用户姓名" width="120"></el-table-column>
 				<el-table-column prop="zip" label="充电时长" width="180"></el-table-column>
 				<el-table-column prop="zip" label="充电电量" width="120"></el-table-column>
-				<el-table-column prop="zip" label="充电总金额" width="100"></el-table-column>
+				<el-table-column prop="zip" label="应扣金额" width="100"></el-table-column>
+				<el-table-column prop="zip" label="充电前金额" width="100"></el-table-column>
+				<el-table-column prop="zip" label="充电后金额" width="100"></el-table-column>
+				<el-table-column prop="zip" label="实扣金额" width="100"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>

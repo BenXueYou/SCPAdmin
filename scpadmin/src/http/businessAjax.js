@@ -8,7 +8,7 @@ export var businessAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   exportChargeRecord(xhr) {
@@ -16,7 +16,7 @@ export var businessAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   getChargeRecordList(xhr) {
@@ -24,7 +24,7 @@ export var businessAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   deductRecordList(xhr) {
@@ -32,7 +32,7 @@ export var businessAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
 };

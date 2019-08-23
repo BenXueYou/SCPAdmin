@@ -91,10 +91,10 @@ export var COMMON = {
   getCurrentEndTime() {
     // 创建日期对象，并初始化，完成文本转日期
     var date = new Date();
-    //日期转文本方式一：
+    // 日期转文本方式一：
     var str = "";
-    var year = date.getFullYear(); //年
-    var month = date.getMonth() + 6; //月 +6个月  因为js里month从0开始，所以要加1
+    var year = date.getFullYear(); // 年
+    var month = date.getMonth() + 6; // 月 +6个月  因为js里month从0开始，所以要加1
     if (month > 12) {
       year++;
       month -= 12;
@@ -102,11 +102,11 @@ export var COMMON = {
     if (month < 10) {
       month = "0" + month;
     }
-    var date2 = new Date(year, month, 0); //新的年月
+    var date2 = new Date(year, month, 0); // 新的年月
     var day1 = date.getDate();
     var day2 = date2.getDate();
     if (day1 > day2) {
-      //防止+6月后没有31天
+      // 防止+6月后没有31天
       day1 = day2;
     }
     if (day1 < 10) {
@@ -114,7 +114,7 @@ export var COMMON = {
     }
     str = year + "-" + month + "-" + day1;
 
-    //最后赋值文本框显示
+    // 最后赋值文本框显示
     return str + " " + "23:59:59";
   },
   // 时间戳毫秒数转为时间格式
@@ -134,7 +134,7 @@ export var COMMON = {
       date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
     var ss =
       date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
-    if (formdate == null || formdate === "yyyy-mm-dd HH:mm:ss") {
+    if (formdate === null || formdate === "yyyy-mm-dd HH:mm:ss") {
       return (
         year +
         "-" +
@@ -165,7 +165,7 @@ export var COMMON = {
   setStringText(stringText) {
     let text;
     if (
-      stringText == null ||
+      stringText === null ||
       !stringText ||
       stringText === "" ||
       stringText === undefined
@@ -180,7 +180,7 @@ export var COMMON = {
   // 设置图片显示，若无则显示 默认图片
   setPictureShow(imgUrl) {
     let imgUrlReturn;
-    if (imgUrl == null || !imgUrl || imgUrl === "" || imgUrl === undefined) {
+    if (imgUrl === null || !imgUrl || imgUrl === "" || imgUrl === undefined) {
       imgUrlReturn = require("@/assets/images/user.png");
     } else {
       imgUrlReturn =
@@ -282,7 +282,7 @@ export var COMMON = {
     }
     for (let enumItem of enums) {
       // 内容返回值当中返回的是 Number类型 但是枚举中返回的是 string 对于status来说 因此用的是 ==
-      if (typeStr == enumItem.typeStr) {
+      if (typeStr === enumItem.typeStr) {
         return enumItem.typeName;
       }
     }
@@ -302,13 +302,13 @@ export var COMMON = {
     }
     for (let enumItem of enums) {
       // 内容返回值当中返回的是 Number类型 但是枚举中返回的是 string 对于status来说 因此用的是 ==
-      if (typeStr == enumItem.typeStr) {
+      if (typeStr === enumItem.typeStr) {
         return enumItem.typeName;
       }
     }
     return typeStr;
   },
-  //递归查找所有的设备节点的通道列表
+  // 递归查找所有的设备节点的通道列表
   /**
    *
    * @param {树节点node} data
@@ -326,13 +326,13 @@ export var COMMON = {
       }
     }
   },
-  //递归去掉设备树的通道节点，建立设备树节点
+  // 递归去掉设备树的通道节点，建立设备树节点
   hasChildren(data) {
     if (!data && data.length === 0) {
       return;
     }
     for (let index = 0; index < data.length; index++) {
-      if (data[index].children == null) {
+      if (data[index].children === null) {
         data.splice(index, 1);
         index = index - 1;
       } else {
@@ -341,7 +341,7 @@ export var COMMON = {
     }
   },
 
-  //去掉树为展开部分的子节点冗余字段
+  // 去掉树为展开部分的子节点冗余字段
   getOrgTreeExpandNode(data) {
     for (var i = 0; i < data.length; i++) {
       console.log(data[i].children[0].orgName);
@@ -360,7 +360,7 @@ export var COMMON = {
     xhr.responseType = "blob"; // 返回类型blob
     xhr.onload = function() {
       // 请求完成
-      if (this.status == 200) {
+      if (this.status === 200) {
         // 返回200
         var blob = this.response;
         var reader = new FileReader();
@@ -381,7 +381,7 @@ export var COMMON = {
     // options中的leading:false 表示禁用第一次执行
     // trailing:false 表示晋中停止触发的回调
     // 定时器  作用域 参数 结果
-    var timeout, context, args, result;
+    var timeout, context, args;
     // 上一个时间
     var previous = 0;
     if (!options) options = {};

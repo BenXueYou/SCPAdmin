@@ -7,7 +7,23 @@
 export default {
   name: "App",
   data() {
-    return {};
+    return {
+      mainRoute: "/Main/Home"
+    };
+  },
+  mounted() {
+    if (this.$route.fullPath.indexOf("/Main") !== -1) {
+      this.mainRoute = this.$route.fullPath;
+    }
+  },
+  watch: {
+    "$route.path": function(newVal, oldVal) {
+      console.log(newVal);
+      // 添加门禁控制的默认路径
+      if (newVal === "/Main") {
+        this.$router.push(this.mainRoute);
+      }
+    }
   }
 };
 </script>

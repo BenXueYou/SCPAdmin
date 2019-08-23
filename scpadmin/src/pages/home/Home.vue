@@ -11,11 +11,12 @@
 		<div class="bodyBox">
 			<div class="topMenu" style="padding-bottom:5px">
 				<el-table :data="[tableData[0]]" stripe border style="width: 100%">
-					<el-table-column prop="date" label="充电站总数"></el-table-column>
-					<el-table-column prop="date" label="充电桩总数"></el-table-column>
-					<el-table-column prop="date" label="直流桩总数"></el-table-column>
-					<el-table-column prop="name" label="交流桩总数"></el-table-column>
-					<el-table-column prop="city" label="注册用户数"></el-table-column>
+					<el-table-column prop="chargeStationCount" label="充电站总数"></el-table-column>
+					<el-table-column prop="chargePileCount" label="充电桩总数"></el-table-column>
+					<el-table-column prop="chargePileDcCount" label="直流桩总数"></el-table-column>
+					<el-table-column prop="chargePileAcCount" label="交流桩总数"></el-table-column>
+					<el-table-column prop="weChatUserCount" label="注册用户数"></el-table-column>
+					<el-table-column prop="cardCount" label="卡用户数"></el-table-column>
 				</el-table>
 			</div>
 			<div class="topMenu flex-spa" style="margin: 15px 0;">
@@ -24,13 +25,30 @@
 						<span>运营商：</span>
 						<el-select
 							class="left-space time-interal"
-							v-model="station"
+							v-model="operatorId"
 							clearable
 							placeholder="处理状态"
 							size="small"
 						>
 							<el-option
 								v-for="item in stationOptions"
+								:key="item.typeStr"
+								:label="item.typeName"
+								:value="item.typeStr"
+							></el-option>
+						</el-select>
+					</div>
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>统计类型：</span>
+						<el-select
+							class="left-space time-interal"
+							v-model="type"
+							clearable
+							placeholder="处理状态"
+							size="small"
+						>
+							<el-option
+								v-for="item in staticTypeOptions"
 								:key="item.typeStr"
 								:label="item.typeName"
 								:value="item.typeStr"
@@ -61,28 +79,33 @@
 				<el-button type="primary" @click="queryBtnAct" style="margin:5px 12px;">查询</el-button>
 			</div>
 			<el-container>
+				<el-main>
+					<div class="echartsBox">
+						<el-row
+							v-loading="fullscreenLoading"
+							element-loading-background="rgba(0, 0, 0, 0.8)"
+							ref="canvsWidth"
+							id="canvasBox"
+						></el-row>
+					</div>
+				</el-main>
 				<el-aside width="200px">
-					<el-table :data="[tableData[0]]" stripe border style="width: 100%">
+					<el-table :data="[tableData[1]]" stripe border style="width: 100%">
 						<el-table-column prop="province" label="充电总电量(kWh)"></el-table-column>
 					</el-table>
-					<el-table :data="[tableData[0]]" stripe border style="width: 100%">
+					<el-table :data="[tableData[1]]" stripe border style="width: 100%">
 						<el-table-column prop="province" label="服务费(元)"></el-table-column>
 					</el-table>
-					<el-table :data="[tableData[0]]" stripe border style="width: 100%">
+					<el-table :data="[tableData[1]]" stripe border style="width: 100%">
 						<el-table-column prop="province" label="基础电费(元)"></el-table-column>
 					</el-table>
-					<el-table :data="[tableData[0]]" stripe border style="width: 100%">
+					<el-table :data="[tableData[1]]" stripe border style="width: 100%">
 						<el-table-column prop="city" label="充电总费用(元)"></el-table-column>
 					</el-table>
-					<el-table :data="[tableData[0]]" stripe border style="width: 100%">
+					<el-table :data="[tableData[1]]" stripe border style="width: 100%">
 						<el-table-column prop="city" label="充电总费用(元)"></el-table-column>
 					</el-table>
 				</el-aside>
-				<el-main>
-					<div class="echartsBox">
-						<div id="canvasBox"></div>
-					</div>
-				</el-main>
 			</el-container>
 		</div>
 	</el-row>
@@ -94,42 +117,89 @@ export default {
     // appUserAdd
   },
   mounted: function() {
-    this.drawLine();
+    console.log(this.$common.getStartTime());
+    this.initData();
+    this.initLineData();
+    let day = new Date();
+    day.setDate(1);
+    let firstdate = this.$common.timestampToFormatter(day, "yyyy-mm-dd");
+    let enddate = this.$common.timestampToFormatter(
+      new Date().getTime(),
+      "yyyy-mm-dd"
+    );
+    this.beginTime = firstdate + " " + "00:00:00";
+    this.endTime = enddate + " " + "23:59:59";
   },
   data: function() {
     return {
-      isShowAddDialog: false,
-      pageSizeArr: window.config.pageSizeArr,
-      pageSize: 15,
-      currentPage: 1,
+      fullscreenLoading: false,
       total: 10,
-      beginTime: null,
-      endTime: null,
+      beginTime: this.$common.getStartTime(),
+      endTime: this.$common.getCurrentTime(),
       operatorOptions: [],
-      station: null,
+      operatorId: 34,
       stationOptions: [],
+      type: 3,
+      dayArr: [],
       operator: null,
       mainScreenLoading: false,
-      tableData: window.config.tableData
+      tableData: window.config.tableData,
+      trendLineDataList: [],
+      staticTypeOptions: [
+        {
+          typeStr: 1,
+          typeName: "按电量统计"
+        },
+        {
+          typeStr: 2,
+          typeName: "按次数统计"
+        },
+        {
+          typeStr: 3,
+          typeName: "按收入统计"
+        }
+      ]
     };
   },
   methods: {
-    close() {
-      this.isShowAddDialog = !this.isShowAddDialog;
+    initLineData() {
+      this.$homeAjax
+        .trend({
+          endTime: this.endTime,
+          operatorId: this.operatorId,
+          startTime: this.beginTime,
+          type: this.type
+        })
+        .then(res => {
+          console.log(res.data);
+          if (res.data.success) {
+            let arr = res.data.model;
+            this.dayArr = [];
+            this.trendLineDataList = [];
+            if (!arr && !arr.length) return;
+            for (let i = 0; i < arr.length; i++) {
+              this.dayArr.push(arr[i].day);
+              this.trendLineDataList.push(arr[i].data);
+            }
+            this.drawLine();
+          } else {
+          }
+        })
+        .catch(() => {});
     },
-    queryBtnAct() {},
-    addBtnAct() {
-      this.isShowAddDialog = !this.isShowAddDialog;
+    initData() {
+      this.$homeAjax
+        .summary()
+        .then(res => {
+          console.log(res.data);
+          if (res.data.success) {
+            this.tableData = [res.data.model];
+          }
+        })
+        .catch(() => {});
     },
-    deleteBtnAct() {},
-    exportBtnAct() {},
-    handleClick(row) {
-      console.log(row);
-      this.isShowAddDialog = !this.isShowAddDialog;
-    },
-    handleCurrentChange(val) {
-      console.log("页数发生变化：", val);
-      this.currentPage = val;
+    queryBtnAct() {
+      this.initLineData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
@@ -137,7 +207,6 @@ export default {
     },
     drawLine() {
       let dom = document.getElementById("canvasBox");
-
       let w =
 				window.innerWidth ||
 				document.documentElement.clientWidth ||
@@ -190,33 +259,7 @@ export default {
               opacity: 0.6
             }
           },
-          data: [
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23",
-            "24"
-          ]
+          data: this.dayArr
         },
         yAxis: {
           // name: '车流量统计结果(日)',
@@ -282,7 +325,7 @@ export default {
                 }
               }
             },
-            data: this.photoStaticList
+            data: this.trendLineDataList
           }
         ]
       };

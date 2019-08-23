@@ -27,9 +27,29 @@ export default {
   },
   created() {},
   mounted() {
-    // this.$router.push({ name: "AccessGroupConfig" });
+    this.getOperatoList();
+    this.getChargeStationList();
   },
-  methods: {},
+  methods: {
+    // 获取当前账号下的运营商
+    getOperatoList() {
+      this.$userAjax
+        .getOperatoList()
+        .then(res => {
+          if (res.data.success) {
+            console.log(res.data);
+            this.$store.dispatch("setOperatorArr", res.data.model);
+          } else {
+            this.$message({ type: "warning", message: "获取运营商数据失败" });
+          }
+        })
+        .catch(() => {});
+    },
+    // 获取当前账号下的充电站
+    getChargeStationList() {},
+    // 获取省市区地址
+    getAddressList() {}
+  },
   watch: {},
   destroyed() {}
 };
@@ -62,7 +82,7 @@ export default {
 	.el-container,
 	.container {
 		width: 100%;
-		.el-header{
+		.el-header {
 			padding: 0;
 		}
 		.left-menu {
@@ -70,8 +90,8 @@ export default {
 			max-width: 200px;
 			background: $--color-left-menu;
 		}
-		.el-main{
-			background-color:rgba(245,245,245,0.8);
+		.el-main {
+			background-color: rgba(245, 245, 245, 0.8);
 			padding: 10px 20px;
 		}
 	}

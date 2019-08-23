@@ -14,6 +14,7 @@ const CardUser = () => import(/* webpackChunkName: "group-foo" */ '@/pages/userM
 const RechargeRecord = () => import(/* webpackChunkName: "group-foo" */ '@/pages/businessRecord/RechargeRecord');
 const ChargeRecord = () => import(/* webpackChunkName: "group-foo" */ '@/pages/businessRecord/ChargeRecord');
 const RefrundRecord = () => import(/* webpackChunkName: "group-foo" */ '@/pages/businessRecord/RefrundRecord');
+const ChargingRecord = () => import(/* webpackChunkName: "group-foo" */ '@/pages/businessRecord/ChargingRecord');
 
 const AppUserStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/AppUserStatics');
 const ChargePileStatics = () => import(/* webpackChunkName: "group-foo" */ '@/pages/staticsData/ChargePileStatics');
@@ -102,6 +103,12 @@ export default new Router({
           name: "RefrundRecord",
           component: RefrundRecord,
           title: "退款记录"
+        },
+        {
+          path: "ChargingRecord",
+          name: "ChargingRecord",
+          component: ChargingRecord,
+          title: "扣费记录"
         },
         {
           path: "AppUserStatics",

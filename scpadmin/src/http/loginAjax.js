@@ -3,7 +3,6 @@ import RestApi from "@/utils/RestApi";
 export var loginAjax = {
   login(data) {
     let url = RestApi.api.login.login;
-    // return axios.post(url, data);
     return axios({
       method: 'POST',
       url,

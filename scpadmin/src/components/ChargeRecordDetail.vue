@@ -26,7 +26,7 @@
 						<p>充电后金额：</p>
 						<p>充电时长：</p>
 					</el-col>
-					<el-col :span="7">
+					<el-col :span="6">
 						<p>{{defaultResident.credentialNo}}</p>
 						<p>{{defaultResident.credentialNo}}</p>
 						<p>{{defaultResident.credentialNo}}</p>
@@ -35,7 +35,7 @@
 						<p>{{defaultResident.credentialNo}}</p>
 						<p>{{defaultResident.credentialNo}}</p>
 					</el-col>
-					<el-col style="text-align:right;" :span="5">
+					<el-col style="text-align:right;" :span="4">
 						<p>充电模式：</p>
 						<p>交易状态：</p>
 						<p>停机原因：</p>
@@ -44,7 +44,7 @@
 						<p>结束时间：</p>
 						<p>电表总度数：</p>
 					</el-col>
-					<el-col :span="7">
+					<el-col :span="9">
 						<p>{{defaultResident.credentialNo}}</p>
 						<p>{{defaultResident.credentialNo}}</p>
 						<p>{{defaultResident.cellphone || ''}}</p>
@@ -66,7 +66,7 @@
 						<p>充电桩编号：</p>
 						<p>充电桩枪号：</p>
 					</el-col>
-					<el-col :span="7">
+					<el-col :span="6">
 						<p>{{defaultResident.credentialNo}}</p>
 						<p>{{defaultResident.credentialNo}}</p>
 						<p>{{defaultResident.credentialNo}}</p>
@@ -74,7 +74,7 @@
 						<p>{{defaultResident.credentialNo}}</p>
 						<p>{{defaultResident.credentialNo}}</p>
 					</el-col>
-					<el-col style="text-align:right;" :span="5">
+					<el-col style="text-align:right;" :span="4">
 						<p>用户(卡)ID：</p>
 						<p>手机号：</p>
 						<p>证件号：</p>
@@ -82,7 +82,7 @@
 						<p>VIN号：</p>
 						<p>大占比段：</p>
 					</el-col>
-					<el-col :span="7">
+					<el-col :span="9">
 						<p>{{defaultResident.credentialNo}}</p>
 						<p>{{defaultResident.cellphone || ''}}</p>
 						<p>{{defaultResident.nativePlace || ''}}</p>
@@ -111,7 +111,7 @@ export default {
     width: {
       type: String,
       default() {
-        return "550px";
+        return "720px";
       }
     },
     title: {

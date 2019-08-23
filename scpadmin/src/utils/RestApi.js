@@ -45,7 +45,8 @@ export default {
       addPile: `${httpUrlHeader}/chargePile/save`,
       getPileList: `${httpUrlHeader}/chargePile/list-by-page`,
       getEditOptions: `${httpUrlHeader}/chargePile/toEdit`,
-      updatePile: `${httpUrlHeader}/chargePile/update `,
+      updatePile: `${httpUrlHeader}/chargePile/update`,
+      getPileOptions: `${httpUrlHeader}/chargePile/list`,
 
       deleteChargeStation: `${httpUrlHeader}/charge/record/list-by-page`,
       getChargeStationList: `${httpUrlHeader}/charge/station/list-by-page`,
@@ -79,6 +80,7 @@ export default {
       addOperator: `${httpUrlHeader}/operator/save`,
       editOperatorOptions: `${httpUrlHeader}/operator/toEdit`,
       updateOperator: `${httpUrlHeader}/operator/update`,
+      getOperatorOptions: `${httpUrlHeader}/operator/list`,
     },
     /**
        * 运营统计

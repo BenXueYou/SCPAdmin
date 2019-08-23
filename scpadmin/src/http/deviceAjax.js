@@ -8,7 +8,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   deletePile(xhr) {
@@ -16,7 +16,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   addPile(xhr) {
@@ -24,7 +24,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   getPileList(xhr) {
@@ -32,7 +32,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   getEditOptions(xhr) {
@@ -40,7 +40,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   updatePile(xhr) {
@@ -48,7 +48,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   deleteChargeStation(xhr) {
@@ -56,7 +56,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   getChargeStationList(xhr) {
@@ -64,7 +64,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   addChargeStation(xhr) {
@@ -72,7 +72,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   editChargeStationOptions(xhr) {
@@ -80,7 +80,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   updateChargeStation(xhr) {
@@ -88,7 +88,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   deletePileFactory(xhr) {
@@ -96,7 +96,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   getPileFactoryList(xhr) {
@@ -104,7 +104,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   addPileFactory(xhr) {
@@ -112,7 +112,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   editPileFactoryOptions(xhr) {
@@ -120,7 +120,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   updatePileFactory(xhr) {
@@ -128,7 +128,7 @@ export var deviceAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
 };

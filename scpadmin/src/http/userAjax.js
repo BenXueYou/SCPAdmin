@@ -1,46 +1,52 @@
 import axios from "@/utils/Request";
 import RestApi from "@/utils/RestApi";
-let ip = window.config.ip;
-let protocolHeader = window.config.protocolHeader;
 export var userAjax = {
   deleteOperator(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.UserAjax.deleteOperator}`;
+    let url = `${RestApi.api.UserAjax.deleteOperator}`;
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
-  getOperatorList(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.UserAjax.getOperatorList}`;
+  getOperatorListByPage(xhr) {
+    let url = `${RestApi.api.UserAjax.getOperatorList}`;
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   addOperator(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.UserAjax.addOperator}`;
+    let url = `${RestApi.api.UserAjax.addOperator}`;
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   editOperatorOptions(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.UserAjax.editOperatorOptions}`;
+    let url = `${RestApi.api.UserAjax.editOperatorOptions}`;
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   updateOperator(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.UserAjax.updateOperator}`;
+    let url = `${RestApi.api.UserAjax.updateOperator}`;
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
+    });
+  },
+  getOperatorList(xhr) {
+    let url = `${RestApi.api.UserAjax.updateOperator}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
     });
   },
 };

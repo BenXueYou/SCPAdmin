@@ -1,18 +1,16 @@
 import axios from "@/utils/Request";
 import RestApi from "@/utils/RestApi";
-let ip = window.config.ip;
-let protocolHeader = window.config.protocolHeader;
 export var homeAjax = {
-  trend(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.HomeAjax.trend}`;
+  trend(data) {
+    let url = `${RestApi.api.HomeAjax.trend}`;
     return axios({
       method: "post",
       url,
-      params: xhr
+      data
     });
   },
   summary(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.HomeAjax.summary}`;
+    let url = `${RestApi.api.HomeAjax.summary}`;
     return axios({
       method: "post",
       url,

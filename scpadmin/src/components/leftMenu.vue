@@ -39,11 +39,6 @@
 					</el-submenu>
 					<el-submenu index="3" :class="menuTitle === '3'? 'submenuActiveClass' : ''">
 						<template slot="title">
-							<!-- <img
-								class="access_autn_select"
-								src="@/assets/images/leftMenu/vistorManage.png"
-								alt
-							/>-->
 							<i class="el-icon-price-tag"></i>
 							<span>设备管理</span>
 							<img
@@ -103,6 +98,7 @@
 						<el-menu-item index="/Main/RechargeRecord">充值记录</el-menu-item>
 						<el-menu-item index="/Main/RefrundRecord">退款记录</el-menu-item>
 						<el-menu-item index="/Main/ChargeRecord">充电记录</el-menu-item>
+						<el-menu-item index="/Main/ChargingRecord">扣费记录</el-menu-item>
 					</el-submenu>
 					<el-submenu index="6" :class="menuTitle === '6'? 'submenuActiveClass' : ''">
 						<template slot="title">
