@@ -14,15 +14,15 @@
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>用户名：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="userName"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>电话：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="phoneNumber"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>车牌号：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="plateNumber"></el-input>
 						</div>
 						<div class="dateBox">
 							<span class="topTitleTxt">注册时间：</span>
@@ -98,10 +98,11 @@ export default {
       beginTime: null,
       endTime: null,
       operatorOptions: [],
-      station: null,
+      userName: null,
       stationOptions: [],
-      operator: null,
+      phoneNumber: null,
       mainScreenLoading: false,
+      plateNumber: null,
       tableData: window.config.tableData
     };
   },

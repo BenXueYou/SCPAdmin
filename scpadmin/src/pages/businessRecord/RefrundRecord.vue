@@ -10,53 +10,53 @@
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu" style="padding-bottom:5px">
-					<div class="flex-sbw">
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>用户名：</span>
-							<el-input v-model="station"></el-input>
-						</div>
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>订单流水号：</span>
-							<el-input v-model="station"></el-input>
-						</div>
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>退款状态：</span>
-							<!-- <el-input v-model="station"></el-input> -->
-							<el-select
-								class="left-space time-interal"
-								v-model="station"
-								clearable
-								placeholder="处理状态"
-								size="small"
-							>
-								<el-option
-									v-for="item in stationOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
-							</el-select>
-						</div>
-						<div class="dateBox">
-							<span class="topTitleTxt">支付时间：</span>
-							<el-date-picker
-								v-model="beginTime"
-								type="datetime"
-								class="time-interal-date"
-								size="small"
-								placeholder="选择日期"
-								value-format="yyyy-MM-dd HH:mm:ss"
-							></el-date-picker>
-							<span class="time-line">—</span>
-							<el-date-picker
-								v-model="endTime"
-								type="datetime"
-								class="time-interal-date"
-								placeholder="选择日期"
-								size="small"
-								value-format="yyyy-MM-dd HH:mm:ss"
-							></el-date-picker>
-						</div>
+				<div class="flex-sbw">
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>用户名：</span>
+						<el-input v-model="userName"></el-input>
+					</div>
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>订单流水号：</span>
+						<el-input v-model="transationNum"></el-input>
+					</div>
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>退款状态：</span>
+						<!-- <el-input v-model="station"></el-input> -->
+						<el-select
+							class="left-space time-interal"
+							v-model="refundStatus"
+							clearable
+							placeholder="处理状态"
+							size="small"
+						>
+							<el-option
+								v-for="item in refundStatusOptions"
+								:key="item.typeStr"
+								:label="item.typeName"
+								:value="item.typeStr"
+							></el-option>
+						</el-select>
+					</div>
+					<div class="dateBox">
+						<span class="topTitleTxt">支付时间：</span>
+						<el-date-picker
+							v-model="beginTime"
+							type="datetime"
+							class="time-interal-date"
+							size="small"
+							placeholder="选择日期"
+							value-format="yyyy-MM-dd HH:mm:ss"
+						></el-date-picker>
+						<span class="time-line">—</span>
+						<el-date-picker
+							v-model="endTime"
+							type="datetime"
+							class="time-interal-date"
+							placeholder="选择日期"
+							size="small"
+							value-format="yyyy-MM-dd HH:mm:ss"
+						></el-date-picker>
+					</div>
 				</div>
 			</div>
 			<div class="topMenu" style="margin-bottom: 15px;">
@@ -112,6 +112,10 @@ export default {
       stationOptions: [],
       operator: null,
       mainScreenLoading: false,
+      userName: null,
+      transationNum: null,
+      refundStatus: null,
+      refundStatusOptions: [],
       tableData: window.config.tableData
     };
   },

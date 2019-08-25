@@ -13,24 +13,24 @@
 				<div class="flex-sbw">
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>用户名：</span>
-						<el-input v-model="station"></el-input>
+						<el-input v-model="userName"></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>订单流水号：</span>
-						<el-input v-model="station"></el-input>
+						<el-input v-model="transationNum"></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 						<span>支付状态：</span>
 						<!-- <el-input v-model="station"></el-input> -->
 						<el-select
 							class="left-space time-interal"
-							v-model="station"
+							v-model="payStatus"
 							clearable
 							placeholder="处理状态"
 							size="small"
 						>
 							<el-option
-								v-for="item in stationOptions"
+								v-for="item in payStatusOptions"
 								:key="item.typeStr"
 								:label="item.typeName"
 								:value="item.typeStr"
@@ -101,6 +101,8 @@ export default {
   data: function() {
     return {
       isShowAddDialog: false,
+      transationNum: null,
+      userName: null,
       pageSizeArr: window.config.pageSizeArr,
       pageSize: 15,
       currentPage: 1,
@@ -112,6 +114,8 @@ export default {
       stationOptions: [],
       operator: null,
       mainScreenLoading: false,
+      payStatus: null,
+      payStatusOption: [],
       tableData: window.config.tableData
     };
   },

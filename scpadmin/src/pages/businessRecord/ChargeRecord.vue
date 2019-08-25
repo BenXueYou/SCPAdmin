@@ -13,15 +13,15 @@
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>用户名：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="userName"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>充电桩ID：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="userId"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>手机号：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="phoneNumber"></el-input>
 						</div>
 						<div class="dateBox">
 							<span class="topTitleTxt">充电时间：</span>

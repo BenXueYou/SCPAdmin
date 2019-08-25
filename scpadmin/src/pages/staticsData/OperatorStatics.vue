@@ -14,11 +14,11 @@
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>运营商名：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="operatorName"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>运营商ID：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="operatorId"></el-input>
 						</div>
 						<div class="dateBox">
 							<span class="topTitleTxt">时间：</span>
@@ -91,9 +91,9 @@ export default {
       beginTime: null,
       endTime: null,
       operatorOptions: [],
-      station: null,
+      operatorName: null,
       stationOptions: [],
-      operator: null,
+      operatorId: null,
       mainScreenLoading: false,
       tableData: window.config.tableData
     };

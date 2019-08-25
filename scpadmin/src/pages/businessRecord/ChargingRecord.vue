@@ -13,15 +13,15 @@
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>用户名：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="userName"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>充电桩ID：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="cpId"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>手机号：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="phoneNumber"></el-input>
 						</div>
 						<div class="dateBox">
 							<span class="topTitleTxt">充电时间：</span>
@@ -67,13 +67,13 @@
 					<span class="topTitleTxt">充电方式：</span>
 					<el-select
 						class="left-space time-interal"
-						v-model="operator"
+						v-model="chargeWay"
 						clearable
 						placeholder="充电方式"
 						size="small"
 					>
 						<el-option
-							v-for="item in operatorOptions"
+							v-for="item in chargeWayOptions"
 							:key="item.typeStr"
 							:label="item.typeName"
 							:value="item.typeStr"
@@ -143,8 +143,10 @@ export default {
       beginTime: null,
       endTime: null,
       operatorOptions: [],
-      station: null,
-      stationOptions: [],
+      userName: null,
+      cpId: null,
+      phoneNumber: null,
+      chargeWayOptions: [],
       operator: null,
       mainScreenLoading: false,
       tableData: window.config.tableData

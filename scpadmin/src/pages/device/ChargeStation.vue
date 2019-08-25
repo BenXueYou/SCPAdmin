@@ -16,7 +16,7 @@
 						class="left-space time-interal"
 						v-model="queryModel.operatorId"
 						clearable
-						placeholder="报警类型"
+						placeholder="运营商"
 						size="small"
 					>
 						<el-option
@@ -33,7 +33,7 @@
 						class="left-space time-interal"
 						v-model="queryModel.csId"
 						clearable
-						placeholder="处理状态"
+						placeholder="充电站"
 						size="small"
 					>
 						<el-option

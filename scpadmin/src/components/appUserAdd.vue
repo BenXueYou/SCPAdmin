@@ -24,7 +24,7 @@
 							<el-input
 								class="time-interal"
 								style="width:96%;box-sizing: border-box;"
-								v-model="formLabelAlign.bulkNumber"
+								v-model="formLabelAlign.userName"
 								size="small"
 							></el-input>
 						</el-form-item>
@@ -34,7 +34,7 @@
 							<el-input
 								class="time-interal"
 								style="width:96%;box-sizing: border-box;"
-								v-model="formLabelAlign.bulkNumber"
+								v-model="formLabelAlign.phoneNumber"
 								size="small"
 							></el-input>
 						</el-form-item>
@@ -46,7 +46,7 @@
 							<el-input
 								class="time-interal"
 								style="width:96%;box-sizing: border-box;"
-								v-model="formLabelAlign.bulkNumber"
+								v-model="formLabelAlign.address"
 								size="small"
 							></el-input>
 						</el-form-item>
@@ -56,7 +56,7 @@
 							<el-input
 								class="time-interal"
 								style="width:96%;box-sizing: border-box;"
-								v-model="formLabelAlign.bulkNumber"
+								v-model="formLabelAlign.email"
 								size="small"
 							></el-input>
 						</el-form-item>
@@ -94,72 +94,40 @@ export default {
   },
   data() {
     return {
-      endHoursOptions: [],
-      chargePriceModelOptions: [],
-      chargeStationModelOptions: [],
-      chargeStationOptions: [],
-      businessOptions: [],
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        openingHours: "00:00:00",
-        business: null,
-        chargeStationName: null,
-        endHours: "23:59:59",
-        chargeStationModel: null,
-        chargePriceModel: null,
-        bulkNumber: null,
-        version: null,
-        bulk: false
+        userName: null,
+        phoneNumber: null,
+        address: null,
+        email: null
       },
       rules: {
-        chargeStationName: [
-          { required: true, message: "名称不能为空", trigger: "blur" },
-          { whitespace: true, message: "不允许输入空格", trigger: "blur" },
-          { min: 1, max: 32, message: "长度在 1 到 32 个字符", trigger: "blur" }
+        userName: [
+          { required: true, message: "用户名不能为空", trigger: "change" }
         ],
-        openingHours: [
-          { required: true, message: "充电站不能为空", trigger: "change" }
-        ],
-        chargePriceModel: [
-          { required: true, message: "计费模板不能为空", trigger: "change" }
-        ],
-        endHours: [
-          { required: true, message: "充电桩厂商不能为空", trigger: "change" }
-        ],
-        chargeStationModel: [
-          { required: true, message: "充电桩型号不能为空", trigger: "change" }
-        ],
-        business: [
-          { required: true, message: "运营商不能为空", trigger: "change" }
+        phoneNumber: [
+          { required: true, message: "电话不能为空", trigger: "change" }
         ]
       }
     };
   },
   created() {},
   mounted() {
-    this.initData();
   },
   methods: {
-    initData() {
-      this.houseTypeOptions = [];
-      this.houseUseOptions = [];
-    },
-    setUseData() {},
     onClickCancel() {
       this.$emit("onCancel");
     },
     onClickConfirm() {
       this.$refs.addHouseForm.validate(valid => {
         if (valid) {
-          this.addHouse();
+
         } else {
           this.$cToast.error("请正确填写内容");
         }
       });
     },
-    addHouse() {},
-    addHouseSuccessResponse(body) {}
   },
   watch: {
     isShow(val) {
@@ -182,7 +150,7 @@ export default {
 	height: 32px;
 	line-height: 32px;
 }
-.dialog-user-edit .el-input .el-input__inner{
+.dialog-user-edit .el-input .el-input__inner {
 	width: 100%;
 }
 .dialog-user-edit .timePickerClass .el-input__icon,

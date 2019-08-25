@@ -15,11 +15,11 @@
 					<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">删除</el-button>
 					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px 0 30px;">
 						<span>运营商：</span>
-						<el-input style="width:auto" v-model="station"></el-input>
+						<el-input style="width:auto" v-model="operator"></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px;">
 						<span>联系电话：</span>
-						<el-input style="width:auto" v-model="station"></el-input>
+						<el-input style="width:auto" v-model="phoneNumber"></el-input>
 					</div>
 				</div>
 				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;margin-right:5%">查询</el-button>
@@ -70,7 +70,7 @@ export default {
       beginTime: null,
       endTime: null,
       operatorOptions: [],
-      station: null,
+      phoneNumber: null,
       stationOptions: [],
       operator: null,
       mainScreenLoading: false,

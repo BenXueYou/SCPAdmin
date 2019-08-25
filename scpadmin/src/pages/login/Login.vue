@@ -137,11 +137,11 @@ export default {
   created() {},
   mounted() {
     this.formLabelAlign.username = this.$store.state.home.account;
-    if (this.$store.state.home.Authorization) {
-      let index = window.location.href.lastIndexOf("/");
-      let suffix = window.location.href.substring(0, index + 1);
-      window.location.href = suffix + "Main";
-    }
+    // if (this.$store.state.home.Authorization) {
+    let index = window.location.href.lastIndexOf("/");
+    let suffix = window.location.href.substring(0, index + 1);
+    window.location.href = suffix + "Main";
+    // }
   },
   methods: {
     login() {
@@ -200,7 +200,7 @@ export default {
 	.el-input__inner {
 		background: rgba($color: #000000, $alpha: 0.05) !important;
 		height: 46px;
-		font-family: PingFangSC-Regular;
+		font-family: 'PingFangSC-Regular';
 		font-size: 14px;
 		color: #575757;
 		letter-spacing: 0;
@@ -215,7 +215,7 @@ export default {
 		border-color: #ffffff !important;
 	}
 	.el-checkbox__label {
-		font-family: PingFangSC-Regular;
+		font-family: 'PingFangSC-Regular';
 		font-size: 12px;
 		color: #999999;
 		letter-spacing: 0;
@@ -223,7 +223,7 @@ export default {
 	.el-button--primary {
 		background-color: #26d39d !important;
 		height: 46px;
-		font-family: PingFangSC-Regular;
+		font-family: 'PingFangSC-Regular';
 		font-size: 14px;
 		color: #ffffff;
 		letter-spacing: 0;
@@ -246,7 +246,7 @@ export default {
 		padding: 2% 3%;
 		box-sizing: border-box;
 		.head-title {
-			font-family: PingFangSC-Regular;
+			font-family: 'PingFangSC-Regular';
 			font-size: 16px;
 			color: #dddddd;
 			display: flex;
@@ -293,7 +293,7 @@ export default {
 				margin-left: 10px;
 				justify-content: space-between;
 				.button-text {
-					font-family: PingFangSC-Regular;
+					font-family: 'PingFangSC-Regular';
 					font-size: 12px;
 					color: #999999;
 					letter-spacing: 0;
@@ -315,7 +315,7 @@ export default {
 			align-items: center;
 			justify-content: space-between;
 			.item-text {
-				font-family: PingFangSC-Regular;
+				font-family: 'PingFangSC-Regular';
 				font-size: 16px;
 				color: #999999;
 				cursor: pointer;
@@ -323,7 +323,7 @@ export default {
 		}
 		.foot-text {
 			margin-top: 14px;
-			font-family: PingFangSC-Regular;
+			font-family: 'PingFangSC-Regular';
 			font-size: 14px;
 			color: #555555;
 			letter-spacing: 1.17px;

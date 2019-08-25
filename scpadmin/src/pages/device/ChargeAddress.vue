@@ -15,13 +15,13 @@
 						<span class="topTitleTxt">省：</span>
 						<el-select
 							class="left-space time-interal"
-							v-model="operator"
+							v-model="province"
 							clearable
-							placeholder="报警类型"
+							placeholder="请选择省"
 							size="small"
 						>
 							<el-option
-								v-for="item in operatorOptions"
+								v-for="item in provinceOptions"
 								:key="item.typeStr"
 								:label="item.typeName"
 								:value="item.typeStr"
@@ -32,13 +32,13 @@
 						<span class="topTitleTxt">市：</span>
 						<el-select
 							class="left-space time-interal"
-							v-model="station"
+							v-model="city"
 							clearable
 							placeholder="处理状态"
 							size="small"
 						>
 							<el-option
-								v-for="item in stationOptions"
+								v-for="item in cityOptions"
 								:key="item.typeStr"
 								:label="item.typeName"
 								:value="item.typeStr"
@@ -49,13 +49,13 @@
 						<span class="topTitleTxt">区：</span>
 						<el-select
 							class="left-space time-interal"
-							v-model="station"
+							v-model="area"
 							clearable
 							placeholder="处理状态"
 							size="small"
 						>
 							<el-option
-								v-for="item in stationOptions"
+								v-for="item in areaOptions"
 								:key="item.typeStr"
 								:label="item.typeName"
 								:value="item.typeStr"
@@ -64,7 +64,7 @@
 					</div>
 					<div class="flex-sbw-div topTitleTxt">
 						<span>地址：</span>
-						<el-input style="width:auto" v-model="station"></el-input>
+						<el-input style="width:auto" v-model="address"></el-input>
 					</div>
 				</div>
 				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;">查询</el-button>
@@ -115,10 +115,13 @@ export default {
       total: 10,
       beginTime: null,
       endTime: null,
-      operatorOptions: [],
-      station: null,
-      stationOptions: [],
-      operator: null,
+      provinceOptions: [],
+      areaOptions: [],
+      area: null,
+      city: null,
+      address: null,
+      cityOptions: [],
+      province: null,
       mainScreenLoading: false,
       tableData: window.config.tableData
     };

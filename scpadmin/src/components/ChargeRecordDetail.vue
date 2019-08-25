@@ -270,7 +270,7 @@ export default {
 }
 .ChrageRecordDetail .dialogHeaderClass .header_left_txt {
 	border-left: 2px solid #26d39d;
-	font-family: PingFangSC-Regular;
+	font-family: 'PingFangSC-Regular';
 	font-size: 14px;
 	color: #ffffff;
 	padding-left: 10px;
@@ -290,7 +290,7 @@ export default {
 }
 .ChrageRecordDetail .header_right_box button {
 	height: 32px;
-	font-family: PingFangSC-Regular;
+	font-family: 'PingFangSC-Regular';
 	font-size: 13px;
 	color: #ffffff;
 	text-align: justify;
@@ -309,7 +309,7 @@ export default {
 	height: 100%;
 }
 .ChrageRecordDetail .left_tips_txt {
-	font-family: PingFangSC-Regular;
+	font-family: 'PingFangSC-Regular';
 	font-size: 13px;
 	color: #26d39d;
 }

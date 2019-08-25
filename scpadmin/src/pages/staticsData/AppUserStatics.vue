@@ -13,23 +13,23 @@
 					<div class="flex-sbw">
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>用户名：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="userName"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>用户(卡)ID号：</span>
-							<el-input v-model="station"></el-input>
+							<el-input v-model="userId"></el-input>
 						</div>
 						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
 							<span>充电方式：</span>
 							<el-select
 								class="left-space time-interal"
-								v-model="station"
+								v-model="chargeWay"
 								clearable
-								placeholder="处理状态"
+								placeholder="充电方式 "
 								size="small"
 							>
 								<el-option
-									v-for="item in stationOptions"
+									v-for="item in chargeWayOptions"
 									:key="item.typeStr"
 									:label="item.typeName"
 									:value="item.typeStr"
@@ -62,7 +62,7 @@
 				<el-button type="primary" @click="deleteBtnAct" style="margin:0 10px;">批量导出</el-button>
 				<el-button type="primary" @click="queryBtnAct" style="margin:0 10px;">查询</el-button>
 			</div>
-			<el-table :data="tableData" stripe border style="width: 100%">
+			<el-table :v-loading='mainScreenLoading' :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
 				<el-table-column prop="date" label="用户(卡)ID号"></el-table-column>
@@ -108,9 +108,10 @@ export default {
       beginTime: null,
       endTime: null,
       operatorOptions: [],
-      station: null,
-      stationOptions: [],
-      operator: null,
+      chargeWay: null,
+      chargeWayOptions: [],
+      userName: null,
+      userId: null,
       mainScreenLoading: false,
       tableData: window.config.tableData
     };

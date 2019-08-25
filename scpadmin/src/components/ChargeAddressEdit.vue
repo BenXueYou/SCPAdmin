@@ -19,16 +19,16 @@
 				class="info-form"
 			>
 				<el-row type="flex" justify="space-between">
-					<el-form-item label="省：" prop="chargeStationModel">
+					<el-form-item label="省：" prop="province">
 						<el-select
 							class="time-interal"
-							v-model="formLabelAlign.chargeStationModel"
+							v-model="formLabelAlign.province"
 							size="small"
 							clearable
 							placeholder="请选择省"
 						>
 							<el-option
-								v-for="item in chargeStationModelOptions"
+								v-for="item in provinceOptions"
 								:key="item.typeStr"
 								:label="item.typeName"
 								:value="item.typeStr"
@@ -37,16 +37,16 @@
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-form-item label="市：" prop="chargeStationModel">
+					<el-form-item label="市：" prop="city">
 						<el-select
 							class="time-interal"
-							v-model="formLabelAlign.chargeStationModel"
+							v-model="formLabelAlign.city"
 							size="small"
 							clearable
 							placeholder="请选择市"
 						>
 							<el-option
-								v-for="item in chargeStationModelOptions"
+								v-for="item in cityOptions"
 								:key="item.typeStr"
 								:label="item.typeName"
 								:value="item.typeStr"
@@ -55,16 +55,16 @@
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-form-item label="区：" prop="chargeStationModel">
+					<el-form-item label="区：" prop="area">
 						<el-select
 							class="time-interal"
-							v-model="formLabelAlign.chargeStationModel"
+							v-model="formLabelAlign.area"
 							size="small"
 							clearable
 							placeholder="请选择区"
 						>
 							<el-option
-								v-for="item in chargeStationModelOptions"
+								v-for="item in areaOptions"
 								:key="item.typeStr"
 								:label="item.typeName"
 								:value="item.typeStr"
@@ -73,8 +73,8 @@
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-form-item label="地址：" prop="chargeStationModel">
-						<el-input style="width:auto" v-model="formLabelAlign.chargeStationModel"></el-input>
+					<el-form-item label="地址：" prop="address">
+						<el-input style="width:auto" v-model="formLabelAlign.address"></el-input>
 					</el-form-item>
 				</el-row>
 			</el-form>
@@ -109,30 +109,19 @@ export default {
   },
   data() {
     return {
-      endHoursOptions: [],
-      chargePriceModelOptions: [],
-      chargeStationModelOptions: [],
-      chargeStationOptions: [],
-      businessOptions: [],
+      provinceOptions: [],
+      cityOptions: [],
+      areaOptions: [],
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        openingHours: "00:00:00",
-        business: null,
-        chargeStationName: null,
-        endHours: "23:59:59",
-        chargeStationModel: null,
-        chargePriceModel: null,
-        bulkNumber: null,
-        version: null,
+        province: null,
+        city: null,
+        area: null,
+        address: null,
         bulk: false
       },
       rules: {
-        chargeStationName: [
-          { required: true, message: "名称不能为空", trigger: "blur" },
-          { whitespace: true, message: "不允许输入空格", trigger: "blur" },
-          { min: 1, max: 32, message: "长度在 1 到 32 个字符", trigger: "blur" }
-        ],
         openingHours: [
           { required: true, message: "充电站不能为空", trigger: "change" }
         ],
