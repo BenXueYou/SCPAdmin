@@ -33,7 +33,10 @@ export default {
      */
     RealAjax: {
       realPileData: `${httpUrlHeader}/chargePile/real/time/data`,
-      realAlarmData: `${httpUrlHeader}/webAlarm/list-by-page`
+      realAlarmData: `${httpUrlHeader}/webAlarm/list-by-page`,
+
+      // 告警记录
+      getAlarmRecord: `${httpUrlHeader}/webAlarm/list-by-page`
     },
 
     /**
@@ -59,6 +62,13 @@ export default {
       addPileFactory: `${httpUrlHeader}/manufacturer/save`,
       editPileFactoryOptions: `${httpUrlHeader}/manufacturer/toEdit`,
       updatePileFactory: `${httpUrlHeader}/manufacturer/update`,
+
+      // 省市区地址管理接口
+      getProvince: `${httpUrlHeader}/`,
+      getCityByProvinceId: `${httpUrlHeader}/address/queryCityListByProvinceId`,
+      getAreaListByCityId: `${httpUrlHeader}/address/queryAreaListByCityId`,
+      getAddressListByAreaId: `${httpUrlHeader}/address/queryAddressByAreaId`,
+
     },
 
     /**
@@ -86,7 +96,14 @@ export default {
        * 运营统计
        */
     StaticsAjax: {
+      getAppUser: `${httpUrlHeader}/statistics/user`
+    },
 
+    /**
+     * 充电价格
+     */
+    ChargePriceAjax: {
+      getChargePrice: `${httpUrlHeader}/bill/model/list-by-page`
     },
     // 人脸图片质量检测
     faceQualityDetection: `/sppc-iacapp-service-v1/image/isQualified`

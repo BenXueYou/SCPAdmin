@@ -20,40 +20,40 @@
 			>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="桩厂商：" prop="chargePileName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
+						<el-form-item label="桩厂商：" prop="mfrName">
+							<el-input class="time-interal" v-model="formLabelAlign.mfrName" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="桩厂商代号：" prop="chargePileName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
+						<el-form-item label="桩厂商代号：" prop="mfrAbbr">
+							<el-input class="time-interal" v-model="formLabelAlign.mfrAbbr" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="桩型号：" prop="chargePileName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
+						<el-form-item label="桩型号：" prop="model">
+							<el-input class="time-interal" v-model="formLabelAlign.model" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="桩功率(kW)：" prop="chargePileName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
+						<el-form-item label="桩功率(kW)：" prop="ratedPower">
+							<el-input class="time-interal" v-model="formLabelAlign.ratedPower" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-				<el-form-item label="桩参数：" prop="chargeStationModel">
+					<el-form-item label="桩参数：" prop="chargeStationModel">
 						<el-col :span="8">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
+								v-model="formLabelAlign.cpType"
 								size="small"
 								clearable
 								placeholder="请选择桩类型"
 							>
 								<el-option
-									v-for="item in chargeStationModelOptions"
+									v-for="item in cpTypeOptions"
 									:key="item.typeStr"
 									:label="item.typeName"
 									:value="item.typeStr"
@@ -63,13 +63,13 @@
 						<el-col :span="8">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
+								v-model="formLabelAlign.cpPhase"
 								size="small"
 								clearable
 								placeholder="请选择桩相数"
 							>
 								<el-option
-									v-for="item in chargeStationModelOptions"
+									v-for="item in cpPhaseOptions"
 									:key="item.typeStr"
 									:label="item.typeName"
 									:value="item.typeStr"
@@ -79,13 +79,13 @@
 						<el-col :span="8">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
+								v-model="formLabelAlign.interfaceCount"
 								size="small"
 								clearable
 								placeholder="请选择桩枪数"
 							>
 								<el-option
-									v-for="item in chargeStationModelOptions"
+									v-for="item in interfaceCountOptions"
 									:key="item.typeStr"
 									:label="item.typeName"
 									:value="item.typeStr"
@@ -121,44 +121,46 @@ export default {
   },
   data() {
     return {
-      chargePileFactoryOptions: [],
-      chargePriceModelOptions: [],
-      chargePileModelOptions: [],
-      chargeStationOptions: [],
-      businessOptions: [],
+      cpTypeOptions: [
+        {
+          typeStr: "dc",
+          typeName: "直流"
+        },
+        {
+          typeStr: "ac",
+          typeName: "交流"
+        }
+      ],
+      cpPhaseOptions: [
+        {
+          typeStr: "threePhase",
+          typeName: "三相"
+        }
+      ],
+      interfaceCountOptions: [],
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        chargeStation: null,
-        business: null,
-        chargePileName: null,
-        chargePileFactory: null,
-        chargePileModel: null,
-        chargePriceModel: null,
-        bulkNumber: null,
-        version: null,
-        bulk: false
+        mfrName: null,
+        mfrAbbr: null,
+        model: null,
+        ratedPower: null,
+        cpType: null,
+        cpPhase: null,
+        interfaceCount: null
       },
       rules: {
-        chargePileName: [
-          { required: true, message: "名称不能为空", trigger: "blur" },
-          { whitespace: true, message: "不允许输入空格", trigger: "blur" },
-          { min: 1, max: 32, message: "长度在 1 到 32 个字符", trigger: "blur" }
+        mfrName: [
+          { required: true, message: "名称不能为空", trigger: "change" }
         ],
-        chargeStation: [
-          { required: true, message: "充电站不能为空", trigger: "change" }
+        mfrAbbr: [
+          { required: true, message: "桩厂商代号不能为空", trigger: "change" }
         ],
-        chargePriceModel: [
-          { required: true, message: "计费模板不能为空", trigger: "change" }
+        model: [
+          { required: true, message: "桩型号不能为空", trigger: "change" }
         ],
-        chargePileFactory: [
-          { required: true, message: "充电桩厂商不能为空", trigger: "change" }
-        ],
-        chargePileModel: [
-          { required: true, message: "充电桩型号不能为空", trigger: "change" }
-        ],
-        business: [
-          { required: true, message: "运营商不能为空", trigger: "change" }
+        ratedPower: [
+          { required: true, message: "充电桩功率不能为空", trigger: "change" }
         ]
       }
     };
@@ -201,8 +203,8 @@ export default {
 	border-bottom: 1px solid #eeeeee;
 }
 .dialog-factory-add .el-dialog--center .el-dialog__body {
-    text-align: initial;
-    padding: 25px 35px 20px 5px;
+	text-align: initial;
+	padding: 25px 35px 20px 5px;
 }
 </style>
 <style lang="scss" scoped>

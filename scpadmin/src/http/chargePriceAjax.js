@@ -1,12 +1,12 @@
 import axios from "@/utils/Request";
 import RestApi from "@/utils/RestApi";
 export var staticsAjax = {
-  realPileData(xhr) {
-    let url = `${RestApi.api.RealAjax.realPileData}`;
+  getChargePrice(xhr) {
+    let url = `${RestApi.api.RealAjax.getChargePrice}`;
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
   realAlarmData(xhr) {
@@ -14,7 +14,7 @@ export var staticsAjax = {
     return axios({
       method: "post",
       url,
-      params: xhr
+      data: xhr
     });
   },
 };

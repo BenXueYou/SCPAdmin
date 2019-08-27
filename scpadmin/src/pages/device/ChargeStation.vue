@@ -199,7 +199,7 @@ export default {
         .catch(() => {});
     },
     deleteBtnAct(data) {
-      this.$confirm("是否从该标签中移出?", "提示", {
+      this.$confirm("是否删除该条数据?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"

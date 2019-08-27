@@ -79,6 +79,32 @@ export default {
     };
   },
   methods: {
+    initData() {
+      this.$deviceAjax
+        .getPileFactoryList()
+        .then(res => {
+          if (res.data.success) {
+            this.tableData = res.data.model;
+            this.total = res.data.totalCount;
+          } else {
+          }
+        })
+        .catch(() => {});
+    },
+    deleteData() {
+      this.$deviceAjax
+        .deletePileFactory()
+        .then(res => {
+          if (res.data.success) {
+            this.$message({ type: "success", message: "删除成功" });
+            this.initData();
+          } else {
+            this.$message({ type: "error", message: res.data.errorMessage });
+          }
+        })
+        .catch(() => {});
+    },
+
     close() {
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },
@@ -86,7 +112,22 @@ export default {
     addBtnAct() {
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },
-    deleteBtnAct() {},
+    deleteBtnAct(data) {
+      this.$confirm("是否删除该条数据?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.deleteData(data);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    },
     exportBtnAct() {},
     handleClick(row) {
       this.isShowEidtDialog = !this.isShowEidtDialog;

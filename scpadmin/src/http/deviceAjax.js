@@ -131,6 +131,39 @@ export var deviceAjax = {
       data: xhr
     });
   },
+  getProvinceList(xhr) {
+    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getProvince}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  getCityByProvinceId(xhr) {
+    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getCityByProvinceId}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  getAreaListByCityId(xhr) {
+    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getAreaListByCityId}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  getAddressListByAreaId(xhr) {
+    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getAddressListByAreaId}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+
 };
 
 function install(Vue) {
