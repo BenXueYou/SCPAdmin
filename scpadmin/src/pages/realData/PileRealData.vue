@@ -87,16 +87,20 @@
 				<el-table-column prop="date" label="运营商" width="120"></el-table-column>
 				<el-table-column prop="name" label="充电站" width="150"></el-table-column>
 				<el-table-column prop="index" label="枪号" width="60"></el-table-column>
-				<el-table-column prop="province" label="充电类型" width="100"></el-table-column>
-				<el-table-column prop="city" label="充电模式" width="100"></el-table-column>
-				<el-table-column prop="zip" label="充电开始时间" width="180"></el-table-column>
-				<el-table-column prop="zip" label="充电结束时间" width="180"></el-table-column>
-				<el-table-column prop="zip" label="交易状态" width="100"></el-table-column>
-				<el-table-column prop="zip" label="订单编号" width="300"></el-table-column>
-				<el-table-column prop="zip" label="用户姓名" width="120"></el-table-column>
-				<el-table-column prop="zip" label="充电时长" width="180"></el-table-column>
-				<el-table-column prop="zip" label="充电电量" width="120"></el-table-column>
-				<el-table-column prop="zip" label="充电总金额" width="100"></el-table-column>
+				<el-table-column prop="province" label="枪状态" width="100"></el-table-column>
+				<el-table-column prop="city" label="SOC" width="100"></el-table-column>
+				<el-table-column prop="zip" label="充电电量(kWh)" width="100"></el-table-column>
+				<el-table-column prop="zip" label="充电金额(元)" width="100"></el-table-column>
+				<el-table-column prop="zip" label="已充时间(分)" width="100"></el-table-column>
+				<el-table-column prop="zip" label="功率(kw)"></el-table-column>
+				<el-table-column prop="zip" label="电压(V)"></el-table-column>
+				<el-table-column prop="zip" label="电流(A)" ></el-table-column>
+				<el-table-column prop="zip" label="电池组最高温度(°C)" width="120"></el-table-column>
+				<el-table-column prop="zip" label="电池组最低温度" width="100"></el-table-column>
+				<el-table-column prop="zip" label="单体电池最高温度(°C)" width="120"></el-table-column>
+				<el-table-column prop="zip" label="单体组最低温度" width="100"></el-table-column>
+				<el-table-column prop="zip" label="充电机温度(°C)" width="120"></el-table-column>
+				<el-table-column prop="zip" label="充电导引电压(V)" width="100"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>

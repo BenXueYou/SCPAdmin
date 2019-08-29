@@ -1,110 +1,70 @@
 <template>
 	<el-row
-		class="ChargeRecord"
+		class="FaultAlarmRecord"
 		v-loading="mainScreenLoading"
 		element-loading-background="rgba(0, 0, 0, 0.8)"
 	>
 		<div class="titleBox">
 			位置：
-			<span>运营管理／充电记录</span>
+			<span>设备监控／告警记录</span>
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu" style="padding-bottom:10px">
-					<div class="flex-sbw">
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>用户名：</span>
-							<el-input v-model="station"></el-input>
-						</div>
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>充电桩ID：</span>
-							<el-input v-model="station"></el-input>
-						</div>
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>手机号：</span>
-							<el-input v-model="station"></el-input>
-						</div>
-						<div class="dateBox">
-							<span class="topTitleTxt">充电时间：</span>
-							<el-date-picker
-								v-model="beginTime"
-								type="datetime"
-								class="time-interal-date"
-								size="small"
-								placeholder="选择日期"
-								value-format="yyyy-MM-dd HH:mm:ss"
-							></el-date-picker>
-							<span class="time-line">—</span>
-							<el-date-picker
-								v-model="endTime"
-								type="datetime"
-								class="time-interal-date"
-								placeholder="选择日期"
-								size="small"
-								value-format="yyyy-MM-dd HH:mm:ss"
-							></el-date-picker>
-						</div>
+				<div class="flex-st">
+					<div class="flex-sbw-div">
+						<span class="topTitleTxt">确认状态：</span>
+						<el-select
+							class="left-space time-interal"
+							v-model="operator"
+							clearable
+							placeholder="运营商"
+							size="small"
+						>
+							<el-option
+								v-for="item in operatorOptions"
+								:key="item.typeStr"
+								:label="item.typeName"
+								:value="item.typeStr"
+							></el-option>
+						</el-select>
+					</div>
+					<div class="flex-sbw-div dateBox">
+						<span class="topTitleTxt">起始时间：</span>
+						<el-date-picker
+							v-model="beginTime"
+							type="datetime"
+							class="time-interal-date"
+							size="small"
+							placeholder="选择日期"
+							value-format="yyyy-MM-dd HH:mm:ss"
+						></el-date-picker>
+						<span class="time-line">—</span>
+						<el-date-picker
+							v-model="endTime"
+							type="datetime"
+							class="time-interal-date"
+							placeholder="选择日期"
+							size="small"
+							value-format="yyyy-MM-dd HH:mm:ss"
+						></el-date-picker>
+					</div>
+					<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 				</div>
-			</div>
-			<div class="topMenu flex-st" style="margin-bottom: 15px;">
-				<div class="flex-sbw-div">
-					<span class="topTitleTxt">运营商：</span>
-					<el-select
-						class="left-space time-interal"
-						v-model="operator"
-						clearable
-						placeholder="运营商"
-						size="small"
-					>
-						<el-option
-							v-for="item in operatorOptions"
-							:key="item.typeStr"
-							:label="item.typeName"
-							:value="item.typeStr"
-						></el-option>
-					</el-select>
-				</div>
-				<div class="flex-sbw-div">
-					<span class="topTitleTxt">充电方式：</span>
-					<el-select
-						class="left-space time-interal"
-						v-model="operator"
-						clearable
-						placeholder="充电方式"
-						size="small"
-					>
-						<el-option
-							v-for="item in operatorOptions"
-							:key="item.typeStr"
-							:label="item.typeName"
-							:value="item.typeStr"
-						></el-option>
-					</el-select>
-				</div>
-			</div>
-			<div class="topMenu flex-st" style="margin-bottom: 5px;">
-				<el-button type="primary" @click="deleteBtnAct" style="margin:-5px 10px 0">批量导出</el-button>
-				<el-button type="primary" @click="queryBtnAct" style="margin:-5px 10px 0">查询</el-button>
 			</div>
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="运营商" width="120"></el-table-column>
-				<el-table-column prop="name" label="充电站" width="150"></el-table-column>
-				<el-table-column prop="id" label="充电桩序列号" width="180"></el-table-column>
+				<el-table-column prop="id" label="充电桩" width="180"></el-table-column>
 				<el-table-column prop="index" label="枪号" width="60"></el-table-column>
-				<el-table-column prop="province" label="充电类型" width="100"></el-table-column>
-				<el-table-column prop="city" label="充电模式" width="100"></el-table-column>
-				<el-table-column prop="zip" label="充电开始时间" width="180"></el-table-column>
-				<el-table-column prop="zip" label="充电结束时间" width="180"></el-table-column>
-				<el-table-column prop="zip" label="交易状态" width="100"></el-table-column>
-				<el-table-column prop="zip" label="订单编号" width="300"></el-table-column>
-				<el-table-column prop="zip" label="用户姓名" width="120"></el-table-column>
-				<el-table-column prop="zip" label="充电时长" width="180"></el-table-column>
-				<el-table-column prop="zip" label="充电电量" width="120"></el-table-column>
-				<el-table-column prop="zip" label="充电总金额" width="100"></el-table-column>
+				<el-table-column prop="zip" label="APP/卡号" width="180"></el-table-column>
+				<el-table-column prop="zip" label="记录时间" width="180"></el-table-column>
+				<el-table-column prop="zip" label="充电方式" width="100"></el-table-column>
+				<el-table-column prop="zip" label="告警描述" width="300"></el-table-column>
+				<el-table-column prop="zip" label="确认状态" width="120"></el-table-column>
+				<el-table-column prop="zip" label="确认模式" width="180"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
+						<el-button @click="handleClick(scope.row)" type="text" size="small">确认</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -174,33 +134,33 @@ export default {
 };
 </script>
 <style>
-.ChargeRecord .flex-sbw-item .el-input,
-.ChargeRecord .flex-sbw-item .el-input__inner {
+.FaultAlarmRecord .flex-sbw-item .el-input,
+.FaultAlarmRecord .flex-sbw-item .el-input__inner {
 	width: 160px;
 	height: 32px;
 }
-.ChargeRecord .el-date-editor.el-input,
-.ChargeRecord .el-date-editor.el-input__inner {
+.FaultAlarmRecord .el-date-editor.el-input,
+.FaultAlarmRecord .el-date-editor.el-input__inner {
 	width: 190px;
 }
-.ChargeRecord .el-input--suffix .el-input__inner {
+.FaultAlarmRecord .el-input--suffix .el-input__inner {
 	padding-right: 10px;
 }
 
 @media screen and (max-width: 1540px) {
-	.ChargeRecord .flex-sbw-item {
+	.FaultAlarmRecord .flex-sbw-item {
 		margin-right: 5px !important;
 	}
-	.ChargeRecord .flex-sbw-item .el-input,
-	.ChargeRecord .flex-sbw-item .el-input__inner {
+	.FaultAlarmRecord .flex-sbw-item .el-input,
+	.FaultAlarmRecord .flex-sbw-item .el-input__inner {
 		width: 120px;
 		height: 32px;
 	}
-	.ChargeRecord .el-date-editor.el-input,
-	.ChargeRecord .el-date-editor.el-input__inner {
+	.FaultAlarmRecord .el-date-editor.el-input,
+	.FaultAlarmRecord .el-date-editor.el-input__inner {
 		width: 180px;
 	}
-	.ChargeRecord .el-input--suffix .el-input__inner {
+	.FaultAlarmRecord .el-input--suffix .el-input__inner {
 		padding-right: 10px !important;
 	}
 }
@@ -208,7 +168,7 @@ export default {
 
 <style lang='scss' scoped>
 @import "@/style/variables.scss";
-.ChargeRecord {
+.FaultAlarmRecord {
 	text-align: center;
 	height: 100%;
 	.titleBox {
@@ -241,7 +201,7 @@ export default {
 			justify-content: flex-start;
 			padding-bottom: 15px;
 			.flex-sbw-div {
-				margin: 0 10px;
+				margin: 0 5% 0 10px;
 			}
 			.el-button {
 				color: #ffffff;
