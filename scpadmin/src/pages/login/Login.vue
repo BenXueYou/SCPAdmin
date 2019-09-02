@@ -137,11 +137,11 @@ export default {
   created() {},
   mounted() {
     this.formLabelAlign.username = this.$store.state.home.account;
-    // if (this.$store.state.home.Authorization) {
-    let index = window.location.href.lastIndexOf("/");
-    let suffix = window.location.href.substring(0, index + 1);
-    window.location.href = suffix + "Main";
-    // }
+    if (this.$store.state.home.Authorization) {
+      let index = window.location.href.lastIndexOf("/");
+      let suffix = window.location.href.substring(0, index + 1);
+      window.location.href = suffix + "Main";
+    }
   },
   methods: {
     login() {
@@ -170,11 +170,12 @@ export default {
           this.$store.dispatch("setAccount", "");
           this.$store.dispatch("SET_USERUUID", "");
         }
+        debugger;
+        let operatorId = body.model.operatorId;
+        this.$store.dispatch("setOperatorId", operatorId);
+
         let Authorization = body.model.token;
         this.$store.dispatch("setAuthorization", Authorization);
-
-        // 设置ProjectUuid 默认设置第一个，其他Uuid可以在切换项目更改
-        this.$store.dispatch("setOperatorId", body.model.operatorId);
         // 刷新页面以便于更新projectUuid
         this.$nextTick(() => {
           window.location.reload();

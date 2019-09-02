@@ -31,10 +31,10 @@
 							size="small"
 						>
 							<el-option
-								v-for="item in stationOptions"
-								:key="item.typeStr"
-								:label="item.typeName"
-								:value="item.typeStr"
+								v-for="item in operatorOptions"
+								:key="item.operatorId"
+								:label="item.operatorName"
+								:value="item.operatorId"
 							></el-option>
 						</el-select>
 					</div>
@@ -44,7 +44,7 @@
 							class="left-space time-interal"
 							v-model="type"
 							clearable
-							placeholder="处理状态"
+							placeholder="统计类型"
 							size="small"
 						>
 							<el-option
@@ -118,6 +118,7 @@ export default {
   },
   mounted: function() {
     console.log(this.$common.getStartTime());
+    this.operatorOptions = this.$store.state.home.operatorArr;
     this.initData();
     this.initLineData();
     let day = new Date();

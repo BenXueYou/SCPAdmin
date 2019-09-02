@@ -30,9 +30,9 @@
 							>
 								<el-option
 									v-for="item in businessOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
+									:key="item.operatorId"
+									:label="item.operatorName"
+									:value="item.operatorId"
 								></el-option>
 							</el-select>
 						</el-form-item>
@@ -48,9 +48,9 @@
 							>
 								<el-option
 									v-for="item in chargeStationOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
+									:key="item.csId"
+									:label="item.csName"
+									:value="item.csId"
 								></el-option>
 							</el-select>
 						</el-form-item>
@@ -207,6 +207,8 @@ export default {
   },
   created() {},
   mounted() {
+    this.businessOptions = this.$store.state.home.operatorArr;
+    this.chargeStationOptions = this.$store.state.home.chargeStationArr;
     this.initData();
   },
   methods: {

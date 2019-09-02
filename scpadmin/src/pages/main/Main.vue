@@ -27,14 +27,15 @@ export default {
   },
   created() {},
   mounted() {
-    this.getOperatoList();
-    this.getChargeStationList();
+    this.getOperatorList();
+    this.getChargeStationList({ pageIndex: 1, pageSize: 100000 });
+    this.getProvinceList();
   },
   methods: {
     // 获取当前账号下的运营商
-    getOperatoList() {
+    getOperatorList() {
       this.$userAjax
-        .getOperatoList()
+        .getOperatorList()
         .then(res => {
           if (res.data.success) {
             console.log(res.data);
@@ -46,9 +47,30 @@ export default {
         .catch(() => {});
     },
     // 获取当前账号下的充电站
-    getChargeStationList() {},
+    getChargeStationList(data) {
+      this.$deviceAjax.getChargeStationList(data)
+        .then(res => {
+          if (res.data.success) {
+            this.$store.dispatch("setChargeStationArr", res.data.model);
+          } else {
+            this.$message({ type: "warning", message: res.data.errMsg });
+          }
+        })
+        .catch(() => {});
+    },
     // 获取省市区地址
-    getAddressList() {}
+    getProvinceList() {
+      this.$deviceAjax
+        .getProvinceList()
+        .then(res => {
+          if (res.data.success) {
+            this.$store.dispatch("setProvinceArr", res.data.model);
+          } else {
+            this.$message({ type: "warning", message: res.data.errMsg });
+          }
+        })
+        .catch(() => {});
+    }
   },
   watch: {},
   destroyed() {}

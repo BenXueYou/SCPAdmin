@@ -6,7 +6,7 @@ import ElementUI from 'element-ui';
 import App from './App';
 import echarts from 'echarts';
 import store from '@/store/store.js';
-// import './permission.js';
+import './permission.js';
 import businessAjax from '@/http/businessAjax.js';
 import deviceAjax from '@/http/deviceAjax.js';
 import homeAjax from '@/http/homeAjax.js';

@@ -64,7 +64,7 @@ export default {
       updatePileFactory: `${httpUrlHeader}/manufacturer/update`,
 
       // 省市区地址管理接口
-      getProvince: `${httpUrlHeader}/`,
+      getProvince: `${httpUrlHeader}/address/province/list`,
       getCityByProvinceId: `${httpUrlHeader}/address/queryCityListByProvinceId`,
       getAreaListByCityId: `${httpUrlHeader}/address/queryAreaListByCityId`,
       getAddressListByAreaId: `${httpUrlHeader}/address/queryAddressByAreaId`,

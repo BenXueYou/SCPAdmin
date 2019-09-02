@@ -42,7 +42,7 @@ export var userAjax = {
     });
   },
   getOperatorList(xhr) {
-    let url = `${RestApi.api.UserAjax.updateOperator}`;
+    let url = `${RestApi.api.UserAjax.getOperatorOptions}`;
     return axios({
       method: "post",
       url,

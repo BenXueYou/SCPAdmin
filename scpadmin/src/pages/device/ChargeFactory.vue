@@ -18,8 +18,12 @@
 						<el-input style="width:auto" v-model="operator"></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px;">
-						<span>地址：</span>
-						<el-input style="width:auto" v-model="address"></el-input>
+						<span>桩厂商：</span>
+						<el-input style="width:auto" v-model="mfrName"></el-input>
+					</div>
+					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px;">
+						<span>桩型号：</span>
+						<el-input style="width:auto" v-model="model"></el-input>
 					</div>
 				</div>
 				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;margin-right:5%">查询</el-button>
@@ -27,12 +31,11 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="桩厂商"></el-table-column>
-				<el-table-column prop="name" label="桩型号"></el-table-column>
-				<el-table-column prop="province" label="桩类型"></el-table-column>
-				<el-table-column prop="city" label="桩相数"></el-table-column>
-				<el-table-column prop="province" label="桩枪数"></el-table-column>
-				<el-table-column prop="zip" label="纬度"></el-table-column>
+				<el-table-column prop="mfrName" label="桩厂商"></el-table-column>
+				<el-table-column prop="model" label="桩型号"></el-table-column>
+				<el-table-column prop="cpType" label="桩类型"></el-table-column>
+				<el-table-column prop="cpPhase" label="桩相数"></el-table-column>
+				<el-table-column prop="interfaceCount" label="桩枪数"></el-table-column>
 				<el-table-column label="操作" width="100">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
@@ -60,7 +63,9 @@ export default {
   components: {
     ChargeFactoryAdd
   },
-  mounted: function() {},
+  mounted: function() {
+    this.initData();
+  },
   data: function() {
     return {
       isShowEidtDialog: false,
@@ -75,13 +80,25 @@ export default {
       stationOptions: [],
       operator: null,
       mainScreenLoading: false,
-      tableData: window.config.tableData
+      tableData: window.config.tableData,
+      mfrName: null,
+      model: null
     };
   },
   methods: {
     initData() {
+      let data = {
+        model: {
+          mfrName: this.mfrName,
+          model: this.model
+        },
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
+        queryCount: true,
+        start: 0
+      };
       this.$deviceAjax
-        .getPileFactoryList()
+        .getPileFactoryList(data)
         .then(res => {
           if (res.data.success) {
             this.tableData = res.data.model;
@@ -108,7 +125,9 @@ export default {
     close() {
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },
-    queryBtnAct() {},
+    queryBtnAct() {
+      this.initData();
+    },
     addBtnAct() {
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },

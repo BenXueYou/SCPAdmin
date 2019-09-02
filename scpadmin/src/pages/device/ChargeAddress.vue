@@ -19,12 +19,13 @@
 							clearable
 							placeholder="请选择省"
 							size="small"
+							@change="provinceChangeAct"
 						>
 							<el-option
 								v-for="item in provinceOptions"
-								:key="item.typeStr"
-								:label="item.typeName"
-								:value="item.typeStr"
+								:key="item.provinceId"
+								:label="item.province"
+								:value="item.provinceId"
 							></el-option>
 						</el-select>
 					</div>
@@ -36,6 +37,7 @@
 							clearable
 							placeholder="处理状态"
 							size="small"
+							@change="cityChangeAct"
 						>
 							<el-option
 								v-for="item in cityOptions"
@@ -53,6 +55,7 @@
 							clearable
 							placeholder="处理状态"
 							size="small"
+							@change="areaChangeAct"
 						>
 							<el-option
 								v-for="item in areaOptions"
@@ -105,7 +108,10 @@ export default {
   components: {
     ChargeAddressEdit
   },
-  mounted: function() {},
+  mounted: function() {
+    this.provinceOptions = this.$store.state.home.provinceArr;
+    this.initData();
+  },
   data: function() {
     return {
       isShowEidtDialog: false,
@@ -127,6 +133,56 @@ export default {
     };
   },
   methods: {
+    initData() {
+    //   let data = {
+    //     model: {
+    //       addressName: this.address,
+    //       areaId: this.area,
+    //       cityId: this.city,
+    //       provinceId: this.province
+    //     },
+    //     pageIndex: this.currentPage,
+    //     pageSize: this.pageSize,
+    //     queryCount: true,
+    //     start: 0
+    //   };
+    //   this.$deviceAjax.get
+    //     .then(res => {
+    //       if (res.data.success) {
+    //         this.tableData = res.data.model;
+    //       } else {
+    //         this.$message({type: 'warning', message: res.data.errMsg});
+    //       }
+    //     })
+    //     .catch(() => {});
+    },
+    provinceChangeAct() {
+      this.$deviceAjax.getCityByProvinceId({provinceId: this.province}).then(res => {
+        if (res.data.success) {
+          this.cityOptions = res.data.model;
+        } else {
+          this.$message({type: 'warning', message: res.data.errMsg});
+        }
+      }).catch(() => {});
+    },
+    cityChangeAct() {
+      this.$deviceAjax.getAddressListByAreaId({cityId: this.province}).then(res => {
+        if (res.data.success) {
+          this.areaOptions = res.data.model;
+        } else {
+          this.$message({type: 'warning', message: res.data.errMsg});
+        }
+      }).catch(() => {});
+    },
+    areaChangeAct() {
+      this.$deviceAjax.getCityByProvinceId({areaId: this.province}).then(res => {
+        if (res.data.success) {
+          this.address = res.data.model;
+        } else {
+          this.$message({type: 'warning', message: res.data.errMsg});
+        }
+      }).catch(() => {});
+    },
     close() {
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },

@@ -1,10 +1,8 @@
 import axios from "@/utils/Request";
 import RestApi from "@/utils/RestApi";
-let ip = window.config.ip;
-let protocolHeader = window.config.protocolHeader;
-export var deviceAjax = {
+export var DeviceAjax = {
   getAddOptions(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getAddOptions}`;
+    let url = `${RestApi.api.DeviceAjax.getAddOptions}`;
     return axios({
       method: "post",
       url,
@@ -12,7 +10,7 @@ export var deviceAjax = {
     });
   },
   deletePile(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.deletePile}`;
+    let url = `${RestApi.api.DeviceAjax.deletePile}`;
     return axios({
       method: "post",
       url,
@@ -20,7 +18,7 @@ export var deviceAjax = {
     });
   },
   addPile(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.addPile}`;
+    let url = `${RestApi.api.DeviceAjax.addPile}`;
     return axios({
       method: "post",
       url,
@@ -28,7 +26,7 @@ export var deviceAjax = {
     });
   },
   getPileList(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getPileList}`;
+    let url = `${RestApi.api.DeviceAjax.getPileList}`;
     return axios({
       method: "post",
       url,
@@ -36,7 +34,7 @@ export var deviceAjax = {
     });
   },
   getEditOptions(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getEditOptions}`;
+    let url = `${RestApi.api.DeviceAjax.getEditOptions}`;
     return axios({
       method: "post",
       url,
@@ -44,7 +42,7 @@ export var deviceAjax = {
     });
   },
   updatePile(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.updatePile}`;
+    let url = `${RestApi.api.DeviceAjax.updatePile}`;
     return axios({
       method: "post",
       url,
@@ -52,7 +50,7 @@ export var deviceAjax = {
     });
   },
   deleteChargeStation(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.deleteChargeStation}`;
+    let url = `${RestApi.api.DeviceAjax.deleteChargeStation}`;
     return axios({
       method: "post",
       url,
@@ -60,7 +58,7 @@ export var deviceAjax = {
     });
   },
   getChargeStationList(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getChargeStationList}`;
+    let url = `${RestApi.api.DeviceAjax.getChargeStationList}`;
     return axios({
       method: "post",
       url,
@@ -68,7 +66,7 @@ export var deviceAjax = {
     });
   },
   addChargeStation(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.addChargeStation}`;
+    let url = `${RestApi.api.DeviceAjax.addChargeStation}`;
     return axios({
       method: "post",
       url,
@@ -76,7 +74,7 @@ export var deviceAjax = {
     });
   },
   editChargeStationOptions(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.editChargeStationOptions}`;
+    let url = `${RestApi.api.DeviceAjax.editChargeStationOptions}`;
     return axios({
       method: "post",
       url,
@@ -84,7 +82,7 @@ export var deviceAjax = {
     });
   },
   updateChargeStation(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.updateChargeStation}`;
+    let url = `${RestApi.api.DeviceAjax.updateChargeStation}`;
     return axios({
       method: "post",
       url,
@@ -92,7 +90,7 @@ export var deviceAjax = {
     });
   },
   deletePileFactory(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.deletePileFactory}`;
+    let url = `${RestApi.api.DeviceAjax.deletePileFactory}`;
     return axios({
       method: "post",
       url,
@@ -100,7 +98,7 @@ export var deviceAjax = {
     });
   },
   getPileFactoryList(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getPileFactoryList}`;
+    let url = `${RestApi.api.DeviceAjax.getPileFactoryList}`;
     return axios({
       method: "post",
       url,
@@ -108,7 +106,7 @@ export var deviceAjax = {
     });
   },
   addPileFactory(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.addPileFactory}`;
+    let url = `${RestApi.api.DeviceAjax.addPileFactory}`;
     return axios({
       method: "post",
       url,
@@ -116,7 +114,7 @@ export var deviceAjax = {
     });
   },
   editPileFactoryOptions(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.editPileFactoryOptions}`;
+    let url = `${RestApi.api.DeviceAjax.editPileFactoryOptions}`;
     return axios({
       method: "post",
       url,
@@ -124,7 +122,7 @@ export var deviceAjax = {
     });
   },
   updatePileFactory(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.updatePileFactory}`;
+    let url = `${RestApi.api.DeviceAjax.updatePileFactory}`;
     return axios({
       method: "post",
       url,
@@ -132,7 +130,7 @@ export var deviceAjax = {
     });
   },
   getProvinceList(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getProvince}`;
+    let url = `${RestApi.api.DeviceAjax.getProvince}`;
     return axios({
       method: "post",
       url,
@@ -140,7 +138,7 @@ export var deviceAjax = {
     });
   },
   getCityByProvinceId(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getCityByProvinceId}`;
+    let url = `${RestApi.api.DeviceAjax.getCityByProvinceId}`;
     return axios({
       method: "post",
       url,
@@ -148,7 +146,7 @@ export var deviceAjax = {
     });
   },
   getAreaListByCityId(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getAreaListByCityId}`;
+    let url = `${RestApi.api.DeviceAjax.getAreaListByCityId}`;
     return axios({
       method: "post",
       url,
@@ -156,7 +154,7 @@ export var deviceAjax = {
     });
   },
   getAddressListByAreaId(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.deviceAjax.getAddressListByAreaId}`;
+    let url = `${RestApi.api.DeviceAjax.getAddressListByAreaId}`;
     return axios({
       method: "post",
       url,
@@ -167,7 +165,7 @@ export var deviceAjax = {
 };
 
 function install(Vue) {
-  Vue.prototype.$deviceAjax = deviceAjax;
+  Vue.prototype.$deviceAjax = DeviceAjax;
 }
 
 export default install;

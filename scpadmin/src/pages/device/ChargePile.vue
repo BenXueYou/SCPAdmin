@@ -21,9 +21,9 @@
 					>
 						<el-option
 							v-for="item in operatorOptions"
-							:key="item.typeStr"
-							:label="item.typeName"
-							:value="item.typeStr"
+							:key="item.operatorId"
+							:label="item.operatorName"
+							:value="item.operatorId"
 						></el-option>
 					</el-select>
 				</div>
@@ -38,9 +38,9 @@
 					>
 						<el-option
 							v-for="item in stationOptions"
-							:key="item.typeStr"
-							:label="item.typeName"
-							:value="item.typeStr"
+							:key="item.csId"
+							:label="item.csName"
+							:value="item.csId"
 						></el-option>
 					</el-select>
 				</div>
@@ -74,15 +74,15 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="桩名"></el-table-column>
-				<el-table-column prop="name" label="桩ID"></el-table-column>
-				<el-table-column prop="province" label="运营商"></el-table-column>
-				<el-table-column prop="city" label="充电站"></el-table-column>
-				<el-table-column prop="province" label="费率模板"></el-table-column>
+				<el-table-column prop="cpName" label="桩名"></el-table-column>
+				<el-table-column prop="cpId" label="桩ID"></el-table-column>
+				<el-table-column prop="operatorName" label="运营商"></el-table-column>
+				<el-table-column prop="csName" label="充电站"></el-table-column>
+				<el-table-column prop="rateId" width="85" label="费率模板"></el-table-column>
 				<el-table-column prop="zip" label="桩厂商"></el-table-column>
-				<el-table-column prop="city" label="桩型号"></el-table-column>
-				<el-table-column prop="zip" label="建桩日期"></el-table-column>
-				<el-table-column prop="address" label="详细地址" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="model" label="桩型号"></el-table-column>
+				<el-table-column prop="gmtCreate" label="建桩日期"></el-table-column>
+				<el-table-column prop="location" label="详细地址" show-overflow-tooltip></el-table-column>
 				<el-table-column label="操作" width="100">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
@@ -119,7 +119,11 @@ export default {
   components: {
     ChargePileAdd
   },
-  mounted: function() {},
+  mounted: function() {
+    this.operatorOptions = this.$store.state.home.operatorArr;
+    this.stationOptions = this.$store.state.home.chargeStationArr;
+    this.initData();
+  },
   data: function() {
     return {
       isShowAddDialog: false,
@@ -138,6 +142,31 @@ export default {
     };
   },
   methods: {
+    initData() {
+      var data = {
+        model: {
+          csId: this.station,
+          endTime: this.endTime,
+          operatorId: this.operator,
+          operatorLoginId: this.$store.state.home.operatorId,
+          startTime: this.beginTime
+        },
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
+        queryCount: true,
+        start: 0
+      };
+      this.$deviceAjax
+        .getPileList(data)
+        .then(res => {
+          if (res.data.success) {
+            this.tableData = res.data.model;
+          } else {
+            this.$message({ type: "warning", message: res.data.errMsg });
+          }
+        })
+        .catch(() => {});
+    },
     close() {
       this.isShowAddDialog = false;
     },
