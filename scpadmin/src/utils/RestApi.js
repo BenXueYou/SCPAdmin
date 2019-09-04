@@ -69,6 +69,12 @@ export default {
       getAreaListByCityId: `${httpUrlHeader}/address/queryAreaListByCityId`,
       getAddressListByAreaId: `${httpUrlHeader}/address/queryAddressByAreaId`,
 
+      // 充电桩地址管理
+      getChargeAddressList: `${httpUrlHeader}/address/list-by-page`,
+      deleteChargeAddress: `${httpUrlHeader}/address/delete`,
+      postChargeAddress: `${httpUrlHeader}/address/save`,
+      editChargeAddress: `${httpUrlHeader}/address/toEdit`,
+      updateChargeAddress: `${httpUrlHeader}/address/update`,
     },
 
     /**

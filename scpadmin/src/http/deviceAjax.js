@@ -142,7 +142,7 @@ export var DeviceAjax = {
     return axios({
       method: "post",
       url,
-      data: xhr
+      params: xhr
     });
   },
   getAreaListByCityId(xhr) {
@@ -150,11 +150,51 @@ export var DeviceAjax = {
     return axios({
       method: "post",
       url,
-      data: xhr
+      params: xhr
     });
   },
   getAddressListByAreaId(xhr) {
     let url = `${RestApi.api.DeviceAjax.getAddressListByAreaId}`;
+    return axios({
+      method: "post",
+      url,
+      params: xhr
+    });
+  },
+  getChargeAddressList(xhr) {
+    let url = `${RestApi.api.DeviceAjax.getChargeAddressList}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  deleteChargeAddress(xhr) {
+    let url = `${RestApi.api.DeviceAjax.deleteChargeAddress}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  postChargeAddress(xhr) {
+    let url = `${RestApi.api.DeviceAjax.postChargeAddress}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
+  editChargeAddress(xhr) {
+    let url = `${RestApi.api.DeviceAjax.editChargeAddress}`;
+    return axios({
+      method: "post",
+      url,
+      params: xhr
+    });
+  },
+  updateChargeAddress(xhr) {
+    let url = `${RestApi.api.DeviceAjax.updateChargeAddress}`;
     return axios({
       method: "post",
       url,

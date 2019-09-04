@@ -26,12 +26,13 @@
 							size="small"
 							clearable
 							placeholder="请选择省"
+							@change="provinceChangeAct"
 						>
 							<el-option
 								v-for="item in provinceOptions"
-								:key="item.typeStr"
-								:label="item.typeName"
-								:value="item.typeStr"
+								:key="item.province"
+								:label="item.province"
+								:value="item.provinceId"
 							></el-option>
 						</el-select>
 					</el-form-item>
@@ -40,16 +41,17 @@
 					<el-form-item label="市：" prop="city">
 						<el-select
 							class="time-interal"
-							v-model="formLabelAlign.city"
+							v-model="formLabelAlign.cityName"
 							size="small"
 							clearable
 							placeholder="请选择市"
+							@change="cityChangeAct"
 						>
 							<el-option
 								v-for="item in cityOptions"
-								:key="item.typeStr"
-								:label="item.typeName"
-								:value="item.typeStr"
+								:key="item.cityId"
+								:label="item.cityName"
+								:value="item.cityId"
 							></el-option>
 						</el-select>
 					</el-form-item>
@@ -58,23 +60,23 @@
 					<el-form-item label="区：" prop="area">
 						<el-select
 							class="time-interal"
-							v-model="formLabelAlign.area"
+							v-model="formLabelAlign.areaId"
 							size="small"
 							clearable
 							placeholder="请选择区"
 						>
 							<el-option
 								v-for="item in areaOptions"
-								:key="item.typeStr"
-								:label="item.typeName"
-								:value="item.typeStr"
+								:key="item.areaId"
+								:label="item.areaName"
+								:value="item.areaId"
 							></el-option>
 						</el-select>
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-form-item label="地址：" prop="address">
-						<el-input style="width:auto" v-model="formLabelAlign.address"></el-input>
+						<el-input style="width:auto" v-model="formLabelAlign.addressName"></el-input>
 					</el-form-item>
 				</el-row>
 			</el-form>
@@ -102,7 +104,7 @@ export default {
       type: Boolean,
       default: false
     },
-    initTreeRootData: {
+    rowData: {
       type: Object,
       default: () => {}
     }
@@ -142,6 +144,7 @@ export default {
   },
   created() {},
   mounted() {
+    this.provinceOptions = this.$store.state.home.provinceArr;
     this.initData();
   },
   methods: {
@@ -163,11 +166,40 @@ export default {
       });
     },
     addHouse() {},
-    addHouseSuccessResponse(body) {}
+    addHouseSuccessResponse(body) {},
+    provinceChangeAct() {
+      this.$deviceAjax
+        .getCityByProvinceId({ provinceId: this.province })
+        .then(res => {
+          if (res.data.success) {
+            this.cityOptions = res.data.model;
+          } else {
+            this.$message({ type: "warning", message: res.data.errMsg });
+          }
+        })
+        .catch(() => {});
+    },
+    cityChangeAct() {
+      this.$deviceAjax
+        .getAreaListByCityId({ cityId: this.city })
+        .then(res => {
+          if (res.data.success) {
+            this.areaOptions = res.data.model;
+          } else {
+            this.$message({ type: "warning", message: res.data.errMsg });
+          }
+        })
+        .catch(() => {});
+    }
   },
   watch: {
     isShow(val) {
       this.isCurrentShow = val;
+    },
+    rowData(val) {
+      this.formLabelAlign = JSON.parse(JSON.stringify(val));
+      this.cityOptions = val.cityList;
+      this.areaOptions = val.areaList;
     }
   },
   destroyed() {}
@@ -186,7 +218,7 @@ export default {
 	height: 32px;
 	line-height: 32px;
 }
-.dialog-address-edit .el-input .el-input__inner{
+.dialog-address-edit .el-input .el-input__inner {
 	width: 100%;
 }
 .dialog-address-edit .timePickerClass .el-input__icon,

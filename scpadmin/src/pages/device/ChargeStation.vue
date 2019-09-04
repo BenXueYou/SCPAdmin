@@ -21,9 +21,9 @@
 					>
 						<el-option
 							v-for="item in operatorOptions"
-							:key="item.typeStr"
-							:label="item.typeName"
-							:value="item.typeStr"
+							:key="item.operatorId"
+							:label="item.operatorName"
+							:value="item.operatorId"
 						></el-option>
 					</el-select>
 				</div>
@@ -38,9 +38,9 @@
 					>
 						<el-option
 							v-for="item in stationOptions"
-							:key="item.typeStr"
-							:label="item.typeName"
-							:value="item.typeStr"
+							:key="item.csId"
+							:label="item.csName"
+							:value="item.csId"
 						></el-option>
 					</el-select>
 				</div>
@@ -75,9 +75,9 @@
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
 				<el-table-column prop="csName" label="充电站"></el-table-column>
-				<el-table-column prop="name" label="地址"></el-table-column>
-				<el-table-column prop="province" label="运营商"></el-table-column>
-				<el-table-column prop="openTime" label="开放时间"></el-table-column>
+				<el-table-column prop="operatorName" width="180" label="运营商"></el-table-column>
+				<el-table-column prop="openTime" width="120" label="开放时间"></el-table-column>
+				<el-table-column prop="location" show-overflow-tooltip label="地址"></el-table-column>
 				<el-table-column prop="gmtCreate" label="建站日期"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
@@ -107,27 +107,31 @@ export default {
   components: {
     ChargeStationAdd
   },
-  mounted: function() {},
+  mounted: function() {
+    this.operatorOptions = this.$store.state.home.operatorArr;
+    this.stationOptions = this.$store.state.home.chargeStationArr;
+    this.initData();
+  },
   data: function() {
     return {
       queryModel: {
-        addressId: 0,
-        area: "string",
-        areaId: 0,
-        city: "string",
-        cityId: 0,
-        csId: 0,
-        csName: "string",
-        endTime: "string",
-        location: "string",
-        openTime: "string",
-        operatorId: 0,
-        parkFee: 0,
-        property: 0,
-        province: "string",
-        provinceId: 0,
-        startTime: "string",
-        validFlag: 0
+        addressId: null,
+        area: null,
+        areaId: null,
+        city: null,
+        cityId: null,
+        csId: null,
+        csName: null,
+        endTime: null,
+        location: null,
+        openTime: null,
+        operatorId: null,
+        parkFee: null,
+        property: null,
+        province: null,
+        provinceId: null,
+        startTime: null,
+        validFlag: null
       },
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
@@ -148,7 +152,9 @@ export default {
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    queryBtnAct() {},
+    queryBtnAct() {
+      this.initData();
+    },
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
@@ -165,7 +171,7 @@ export default {
       this.$deviceAjax
         .getChargeStationList(data)
         .then(res => {
-          if (res.data.succcess) {
+          if (res.data.success) {
             this.tableData = res.data.model;
             this.total = res.data.totalCount;
           }
@@ -234,10 +240,12 @@ export default {
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}

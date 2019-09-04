@@ -35,15 +35,15 @@
 							class="left-space time-interal"
 							v-model="city"
 							clearable
-							placeholder="处理状态"
+							placeholder="请选择市"
 							size="small"
 							@change="cityChangeAct"
 						>
 							<el-option
 								v-for="item in cityOptions"
-								:key="item.typeStr"
-								:label="item.typeName"
-								:value="item.typeStr"
+								:key="item.cityId"
+								:label="item.cityName"
+								:value="item.cityId"
 							></el-option>
 						</el-select>
 					</div>
@@ -53,15 +53,15 @@
 							class="left-space time-interal"
 							v-model="area"
 							clearable
-							placeholder="处理状态"
+							placeholder="请选择区"
 							size="small"
 							@change="areaChangeAct"
 						>
 							<el-option
 								v-for="item in areaOptions"
-								:key="item.typeStr"
-								:label="item.typeName"
-								:value="item.typeStr"
+								:key="item.areaId"
+								:label="item.areaName"
+								:value="item.areaId"
 							></el-option>
 						</el-select>
 					</div>
@@ -75,12 +75,12 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="省"></el-table-column>
-				<el-table-column prop="name" label="市"></el-table-column>
-				<el-table-column prop="province" label="区"></el-table-column>
-				<el-table-column prop="city" label="地址" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="province" label="经度"></el-table-column>
-				<el-table-column prop="zip" label="纬度"></el-table-column>
+				<el-table-column prop="province" label="省"></el-table-column>
+				<el-table-column prop="cityName" label="市"></el-table-column>
+				<el-table-column prop="areaName" label="区"></el-table-column>
+				<el-table-column prop="addressName" label="地址" show-overflow-tooltip></el-table-column>
+				<el-table-column prop="longitude" label="经度"></el-table-column>
+				<el-table-column prop="latitude" label="纬度"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
@@ -99,7 +99,12 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-address-edit :isShow="isShowEidtDialog" @onCancel="close()" ref="houseTable" />
+		<charge-address-edit
+			:isShow="isShowEidtDialog"
+			:rowData="rowData"
+			@onCancel="close()"
+			ref="houseTable"
+		/>
 	</el-row>
 </template>
 <script>
@@ -129,64 +134,77 @@ export default {
       cityOptions: [],
       province: null,
       mainScreenLoading: false,
-      tableData: window.config.tableData
+      tableData: window.config.tableData,
+      rowData: null
     };
   },
   methods: {
     initData() {
-    //   let data = {
-    //     model: {
-    //       addressName: this.address,
-    //       areaId: this.area,
-    //       cityId: this.city,
-    //       provinceId: this.province
-    //     },
-    //     pageIndex: this.currentPage,
-    //     pageSize: this.pageSize,
-    //     queryCount: true,
-    //     start: 0
-    //   };
-    //   this.$deviceAjax.get
-    //     .then(res => {
-    //       if (res.data.success) {
-    //         this.tableData = res.data.model;
-    //       } else {
-    //         this.$message({type: 'warning', message: res.data.errMsg});
-    //       }
-    //     })
-    //     .catch(() => {});
+      let data = {
+        model: {
+          addressName: this.address,
+          areaId: this.area,
+          cityId: this.city,
+          provinceId: this.province
+        },
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
+        queryCount: true,
+        start: 0
+      };
+      this.$deviceAjax
+        .getChargeAddressList(data)
+        .then(res => {
+          if (res.data.success) {
+            this.tableData = res.data.model;
+          } else {
+            this.$message({ type: "warning", message: res.data.errMsg });
+          }
+        })
+        .catch(() => {});
     },
     provinceChangeAct() {
-      this.$deviceAjax.getCityByProvinceId({provinceId: this.province}).then(res => {
-        if (res.data.success) {
-          this.cityOptions = res.data.model;
-        } else {
-          this.$message({type: 'warning', message: res.data.errMsg});
-        }
-      }).catch(() => {});
+      this.$deviceAjax
+        .getCityByProvinceId({ provinceId: this.province })
+        .then(res => {
+          if (res.data.success) {
+            this.cityOptions = res.data.model;
+          } else {
+            this.$message({ type: "warning", message: res.data.errMsg });
+          }
+        })
+        .catch(() => {});
     },
     cityChangeAct() {
-      this.$deviceAjax.getAddressListByAreaId({cityId: this.province}).then(res => {
-        if (res.data.success) {
-          this.areaOptions = res.data.model;
-        } else {
-          this.$message({type: 'warning', message: res.data.errMsg});
-        }
-      }).catch(() => {});
+      this.$deviceAjax
+        .getAreaListByCityId({ cityId: this.city })
+        .then(res => {
+          if (res.data.success) {
+            this.areaOptions = res.data.model;
+          } else {
+            this.$message({ type: "warning", message: res.data.errMsg });
+          }
+        })
+        .catch(() => {});
     },
     areaChangeAct() {
-      this.$deviceAjax.getCityByProvinceId({areaId: this.province}).then(res => {
-        if (res.data.success) {
-          this.address = res.data.model;
-        } else {
-          this.$message({type: 'warning', message: res.data.errMsg});
-        }
-      }).catch(() => {});
+      //   this.$deviceAjax
+      //     .getAddressListByAreaId({ areaId: this.area })
+      //     .then(res => {
+      //       if (res.data.success) {
+      //         this.address = res.data.model;
+      //       } else {
+      //         this.$message({ type: "warning", message: res.data.errMsg });
+      //       }
+      //     })
+      //     .catch(() => {});
     },
     close() {
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },
-    queryBtnAct() {},
+    queryBtnAct() {
+      this.initData();
+    },
     addBtnAct() {
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },
@@ -195,21 +213,34 @@ export default {
     handleClick(row) {
       this.isShowEidtDialog = !this.isShowEidtDialog;
       console.log(row);
+      this.$deviceAjax
+        .editChargeAddress({ addressId: row.addressId })
+        .then(res => {
+          if (res.data.success) {
+            this.rowData = res.data.model;
+            Object.assign(this.rowData, row);
+          } else {
+            this.$message({ type: "warning", message: res.data.errMsg });
+          }
+        })
+        .catch(() => {});
     },
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}
 };
 </script>
 <style>
-.chargeAddress .el-input__inner {
+.chargeAddress .topMenu .el-input__inner {
 	width: 120px;
 	height: 32px;
 }

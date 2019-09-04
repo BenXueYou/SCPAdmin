@@ -170,7 +170,9 @@ export default {
     close() {
       this.isShowAddDialog = false;
     },
-    queryBtnAct() {},
+    queryBtnAct() {
+      this.initData();
+    },
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
@@ -182,10 +184,12 @@ export default {
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}
