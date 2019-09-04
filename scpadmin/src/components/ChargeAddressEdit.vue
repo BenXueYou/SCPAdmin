@@ -30,7 +30,7 @@
 						>
 							<el-option
 								v-for="item in provinceOptions"
-								:key="item.province"
+								:key="item.provinceId"
 								:label="item.province"
 								:value="item.provinceId"
 							></el-option>
@@ -41,7 +41,7 @@
 					<el-form-item label="市：" prop="city">
 						<el-select
 							class="time-interal"
-							v-model="formLabelAlign.cityName"
+							v-model="formLabelAlign.cityId"
 							size="small"
 							clearable
 							placeholder="请选择市"
@@ -89,8 +89,6 @@
 </template>
 
 <script>
-// import PopoverTreeForBottom from "@/pages/buildingsHouse/components/PopoverTreeForBottom";
-
 export default {
   components: {
     // PopoverTreeForBottom,
@@ -157,13 +155,28 @@ export default {
       this.$emit("onCancel");
     },
     onClickConfirm() {
-      this.$refs.addHouseForm.validate(valid => {
-        if (valid) {
-          this.addHouse();
-        } else {
-          this.$cToast.error("请正确填写内容");
-        }
-      });
+      console.log(this.formLabelAlign);
+      let data = {
+        addressId: 0,
+        addressName: "string",
+        areaId: 0,
+        cityId: this.formLabelAlign.cityId,
+        latitude: 0,
+        longitude: 0,
+        provinceId: this.formLabelAlign.province
+      };
+      Object.assign(data, this.formLabelAlign);
+      this.$deviceAjax
+        .updateChargeAddress(data)
+        .then(res => {
+          if (res.data.success) {
+            this.$emit("onCancel", true);
+            this.$message.success("操作成功");
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
     },
     addHouse() {},
     addHouseSuccessResponse(body) {},
@@ -198,6 +211,7 @@ export default {
     },
     rowData(val) {
       this.formLabelAlign = JSON.parse(JSON.stringify(val));
+      Object.assign(this.formLabelAlign, this.formLabelAlign.address);
       this.cityOptions = val.cityList;
       this.areaOptions = val.areaList;
     }

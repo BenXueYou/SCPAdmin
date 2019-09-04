@@ -199,8 +199,11 @@ export default {
       //     })
       //     .catch(() => {});
     },
-    close() {
+    close(is) {
       this.isShowEidtDialog = !this.isShowEidtDialog;
+      if (is) {
+        this.initData();
+      }
     },
     queryBtnAct() {
       this.initData();

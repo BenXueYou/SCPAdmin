@@ -54,7 +54,12 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-factory-add :isShow="isShowEidtDialog" @onCancel="close()" ref="houseTable" />
+		<charge-factory-add
+			:isShow="isShowEidtDialog"
+			:rowData="rowData"
+			@onCancel="close"
+			ref="houseTable"
+		/>
 	</el-row>
 </template>
 <script>
@@ -82,7 +87,8 @@ export default {
       mainScreenLoading: false,
       tableData: window.config.tableData,
       mfrName: null,
-      model: null
+      model: null,
+      rowData: null
     };
   },
   methods: {
@@ -122,13 +128,18 @@ export default {
         .catch(() => {});
     },
 
-    close() {
+    close(is) {
       this.isShowEidtDialog = !this.isShowEidtDialog;
+      if (is) {
+        this.currentPage = 1;
+        this.initData();
+      }
     },
     queryBtnAct() {
       this.initData();
     },
     addBtnAct() {
+      this.rowData = {};
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },
     deleteBtnAct(data) {
@@ -149,6 +160,18 @@ export default {
     },
     exportBtnAct() {},
     handleClick(row) {
+      this.rowData = row;
+      console.log(row);
+      this.$deviceAjax
+        .editPileFactoryOptions({id: row.id})
+        .then(res => {
+          if (res.data.success) {
+            console.log(res.data.model);
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },
     handleCurrentChange(val) {

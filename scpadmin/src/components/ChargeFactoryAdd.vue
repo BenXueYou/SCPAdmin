@@ -114,7 +114,7 @@ export default {
       type: Boolean,
       default: false
     },
-    initTreeRootData: {
+    rowData: {
       type: Object,
       default: () => {}
     }
@@ -123,21 +123,34 @@ export default {
     return {
       cpTypeOptions: [
         {
-          typeStr: "dc",
+          typeStr: 0,
           typeName: "直流"
         },
         {
-          typeStr: "ac",
+          typeStr: 1,
           typeName: "交流"
         }
       ],
       cpPhaseOptions: [
         {
-          typeStr: "threePhase",
+          typeStr: 1,
           typeName: "三相"
+        },
+        {
+          typeStr: 0,
+          typeName: "单相"
         }
       ],
-      interfaceCountOptions: [],
+      interfaceCountOptions: [
+        {
+          typeStr: 0,
+          typeName: "单枪"
+        },
+        {
+          typeStr: 1,
+          typeName: "双枪"
+        }
+      ],
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
@@ -179,13 +192,49 @@ export default {
       this.$emit("onCancel");
     },
     onClickConfirm() {
-      this.$refs.addHouseForm.validate(valid => {
-        if (valid) {
-          this.addHouse();
-        } else {
-          this.$cToast.error("请正确填写内容");
-        }
-      });
+      let data = {
+        cpPhase: 0,
+        cpType: 0,
+        interfaceCount: 0,
+        mfrAbbr: "string",
+        mfrId: 0,
+        mfrName: "string",
+        model: "string",
+        ratedPower: 0
+      };
+      Object.assign(data, this.formLabelAlign);
+      if (this.formLabelAlign.id) {
+        this.updateHttpFactory(data);
+      } else {
+        this.addHttpFactory(data);
+      }
+    },
+    addHttpFactory() {
+      this.$deviceAjax
+        .addPileFactory(this.formLabelAlign)
+        .then(res => {
+          console.log(res.data);
+          if (res.data.success) {
+            this.$message.success("新增成功");
+            this.$emit("onCancel", true);
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
+    },
+    updateHttpFactory() {
+      this.$deviceAjax
+        .updatePileFactory(this.formLabelAlign)
+        .then(res => {
+          if (res.data.success) {
+            this.$message.success("修改成功");
+            this.$emit("onCancel", true);
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
     },
     addHouse() {},
     addHouseSuccessResponse(body) {}
@@ -193,6 +242,11 @@ export default {
   watch: {
     isShow(val) {
       this.isCurrentShow = val;
+      if (val) {
+        this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
+      } else {
+        this.formLabelAlign = {};
+      }
     }
   },
   destroyed() {}

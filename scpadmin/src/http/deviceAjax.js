@@ -115,10 +115,14 @@ export var DeviceAjax = {
   },
   editPileFactoryOptions(xhr) {
     let url = `${RestApi.api.DeviceAjax.editPileFactoryOptions}`;
+    let id = xhr.id;
     return axios({
+      headers: {
+        'content-type': 'application/json'
+      },
       method: "post",
       url,
-      data: xhr
+      data: id
     });
   },
   updatePileFactory(xhr) {
