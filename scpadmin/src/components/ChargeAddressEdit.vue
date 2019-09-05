@@ -22,7 +22,7 @@
 					<el-form-item label="省：" prop="province">
 						<el-select
 							class="time-interal"
-							v-model="formLabelAlign.province"
+							v-model="formLabelAlign.provinceId"
 							size="small"
 							clearable
 							placeholder="请选择省"
@@ -63,7 +63,7 @@
 							v-model="formLabelAlign.areaId"
 							size="small"
 							clearable
-							placeholder="请选择区"
+							placeholder="请选择区/县"
 						>
 							<el-option
 								v-for="item in areaOptions"
@@ -115,11 +115,10 @@ export default {
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        province: null,
-        city: null,
-        area: null,
-        address: null,
-        bulk: false
+        provinceId: null,
+        cityId: null,
+        areaId: null,
+        addressName: null
       },
       rules: {
         openingHours: [
@@ -143,14 +142,8 @@ export default {
   created() {},
   mounted() {
     this.provinceOptions = this.$store.state.home.provinceArr;
-    this.initData();
   },
   methods: {
-    initData() {
-      this.houseTypeOptions = [];
-      this.houseUseOptions = [];
-    },
-    setUseData() {},
     onClickCancel() {
       this.$emit("onCancel");
     },
@@ -163,9 +156,11 @@ export default {
         cityId: this.formLabelAlign.cityId,
         latitude: 0,
         longitude: 0,
-        provinceId: this.formLabelAlign.province
+        provinceId: this.formLabelAlign.provinceId
       };
       Object.assign(data, this.formLabelAlign);
+      console.log(data);
+
       this.$deviceAjax
         .updateChargeAddress(data)
         .then(res => {
@@ -178,14 +173,14 @@ export default {
         })
         .catch(() => {});
     },
-    addHouse() {},
-    addHouseSuccessResponse(body) {},
     provinceChangeAct() {
       this.$deviceAjax
-        .getCityByProvinceId({ provinceId: this.province })
+        .getCityByProvinceId({ provinceId: this.formLabelAlign.provinceId })
         .then(res => {
           if (res.data.success) {
             this.cityOptions = res.data.model;
+            this.formLabelAlign.cityId = this.cityOptions[0].cityId;
+            this.formLabelAlign.areaId = null;
           } else {
             this.$message({ type: "warning", message: res.data.errMsg });
           }
@@ -194,10 +189,12 @@ export default {
     },
     cityChangeAct() {
       this.$deviceAjax
-        .getAreaListByCityId({ cityId: this.city })
+        .getAreaListByCityId({ cityId: this.formLabelAlign.cityId })
         .then(res => {
           if (res.data.success) {
             this.areaOptions = res.data.model;
+            this.formLabelAlign.areaId = this.areaOptions[0].areaId;
+            this.formLabelAlign.addressName = null;
           } else {
             this.$message({ type: "warning", message: res.data.errMsg });
           }
@@ -212,6 +209,7 @@ export default {
     rowData(val) {
       this.formLabelAlign = JSON.parse(JSON.stringify(val));
       Object.assign(this.formLabelAlign, this.formLabelAlign.address);
+      console.log("formLabelAlign", this.formLabelAlign);
       this.cityOptions = val.cityList;
       this.areaOptions = val.areaList;
     }

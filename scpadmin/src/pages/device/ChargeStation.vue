@@ -135,7 +135,7 @@ export default {
       },
       isShowAddDialog: false,
       pageSizeArr: window.config.pageSizeArr,
-      pageSize: 15,
+      pageSize: 10,
       currentPage: 1,
       total: 10,
       startTime: null,

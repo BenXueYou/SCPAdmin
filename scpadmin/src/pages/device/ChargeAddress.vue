@@ -102,7 +102,7 @@
 		<charge-address-edit
 			:isShow="isShowEidtDialog"
 			:rowData="rowData"
-			@onCancel="close()"
+			@onCancel="close"
 			ref="houseTable"
 		/>
 	</el-row>
@@ -120,7 +120,7 @@ export default {
   data: function() {
     return {
       isShowEidtDialog: false,
-      pageSize: 15,
+      pageSize: 10,
       pageSizeArr: window.config.pageSizeArr,
       currentPage: 1,
       total: 10,

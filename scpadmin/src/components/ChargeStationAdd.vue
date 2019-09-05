@@ -20,47 +20,49 @@
 			>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="运营商：" prop="Business">
+						<el-form-item label="运营商：" prop="operatorId">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.business"
+								v-model="formLabelAlign.operatorId"
 								size="small"
 								clearable
 								placeholder="请选择"
 							>
 								<el-option
-									v-for="item in businessOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
+									v-for="item in operatorOptions"
+									:key="item.operatorId"
+									:label="item.operatorName"
+									:value="item.operatorId"
 								></el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="充电站：" prop="chargeStationName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargeStationName" size="small"></el-input>
+						<el-form-item label="充电站：" prop="csName">
+							<el-input class="time-interal" v-model="formLabelAlign.csName" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-form-item style="margin-bottom:0px!important" label="开放时间:" required>
 						<el-col :span="10">
-							<el-form-item prop="openingHours">
+							<el-form-item prop="openTime">
 								<el-time-picker
 									type="date"
+									value-format='HH:mm:ss'
 									placeholder="选择开始时间"
-									v-model="formLabelAlign.openingHours"
+									v-model="formLabelAlign.openTime"
 									class="timePickerClass"
 								></el-time-picker>
 							</el-form-item>
 						</el-col>
 						<el-col class="line" :span="3" style="color:#dcdfe6;padding:0 8px;text-align:center">—</el-col>
 						<el-col :span="10">
-							<el-form-item prop="endHours">
+							<el-form-item prop="endTime">
 								<el-time-picker
 									placeholder="选择结束时间"
-									v-model="formLabelAlign.endHours"
+									value-format='HH:mm:ss'
+									v-model="formLabelAlign.endTime"
 									class="timePickerClass"
 								></el-time-picker>
 							</el-form-item>
@@ -68,52 +70,54 @@
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-form-item label="省市区：" prop="chargeStationModel">
+					<el-form-item label="省市区：" prop="provinceId">
 						<el-col :span="8">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
+								v-model="formLabelAlign.provinceId"
 								size="small"
 								clearable
 								placeholder="请选择省"
+								@change="provinceChangeAct"
 							>
 								<el-option
-									v-for="item in chargeStationModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
+									v-for="item in provinceOptions"
+									:key="item.provinceId"
+									:label="item.province"
+									:value="item.provinceId"
 								></el-option>
 							</el-select>
 						</el-col>
 						<el-col :span="8">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
+								v-model="formLabelAlign.cityId"
 								size="small"
 								clearable
 								placeholder="请选择市"
+								@change="cityChangeAct"
 							>
 								<el-option
-									v-for="item in chargeStationModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
+									v-for="item in cityOptions"
+									:key="item.cityId"
+									:label="item.cityName"
+									:value="item.cityId"
 								></el-option>
 							</el-select>
 						</el-col>
 						<el-col :span="8">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.chargeStationModel"
+								v-model="formLabelAlign.areaId"
 								size="small"
 								clearable
 								placeholder="请选择区/县"
 							>
 								<el-option
-									v-for="item in chargeStationModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
+									v-for="item in areaOptions"
+									:key="item.areaId"
+									:label="item.areaName"
+									:value="item.areaId"
 								></el-option>
 							</el-select>
 						</el-col>
@@ -121,11 +125,11 @@
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="24">
-						<el-form-item label="地址：" prop="chargePriceModel">
+						<el-form-item label="地址：" prop="location">
 							<el-input
 								class="time-interal"
 								style="width:96%;box-sizing: border-box;"
-								v-model="formLabelAlign.bulkNumber"
+								v-model="formLabelAlign.location"
 								size="small"
 							></el-input>
 						</el-form-item>
@@ -134,12 +138,12 @@
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
 						<el-form-item label="停车收费:">
-							<el-switch v-model="formLabelAlign.bulk"></el-switch>
+							<el-switch v-model="formLabelAlign.parkFee"></el-switch>
 						</el-form-item>
 					</el-col>
-					<el-col :span="12" v-if="formLabelAlign.bulk">
+					<el-col :span="12" v-if="formLabelAlign.parkFee">
 						<el-form-item label="停车费(元/时)：" prop="roomsType">
-							<el-input class="time-interal" v-model="formLabelAlign.bulkNumber" size="small"></el-input>
+							<el-input class="time-interal" v-model="formLabelAlign.parkFee" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -175,43 +179,44 @@ export default {
   },
   data() {
     return {
-      endHoursOptions: [],
-      chargePriceModelOptions: [],
-      chargeStationModelOptions: [],
-      chargeStationOptions: [],
-      businessOptions: [],
+      endTimeOptions: [],
+      provinceOptions: [],
+      areaOptions: [],
+      cityOptions: [],
+      operatorOptions: [],
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        openingHours: '00:00:00',
-        business: null,
-        chargeStationName: null,
-        endHours: '23:59:59',
-        chargeStationModel: null,
-        chargePriceModel: null,
-        bulkNumber: null,
-        version: null,
-        bulk: false
+        openTime: "00:00:00",
+        location: null,
+        endTime: "23:59:59",
+        csName: null,
+        operatorId: null,
+        parkFee: false,
+        addressId: null,
+        provinceId: 0,
+        cityId: 0,
+        areaId: 0
       },
       rules: {
-        chargeStationName: [
-          { required: true, message: "名称不能为空", trigger: "blur" },
+        location: [
+          { required: true, message: "地址不能为空", trigger: "blur" },
           { whitespace: true, message: "不允许输入空格", trigger: "blur" },
           { min: 1, max: 32, message: "长度在 1 到 32 个字符", trigger: "blur" }
         ],
-        openingHours: [
-          { required: true, message: "充电站不能为空", trigger: "change" }
+        openTime: [
+          { required: true, message: "开放开始时间不能为空", trigger: "change" }
         ],
         chargePriceModel: [
           { required: true, message: "计费模板不能为空", trigger: "change" }
         ],
-        endHours: [
-          { required: true, message: "充电桩厂商不能为空", trigger: "change" }
+        endTime: [
+          { required: true, message: "结束时间不能为空", trigger: "change" }
         ],
-        chargeStationModel: [
-          { required: true, message: "充电桩型号不能为空", trigger: "change" }
+        csName: [
+          { required: true, message: "充电站名称不能为空", trigger: "change" }
         ],
-        business: [
+        operatorId: [
           { required: true, message: "运营商不能为空", trigger: "change" }
         ]
       }
@@ -219,28 +224,104 @@ export default {
   },
   created() {},
   mounted() {
-    this.initData();
+    this.provinceOptions = this.$store.state.home.provinceArr;
+    this.operatorOptions = this.$store.state.home.operatorArr;
   },
   methods: {
-    initData() {
-      this.houseTypeOptions = [];
-      this.houseUseOptions = [];
+    httpRequest() {
+      let data = {
+        addressId: 0,
+        area: "string",
+        areaId: 0,
+        city: "string",
+        cityId: 0,
+        csId: 0,
+        csName: "string",
+        endTime: "string",
+        location: "string",
+        openTime: "string",
+        operatorId: 0,
+        parkFee: 0,
+        property: 0,
+        province: "string",
+        provinceId: 0,
+        startTime: "string",
+        validFlag: 0
+      };
+      Object.assign(data, this.formLabelAlign);
+      console.log(data);
+      if (this.formLabelAlign.id) {
+        this.updateChargeStation(data);
+      } else {
+        this.addChargeStation(data);
+      }
     },
-    setUseData() {},
     onClickCancel() {
       this.$emit("onCancel");
+    },
+    updateChargeStation(data) {
+      this.$deviceAjax
+        .updateChargeStation(data)
+        .then(res => {
+          if (res.data.success) {
+            this.$message.success("修改成功");
+            this.$emit("onCancel", true);
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
+    },
+    addChargeStation(data) {
+      this.$deviceAjax
+        .addChargeStation(data)
+        .then(res => {
+          if (res.data.success) {
+            this.$message.success("添加成功");
+            this.$emit("onCancel", true);
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
     },
     onClickConfirm() {
       this.$refs.addHouseForm.validate(valid => {
         if (valid) {
-          this.addHouse();
+          this.httpRequest();
         } else {
           this.$cToast.error("请正确填写内容");
         }
       });
     },
-    addHouse() {},
-    addHouseSuccessResponse(body) {}
+    provinceChangeAct() {
+      this.$deviceAjax
+        .getCityByProvinceId({ provinceId: this.formLabelAlign.provinceId })
+        .then(res => {
+          if (res.data.success) {
+            this.cityOptions = res.data.model;
+            this.formLabelAlign.cityId = this.cityOptions[0].cityId;
+            this.cityChangeAct();
+            this.formLabelAlign.areaId = null;
+          } else {
+            this.$message({ type: "warning", message: res.data.errMsg });
+          }
+        })
+        .catch(() => {});
+    },
+    cityChangeAct() {
+      this.$deviceAjax
+        .getAreaListByCityId({ cityId: this.formLabelAlign.cityId })
+        .then(res => {
+          if (res.data.success) {
+            this.areaOptions = res.data.model;
+            this.formLabelAlign.areaId = this.areaOptions[0].areaId;
+          } else {
+            this.$message({ type: "warning", message: res.data.errMsg });
+          }
+        })
+        .catch(() => {});
+    }
   },
   watch: {
     isShow(val) {

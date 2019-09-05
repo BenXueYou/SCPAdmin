@@ -94,7 +94,7 @@ export var DeviceAjax = {
     return axios({
       method: "post",
       url,
-      data: xhr
+      data: xhr.id
     });
   },
   getPileFactoryList(xhr) {
@@ -127,7 +127,11 @@ export var DeviceAjax = {
   },
   updatePileFactory(xhr) {
     let url = `${RestApi.api.DeviceAjax.updatePileFactory}`;
+    debugger;
     return axios({
+      headers: {
+        'content-type': 'application/json'
+      },
       method: "post",
       url,
       data: xhr
