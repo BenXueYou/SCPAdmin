@@ -29,9 +29,25 @@ export default {
   mounted() {
     this.getOperatorList();
     this.getChargeStationList({ pageIndex: 1, pageSize: 100000 });
-    this.getProvinceList();
+    this.getPileFactoryList({ pageIndex: 1, pageSize: 100000 });
   },
   methods: {
+    registerEventbus() {
+      this.$bus.$on("getOperatorList", () => {
+        this.getOperatorList();
+      });
+      this.$bus.$on("getChargeStationList", () => {
+        this.getChargeStationList({ pageIndex: 1, pageSize: 100000 });
+      });
+      this.$bus.$on("getPileFactoryList", () => {
+        this.getPileFactoryList({ pageIndex: 1, pageSize: 100000 });
+      });
+    },
+    unRegisterEventbus() {
+      this.$bus.$off("getOperatorList");
+      this.$bus.$off("getChargeStationList");
+      this.$bus.$off("getPileFactoryList");
+    },
     // 获取当前账号下的运营商
     getOperatorList() {
       this.$userAjax
@@ -48,7 +64,8 @@ export default {
     },
     // 获取当前账号下的充电站
     getChargeStationList(data) {
-      this.$deviceAjax.getChargeStationList(data)
+      this.$deviceAjax
+        .getChargeStationList(data)
         .then(res => {
           if (res.data.success) {
             this.$store.dispatch("setChargeStationArr", res.data.model);
@@ -70,10 +87,23 @@ export default {
           }
         })
         .catch(() => {});
+    },
+    // 获取厂商
+    getPileFactoryList(data) {
+      this.$deviceAjax
+        .getPileFactoryList(data)
+        .then(res => {
+          if (res.data.success) {
+            this.$store.dispatch("setChargeFactoryArr", res.data.model);
+          }
+        })
+        .catch(() => {});
     }
   },
   watch: {},
-  destroyed() {}
+  destroyed() {
+    this.unRegisterEventbus();
+  }
 };
 </script>
 <style>

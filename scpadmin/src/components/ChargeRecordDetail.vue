@@ -13,7 +13,7 @@
 						<p>订单编号：</p>
 					</el-col>
 					<el-col style="text-align:right;" :span="17">
-						<p style="text-align:left">00000000000000000000000000000000</p>
+						<p style="text-align:left">{{rowData.transactionId}}</p>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="flex-start" :gutter="20">
@@ -26,14 +26,14 @@
 						<p>充电后金额：</p>
 						<p>充电时长：</p>
 					</el-col>
-					<el-col :span="6">
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.credentialNo}}</p>
+					<el-col :span="6" style="text-align:left;">
+						<p>{{rowData.serviceTip}}</p>
+						<p>{{rowData.chargeMoney}}</p>
+						<p>{{rowData.chargeMoney + rowData.serviceTip}}</p>
+						<p>{{rowData.chargeQuantity}}</p>
+						<p>{{rowData.beforeChargeBalance}}</p>
+						<p>{{rowData.beforeChargeBalance - rowData.chargeMoney - rowData.serviceTip}}</p>
+						<p>{{rowData.credentialNo}}</p>
 					</el-col>
 					<el-col style="text-align:right;" :span="4">
 						<p>充电模式：</p>
@@ -44,14 +44,14 @@
 						<p>结束时间：</p>
 						<p>电表总度数：</p>
 					</el-col>
-					<el-col :span="9">
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.cellphone || ''}}</p>
-						<p>{{defaultResident.nativePlace || ''}}</p>
-						<p>{{defaultResident.address || ''}}</p>
-						<p>{{defaultResident.remarks || ''}}</p>
-						<p>{{defaultResident.remarks || ''}}</p>
+					<el-col :span="9" style="text-align:left;">
+						<p>{{rowData.chargeModeId}}</p>
+						<p>{{rowData.chargeFinishedFlag}}</p>
+						<p>{{rowData.chargeEndCause || ''}}</p>
+						<p>{{rowData.chargeMethodId || ''}}</p>
+						<p>{{rowData.chargeStartTime || ''}}</p>
+						<p>{{rowData.chargeEndTime || ''}}</p>
+						<p>{{rowData.allQuantity || ''}}</p>
 					</el-col>
 				</el-row>
 			</div>
@@ -66,13 +66,13 @@
 						<p>充电桩编号：</p>
 						<p>充电桩枪号：</p>
 					</el-col>
-					<el-col :span="6">
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.credentialNo}}</p>
+					<el-col :span="6" style="text-align:left;">
+						<p>{{rowData.operatorName}}</p>
+						<p>{{rowData.csName}}</p>
+						<p>{{rowData.csId}}</p>
+						<p>{{rowData.cpId}}</p>
+						<p>{{rowData.deviceId}}</p>
+						<p>{{rowData.interfaceId}}</p>
 					</el-col>
 					<el-col style="text-align:right;" :span="4">
 						<p>用户(卡)ID：</p>
@@ -82,13 +82,13 @@
 						<p>VIN号：</p>
 						<p>大占比段：</p>
 					</el-col>
-					<el-col :span="9">
-						<p>{{defaultResident.credentialNo}}</p>
-						<p>{{defaultResident.cellphone || ''}}</p>
-						<p>{{defaultResident.nativePlace || ''}}</p>
-						<p>{{defaultResident.address || ''}}</p>
-						<p>{{defaultResident.remarks || ''}}</p>
-						<p>{{defaultResident.remarks || ''}}</p>
+					<el-col :span="9" style="text-align:left;">
+						<p>{{rowData.userId}}</p>
+						<p>{{rowData.cellphone || ''}}</p>
+						<p>{{rowData.nativePlace || ''}}</p>
+						<p>{{rowData.address || ''}}</p>
+						<p>{{rowData.remarks || ''}}</p>
+						<p>{{rowData.remarks || ''}}</p>
 					</el-col>
 				</el-row>
 			</div>
@@ -138,7 +138,7 @@ export default {
         return true;
       }
     },
-    defaultResident: {
+    rowData: {
       type: Object,
       default() {
         return {};
@@ -220,7 +220,7 @@ export default {
       this.dialogVisible = this.visible;
       this.dynamicTags = [];
     },
-    defaultResident: {
+    rowData: {
       handler(val, oldVal) {
         if (val.tagInofShows && val.tagInofShows.length) {
           val.tagInofShows.forEach(item => {

@@ -82,7 +82,7 @@
 				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-						<el-button type="text" size="small">编辑</el-button>
+						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -98,7 +98,7 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-station-add :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" />
+		<charge-station-add :isShow="isShowAddDialog" :rowData='rowData' @onCancel="close" ref="houseTable" />
 	</el-row>
 </template>
 <script>
@@ -145,18 +145,24 @@ export default {
       stationOptions: [],
       operator: null,
       mainScreenLoading: false,
-      tableData: window.config.tableData
+      tableData: window.config.tableData,
+      rowData: {},
     };
   },
   methods: {
-    close() {
+    close(is) {
       this.isShowAddDialog = !this.isShowAddDialog;
+      if (is) {
+        this.$bus.$emit("getChargeStationList");
+        this.initData();
+      }
     },
     queryBtnAct() {
       this.initData();
     },
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
+      this.rowData = {};
     },
     initData() {
       this.queryModel.startTime = this.startTime;
@@ -174,32 +180,6 @@ export default {
           if (res.data.success) {
             this.tableData = res.data.model;
             this.total = res.data.totalCount;
-          }
-        })
-        .catch(() => {});
-    },
-    addData(data) {
-      this.$deviceAjax
-        .addChargeStation(data)
-        .then(res => {
-          if (res.data && res.data.succcess) {
-            this.$message({ type: "success", message: "添加成功！" });
-            this.initData();
-          } else {
-            this.$message({ type: "error", message: "添加失败" });
-          }
-        })
-        .catch(() => {});
-    },
-    updateData(data) {
-      this.$deviceAjax
-        .updateChargeStation(data)
-        .then(res => {
-          if (res.data && res.data.succcess) {
-            this.$message({ type: "success", message: "修改成功！" });
-            this.initData();
-          } else {
-            this.$message({ type: "error", message: "添加失败" });
           }
         })
         .catch(() => {});
@@ -236,6 +216,14 @@ export default {
     exportBtnAct() {},
     handleClick(row) {
       console.log(row);
+      this.$deviceAjax.editChargeStationOptions(row.csId).then(res => {
+        if (res.data.success) {
+          this.rowData = res.data.model;
+          this.isShowAddDialog = !this.isShowAddDialog;
+        } else {
+          this.$message.warning(res.data.errMsg);
+        }
+      }).catch(() => {});
     },
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);

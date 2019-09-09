@@ -1,7 +1,7 @@
 <template>
 	<el-dialog
 		width="560px"
-		:title="isAdd?`新增充电站`:`修改充电站`"
+		:title="!rowData.csId?`新增充电站`:`修改充电站`"
 		class="dialog-station-add"
 		center
 		:visible.sync="isCurrentShow"
@@ -46,12 +46,12 @@
 				<el-row type="flex" justify="space-between">
 					<el-form-item style="margin-bottom:0px!important" label="开放时间:" required>
 						<el-col :span="10">
-							<el-form-item prop="openTime">
+							<el-form-item prop="startTime">
 								<el-time-picker
 									type="date"
-									value-format='HH:mm:ss'
+									value-format="HH:mm:ss"
 									placeholder="选择开始时间"
-									v-model="formLabelAlign.openTime"
+									v-model="formLabelAlign.startTime"
 									class="timePickerClass"
 								></el-time-picker>
 							</el-form-item>
@@ -61,7 +61,7 @@
 							<el-form-item prop="endTime">
 								<el-time-picker
 									placeholder="选择结束时间"
-									value-format='HH:mm:ss'
+									value-format="HH:mm:ss"
 									v-model="formLabelAlign.endTime"
 									class="timePickerClass"
 								></el-time-picker>
@@ -172,7 +172,7 @@ export default {
       type: Boolean,
       default: false
     },
-    initTreeRootData: {
+    rowData: {
       type: Object,
       default: () => {}
     }
@@ -187,9 +187,10 @@ export default {
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        openTime: "00:00:00",
+        openTime: "00:00-23:59",
+        startTime: "00:00",
         location: null,
-        endTime: "23:59:59",
+        endTime: "23:59",
         csName: null,
         operatorId: null,
         parkFee: false,
@@ -248,6 +249,10 @@ export default {
         startTime: "string",
         validFlag: 0
       };
+      this.formLabelAlign.openTime = [
+        this.formLabelAlign.startTime,
+        this.formLabelAlign.endTime
+      ].join("-");
       Object.assign(data, this.formLabelAlign);
       console.log(data);
       if (this.formLabelAlign.id) {
@@ -326,6 +331,30 @@ export default {
   watch: {
     isShow(val) {
       this.isCurrentShow = val;
+      if (val && this.rowData.csId) {
+        this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
+        console.log(this.formLabelAlign);
+        this.formLabelAlign.endTime = this.formLabelAlign.openTime.split(
+          "-"
+        )[1];
+        this.formLabelAlign.startTime = this.formLabelAlign.openTime.split(
+          "-"
+        )[0];
+      } else {
+        this.formLabelAlign = {
+          openTime: "00:00-23:59",
+          startTime: "00:00",
+          location: null,
+          endTime: "23:59",
+          csName: null,
+          operatorId: null,
+          parkFee: false,
+          addressId: null,
+          provinceId: 0,
+          cityId: 0,
+          areaId: 0
+        };
+      }
     }
   },
   destroyed() {}

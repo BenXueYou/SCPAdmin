@@ -32,7 +32,7 @@
 				<el-table-column prop="province" label="联系电话" width="180"></el-table-column>
 				<el-table-column prop="city" label="邮箱" width="180"></el-table-column>
 				<el-table-column prop="province" label="地址"></el-table-column>
-				<el-table-column label="操作" >
+				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
 					</template>
@@ -50,7 +50,7 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-pile-operator-add :isShow="isShowEidtDialog" @onCancel="close()" ref="houseTable" />
+		<charge-pile-operator-add :isShow="isShowEidtDialog" @onCancel="close" ref="houseTable" />
 	</el-row>
 </template>
 <script>
@@ -78,9 +78,14 @@ export default {
     };
   },
   methods: {
-    close() {
+    close(is) {
       this.isShowEidtDialog = !this.isShowEidtDialog;
+      if (is) {
+        this.$bus.$emit("getOperatorList");
+        this.initData();
+      }
     },
+    initData() {},
     queryBtnAct() {},
     addBtnAct() {
       this.isShowEidtDialog = !this.isShowEidtDialog;

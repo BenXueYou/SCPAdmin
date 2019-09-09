@@ -1,10 +1,8 @@
 import axios from "@/utils/Request";
 import RestApi from "@/utils/RestApi";
-let ip = window.config.ip;
-let protocolHeader = window.config.protocolHeader;
 export var businessAjax = {
   getChargeRecordTotal(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.BusinessAjax.getChargeRecordTotal}`;
+    let url = `${RestApi.api.BusinessAjax.getChargeRecordTotal}`;
     return axios({
       method: "post",
       url,
@@ -12,7 +10,7 @@ export var businessAjax = {
     });
   },
   exportChargeRecord(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.BusinessAjax.exportChargeRecord}`;
+    let url = `${RestApi.api.BusinessAjax.exportChargeRecord}`;
     return axios({
       method: "post",
       url,
@@ -20,7 +18,7 @@ export var businessAjax = {
     });
   },
   getChargeRecordList(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.BusinessAjax.getChargeRecordList}`;
+    let url = `${RestApi.api.BusinessAjax.getChargeRecordList}`;
     return axios({
       method: "post",
       url,
@@ -28,7 +26,7 @@ export var businessAjax = {
     });
   },
   deductRecordList(xhr) {
-    let url = `${protocolHeader}${ip}${RestApi.api.BusinessAjax.deductRecordList}`;
+    let url = `${RestApi.api.BusinessAjax.deductRecordList}`;
     return axios({
       method: "post",
       url,

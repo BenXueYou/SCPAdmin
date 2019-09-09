@@ -7,6 +7,7 @@ const home = {
     operatorArr: Storage.readSession("operatorArr") || [],
     chargeStationArr: Storage.readSession("chargeStationArr") || [],
     provinceArr: Storage.readSession("provinceArr") || [],
+    chargeFactoryArr: Storage.readSession("chargeFactoryArr") || [],
     Authorization: Storage.readSession("Authorization") || "",
     OperatorId: Storage.readSession("OperatorId") || "",
     localTag: Storage.readSession("localTag") || "Home",
@@ -30,7 +31,10 @@ const home = {
       state.provinceArr = provinceArr;
       Storage.saveSession("provinceArr", provinceArr);
     },
-
+    SET_CHARGE_FACTORY_ARR: (state, chargeFactoryArr) => {
+      state.chargeFactoryArr = chargeFactoryArr;
+      Storage.saveSession("chargeFactoryArr", chargeFactoryArr);
+    },
     SET_LOCAL_TAG: (state, localTag) => {
       state.localTag = localTag;
       Storage.saveSession("localTag", localTag);
@@ -70,6 +74,9 @@ const home = {
     },
     setProvinceArr({ commit }, provinceArr) {
       commit("SET_PROVINCE_ARR", provinceArr);
+    },
+    setChargeFactoryArr({ commit }, chargeFactoryArr) {
+      commit("SET_CHARGE_FACTORY_ARR", chargeFactoryArr);
     },
     setLocalTag({ commit }, localTag) {
       commit("SET_LOCAL_TAG", localTag);

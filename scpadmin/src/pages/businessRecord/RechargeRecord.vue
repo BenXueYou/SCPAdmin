@@ -26,7 +26,7 @@
 							class="left-space time-interal"
 							v-model="payStatus"
 							clearable
-							placeholder="处理状态"
+							placeholder="支付状态"
 							size="small"
 						>
 							<el-option
@@ -115,7 +115,7 @@ export default {
       operator: null,
       mainScreenLoading: false,
       payStatus: null,
-      payStatusOption: [],
+      payStatusOptions: [],
       tableData: window.config.tableData
     };
   },
@@ -123,7 +123,9 @@ export default {
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    queryBtnAct() {},
+    queryBtnAct() {
+      this.initData();
+    },
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },

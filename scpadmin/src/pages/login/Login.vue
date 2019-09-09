@@ -170,10 +170,8 @@ export default {
           this.$store.dispatch("setAccount", "");
           this.$store.dispatch("SET_USERUUID", "");
         }
-        debugger;
         let operatorId = body.model.operatorId;
         this.$store.dispatch("setOperatorId", operatorId);
-
         let Authorization = body.model.token;
         this.$store.dispatch("setAuthorization", Authorization);
         // 刷新页面以便于更新projectUuid

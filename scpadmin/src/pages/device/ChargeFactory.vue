@@ -16,7 +16,7 @@
 					<!-- <div class="flex-sbw-div topTitleTxt" style="margin:0 10px;">
 						<span>运营商：</span>
 						<el-input style="width:auto" v-model="operator"></el-input>
-					</div> -->
+					</div>-->
 					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px;">
 						<span>桩厂商：</span>
 						<el-input style="width:auto" v-model="mfrName"></el-input>
@@ -28,7 +28,13 @@
 				</div>
 				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;margin-right:5%">查询</el-button>
 			</div>
-			<el-table :data="tableData" stripe border style="width: 100%" @selection-change="handleSelectionChange">
+			<el-table
+				:data="tableData"
+				stripe
+				border
+				style="width: 100%"
+				@selection-change="handleSelectionChange"
+			>
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
 				<el-table-column prop="mfrName" label="桩厂商"></el-table-column>
@@ -117,11 +123,12 @@ export default {
     },
     deleteData(data) {
       this.$deviceAjax
-        .deletePileFactory({id: data.id})
+        .deletePileFactory({ id: data.id })
         .then(res => {
           if (res.data.success) {
             this.$message({ type: "success", message: "删除成功" });
             this.initData();
+            this.$bus.$emit("getPileFactoryList");
           } else {
             this.$message({ type: "error", message: res.data.errorMessage });
           }
@@ -134,6 +141,7 @@ export default {
       if (is) {
         this.currentPage = 1;
         this.initData();
+        this.$bus.$emit("getPileFactoryList");
       }
     },
     queryBtnAct() {
@@ -165,7 +173,7 @@ export default {
     },
     handleClick(row) {
       this.$deviceAjax
-        .editPileFactoryOptions({id: row.id})
+        .editPileFactoryOptions({ id: row.id })
         .then(res => {
           // debugger;
           if (res.data.success) {

@@ -4,9 +4,9 @@ export var DeviceAjax = {
   getAddOptions(xhr) {
     let url = `${RestApi.api.DeviceAjax.getAddOptions}`;
     return axios({
-      method: "post",
+      method: "get",
       url,
-      data: xhr
+      params: xhr
     });
   },
   deletePile(xhr) {
@@ -76,6 +76,9 @@ export var DeviceAjax = {
   editChargeStationOptions(xhr) {
     let url = `${RestApi.api.DeviceAjax.editChargeStationOptions}`;
     return axios({
+      headers: {
+        'content-type': 'application/json'
+      },
       method: "post",
       url,
       data: xhr
@@ -127,7 +130,6 @@ export var DeviceAjax = {
   },
   updatePileFactory(xhr) {
     let url = `${RestApi.api.DeviceAjax.updatePileFactory}`;
-    debugger;
     return axios({
       headers: {
         'content-type': 'application/json'

@@ -12,7 +12,7 @@
 			<!--内容-->
 			<el-form
 				:rules="rules"
-				ref="addHouseForm"
+				ref="addPileForm"
 				:label-position="labelPosition"
 				label-width="120px"
 				:model="formLabelAlign"
@@ -20,10 +20,10 @@
 			>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="运营商：" prop="business">
+						<el-form-item label="运营商：" prop="operatorId">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.business"
+								v-model="formLabelAlign.operatorId"
 								size="small"
 								clearable
 								placeholder="请选择"
@@ -38,10 +38,10 @@
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="充电站：" prop="chargeStation">
+						<el-form-item label="充电站：" prop="csId">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.chargeStation"
+								v-model="formLabelAlign.csId"
 								size="small"
 								clearable
 								placeholder="请选择"
@@ -58,24 +58,24 @@
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="桩名称：" prop="chargePileName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
+						<el-form-item label="桩名称：" prop="cpName">
+							<el-input class="time-interal" v-model="formLabelAlign.cpName" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="桩厂商：" prop="chargePileFactory">
+						<el-form-item label="桩厂商：" prop="mfrId">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.chargePileFactory"
+								v-model="formLabelAlign.mfrId"
 								size="small"
 								clearable
 								placeholder="请选择"
 							>
 								<el-option
 									v-for="item in chargePileFactoryOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
+									:key="item.mfrId"
+									:label="item.mfrName"
+									:value="item.mfrId"
 								></el-option>
 							</el-select>
 						</el-form-item>
@@ -101,20 +101,15 @@
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="计费模板：" prop="chargePriceModel">
+						<el-form-item label="计费模板：" prop="rateId">
 							<el-select
 								class="time-interal"
-								v-model="formLabelAlign.chargePriceModel"
+								v-model="formLabelAlign.rateId"
 								size="small"
 								clearable
 								placeholder="请选择"
 							>
-								<el-option
-									v-for="item in chargePriceModelOptions"
-									:key="item.typeStr"
-									:label="item.typeName"
-									:value="item.typeStr"
-								></el-option>
+								<el-option v-for="item in chargePriceModelOptions" :key="item" :label="item" :value="item"></el-option>
 							</el-select>
 						</el-form-item>
 					</el-col>
@@ -156,7 +151,7 @@ export default {
       type: Boolean,
       default: false
     },
-    initTreeRootData: {
+    rowData: {
       type: Object,
       default: () => {}
     }
@@ -171,35 +166,38 @@ export default {
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        chargeStation: null,
-        business: null,
-        chargePileName: null,
-        chargePileFactory: null,
-        chargePileModel: null,
-        chargePriceModel: null,
+        addressId: 0,
+        cpId: null,
+        deviceId: "string",
+        model: "string",
+        operatorId: null,
+        protocolId: 0,
+        csId: null,
+        cpName: null,
+        mfrId: null,
+        rateId: null,
         bulkNumber: null,
-        version: null,
         bulk: false
       },
       rules: {
-        chargePileName: [
+        cpName: [
           { required: true, message: "名称不能为空", trigger: "blur" },
           { whitespace: true, message: "不允许输入空格", trigger: "blur" },
           { min: 1, max: 32, message: "长度在 1 到 32 个字符", trigger: "blur" }
         ],
-        chargeStation: [
+        csId: [
           { required: true, message: "充电站不能为空", trigger: "change" }
         ],
-        chargePriceModel: [
+        rateId: [
           { required: true, message: "计费模板不能为空", trigger: "change" }
         ],
-        chargePileFactory: [
+        mfrId: [
           { required: true, message: "充电桩厂商不能为空", trigger: "change" }
         ],
         chargePileModel: [
           { required: true, message: "充电桩型号不能为空", trigger: "change" }
         ],
-        business: [
+        operatorId: [
           { required: true, message: "运营商不能为空", trigger: "change" }
         ]
       }
@@ -209,9 +207,22 @@ export default {
   mounted() {
     this.businessOptions = this.$store.state.home.operatorArr;
     this.chargeStationOptions = this.$store.state.home.chargeStationArr;
-    this.initData();
+    this.chargePileFactoryOptions = this.$store.state.home.chargeFactoryArr;
+    this.getAddOptions();
   },
   methods: {
+    // 新增充电桩的时候Options
+    getAddOptions() {
+      this.$deviceAjax
+        .getAddOptions({ operatorLoginId: this.$store.state.home.OperatorId })
+        .then(res => {
+          if (res.data.success) {
+            this.chargePriceModelOptions = res.data.model.rateList;
+          } else {
+          }
+        })
+        .catch(() => {});
+    },
     initData() {
       this.houseTypeOptions = [];
       this.houseUseOptions = [];
@@ -221,20 +232,65 @@ export default {
       this.$emit("onCancel");
     },
     onClickConfirm() {
-      this.$refs.addHouseForm.validate(valid => {
+      this.$refs.addPileForm.validate(valid => {
         if (valid) {
-          this.addHouse();
+          var data = {
+            addressId: 0,
+            cpId: "string",
+            cpName: "string",
+            csId: 0,
+            deviceId: "string",
+            mfrId: 0,
+            model: "string",
+            operatorId: 0,
+            protocolId: 0,
+            rateId: 0
+          };
+          Object.assign(data, this.formLabelAlign);
+          console.log(data);
+          if (this.rowData.cpId) {
+            this.updatePile(data);
+          } else {
+            this.addPile(data);
+          }
         } else {
           this.$cToast.error("请正确填写内容");
         }
       });
     },
-    addHouse() {},
-    addHouseSuccessResponse(body) {}
+    addPile(data) {
+      this.$deviceAjax
+        .addPile(data)
+        .then(res => {
+          if (res.data.success) {
+            this.$emit("onCancel", true);
+            this.$message.success("添加成功");
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
+    },
+    updatePile(data) {
+      this.$deviceAjax
+        .updatePile(data)
+        .then(res => {
+          if (res.data.success) {
+            this.$emit("onCancel", true);
+            this.$message.success("修改成功");
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
+    }
   },
   watch: {
     isShow(val) {
       this.isCurrentShow = val;
+      if (val && this.rowData.cpId) {
+        this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
+      }
     }
   },
   destroyed() {}

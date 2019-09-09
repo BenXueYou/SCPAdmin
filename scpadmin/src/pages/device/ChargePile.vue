@@ -110,7 +110,7 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-pile-add :isShow="isShowAddDialog" @onCancel="close()" ref="houseTable" />
+		<charge-pile-add :isShow="isShowAddDialog" :rowData="rowData" @onCancel="close" ref="houseTable" />
 	</el-row>
 </template>
 <script>
@@ -138,6 +138,7 @@ export default {
       stationOptions: [],
       operator: null,
       mainScreenLoading: false,
+      rowData: null,
       tableData: window.config.tableData
     };
   },
@@ -167,19 +168,62 @@ export default {
         })
         .catch(() => {});
     },
-    close() {
+    close(is) {
       this.isShowAddDialog = false;
+      if (is) {
+        this.initData();
+      }
     },
     queryBtnAct() {
       this.initData();
     },
     addBtnAct() {
+      this.rowData = {};
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    deleteBtnAct() {},
+    deleteBtnAct(data) {
+      this.$confirm("是否删除该条数据?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.deleteData(data);
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
+    },
+    deleteData(data) {
+      this.$deviceAjax
+        .deletePile()
+        .then(res => {
+          if (res.data.success) {
+            this.initData();
+            this.$message.success(res.data.errMsg);
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
+    },
     exportBtnAct() {},
     handleClick(row) {
-      console.log(row);
+      this.rowData = row;
+      this.$deviceAjax
+        .getEditOptions()
+        .then(res => {
+          if (res.data.success) {
+            this.rowData = res.data.model;
+            this.isShowAddDialog = !this.rowData;
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
     },
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
