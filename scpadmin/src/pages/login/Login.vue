@@ -2,7 +2,7 @@
 	<div class="login-div">
 		<div class="login-head">
 			<div style="width: 10%">
-				<img src="@/assets/images/login/logo_big.png" width="100%" />
+				<!-- <img src="@/assets/images/login/logo_big.png" width="100%" /> -->
 			</div>
 		</div>
 		<div class="login-main">
@@ -44,14 +44,9 @@
 		</div>
 		<div class="login-foot">
 			<div class="foot-item">
-				<div class="item-text">关于广拓</div>
-				<div class="item-text">联系我们</div>
-				<div class="item-text">产品中心</div>
-				<div class="item-text">解决方案</div>
-				<div class="item-text">成功案例</div>
-				<div class="item-text">服务支持</div>
-				<div class="item-text">资质荣誉</div>
-				<div class="item-text">新闻中心</div>
+				<div class="item-text" v-for="(item,index) in alinkArr" :key="index">
+					<a :href="item.strValue" target="_blank">{{item.strName}}</a>
+				</div>
 			</div>
 			<div class="foot-text">Copyright © 2016 0901.com All Rights Reserved 版权所有</div>
 		</div>
@@ -96,6 +91,7 @@ export default {
 			/* eslint-enable */
     };
     return {
+      alinkArr: window.config.alinkArr,
       formLabelAlign: {
         username: "",
         password: ""
@@ -199,7 +195,7 @@ export default {
 	.el-input__inner {
 		background: rgba($color: #000000, $alpha: 0.05) !important;
 		height: 46px;
-		font-family: 'PingFangSC-Regular';
+		font-family: "PingFangSC-Regular";
 		font-size: 14px;
 		color: #575757;
 		letter-spacing: 0;
@@ -208,21 +204,21 @@ export default {
 		line-height: 46px;
 	}
 	.el-checkbox__input.is-checked .el-checkbox__inner {
-		background-color: #26d39d;
+		background-color: #299dff;
 	}
 	.el-checkbox__input.is-checked .el-checkbox__inner:after {
 		border-color: #ffffff !important;
 	}
 	.el-checkbox__label {
-		font-family: 'PingFangSC-Regular';
+		font-family: "PingFangSC-Regular";
 		font-size: 12px;
 		color: #999999;
 		letter-spacing: 0;
 	}
 	.el-button--primary {
-		background-color: #26d39d !important;
+		background-color: #299dff !important;
 		height: 46px;
-		font-family: 'PingFangSC-Regular';
+		font-family: "PingFangSC-Regular";
 		font-size: 14px;
 		color: #ffffff;
 		letter-spacing: 0;
@@ -245,7 +241,7 @@ export default {
 		padding: 2% 3%;
 		box-sizing: border-box;
 		.head-title {
-			font-family: 'PingFangSC-Regular';
+			font-family: "PingFangSC-Regular";
 			font-size: 16px;
 			color: #dddddd;
 			display: flex;
@@ -265,9 +261,9 @@ export default {
 	.login-main {
 		height: 74%;
 		width: 100%;
-		background: url("../../assets/images/login/bg_pic.png") no-repeat;
+		background: url("../../assets/login_bg.jpg") no-repeat;
 		background-size: 100% 100%;
-		padding: 0 10% 0 65%;
+		padding: 0 0 0 75%;
 		box-sizing: border-box;
 		display: flex;
 		align-items: center;
@@ -292,7 +288,7 @@ export default {
 				margin-left: 10px;
 				justify-content: space-between;
 				.button-text {
-					font-family: 'PingFangSC-Regular';
+					font-family: "PingFangSC-Regular";
 					font-size: 12px;
 					color: #999999;
 					letter-spacing: 0;
@@ -314,15 +310,20 @@ export default {
 			align-items: center;
 			justify-content: space-between;
 			.item-text {
-				font-family: 'PingFangSC-Regular';
+				font-family: "PingFangSC-Regular";
 				font-size: 16px;
 				color: #999999;
 				cursor: pointer;
+				a {
+					cursor: pointer;
+					color: #999999;
+					text-decoration: none;
+				}
 			}
 		}
 		.foot-text {
 			margin-top: 14px;
-			font-family: 'PingFangSC-Regular';
+			font-family: "PingFangSC-Regular";
 			font-size: 14px;
 			color: #555555;
 			letter-spacing: 1.17px;

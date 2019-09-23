@@ -94,5 +94,39 @@ window.config = {
       zip: 200333,
       id: '1401050000000139'
     }
-  ]
+  ],
+  alinkArr: [
+    {
+      strName: "关于尚宽",
+      strValue: "http://www.senk.com.cn/comcontent_detail/i=2&comContentId=2.html"
+    },
+    {
+      strName: "联系我们",
+      strValue: "http://www.senk.com.cn/comcontent_detail/i=8&comContentId=8.html"
+    },
+    {
+      strName: "产品中心",
+      strValue: "http://www.senk.com.cn/products_list3/%2523%253FcolumnsId=82&pmcId=35.html"
+    },
+    {
+      strName: "解决方案",
+      strValue: "http://www.senk.com.cn/news_list3/newsCategoryId=14.html"
+    },
+    {
+      strName: "成功案例",
+      strValue: "http://www.senk.com.cn/products_list3/pmcId=36.html"
+    },
+    {
+      strName: "服务支持",
+      strValue: "http://www.senk.com.cn/fwzc/i=17&comContentId=17.html"
+    },
+    {
+      strName: "资质荣誉",
+      strValue: "http://www.senk.com.cn/comcontent_detail/i=15&comContentId=15.html"
+    },
+    {
+      strName: "新闻中心",
+      strValue: "http://www.senk.com.cn/xwzx/newsCategoryId=16.html"
+    }
+  ],
 };
