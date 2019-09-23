@@ -97,7 +97,11 @@ export default {
   components: {
     // appUserAdd
   },
-  mounted: function() {},
+  mounted: function() {
+    this.beginTime = this.$common.getStartTime();
+    this.endTime = this.$common.getCurrentTime();
+    this.initData();
+  },
   data: function() {
     return {
       isShowAddDialog: false,
@@ -129,6 +133,7 @@ export default {
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
+    initData() {},
     deleteBtnAct() {},
     exportBtnAct() {},
     handleClick(row) {

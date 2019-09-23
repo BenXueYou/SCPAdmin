@@ -25,6 +25,7 @@ const PileRealData = () => import(/* webpackChunkName: "group-foo" */ '@/pages/r
 const FaultAlarmData = () => import(/* webpackChunkName: "group-foo" */ '@/pages/realData/FaultAlarmData');
 const SwitchData = () => import(/* webpackChunkName: "group-foo" */ '@/pages/realData/SwitchData');
 
+const BillModel = () => import(/* webpackChunkName: "group-foo" */ '@/pages/priceSet/BillModel');
 const Home = () => import(/* webpackChunkName: "group-foo" */ '@/pages/home/Home');
 Vue.use(Router);
 
@@ -157,6 +158,12 @@ export default new Router({
           name: "FaultAlarmData",
           component: FaultAlarmData,
           title: "故障报警"
+        },
+        {
+          path: "BillModel",
+          name: "BillModel",
+          component: BillModel,
+          title: "计费模型"
         },
       ]
     }

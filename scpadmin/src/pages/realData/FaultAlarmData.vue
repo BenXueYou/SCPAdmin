@@ -17,11 +17,11 @@
 							class="left-space time-interal"
 							v-model="operator"
 							clearable
-							placeholder="运营商"
+							placeholder="确认状态"
 							size="small"
 						>
 							<el-option
-								v-for="item in operatorOptions"
+								v-for="item in checkedOptions"
 								:key="item.typeStr"
 								:label="item.typeName"
 								:value="item.typeStr"
@@ -54,17 +54,27 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="id" label="充电桩" width="180"></el-table-column>
-				<el-table-column prop="index" label="枪号" width="60"></el-table-column>
-				<el-table-column prop="zip" label="APP/卡号" width="180"></el-table-column>
-				<el-table-column prop="zip" label="记录时间" width="180"></el-table-column>
-				<el-table-column prop="zip" label="充电方式" width="100"></el-table-column>
-				<el-table-column prop="zip" label="告警描述" width="300"></el-table-column>
-				<el-table-column prop="zip" label="确认状态" width="120"></el-table-column>
-				<el-table-column prop="zip" label="确认模式" width="180"></el-table-column>
+				<el-table-column prop="cpId" label="充电桩" width="180"></el-table-column>
+				<el-table-column prop="gun" label="枪号" width="60"></el-table-column>
+				<el-table-column prop="cardNum" label="APP/卡号" width="180"></el-table-column>
+				<el-table-column prop="gmtModify" label="记录时间" width="180"></el-table-column>
+				<el-table-column prop="chargeType" label="充电方式" width="100"></el-table-column>
+				<el-table-column prop="alarmType" label="告警描述" width="300"></el-table-column>
+				<el-table-column prop="checkState" label="确认状态" width="120">
+					<template slot-scope="scope">{{scope.row.checkState===0?'未确认':'已确认'}}</template>
+				</el-table-column>
+				<el-table-column prop="checkMode" label="确认模式" width="180">
+					<template slot-scope="scope">{{scope.row.checkMode===0?'自动':'手动'}}</template>
+				</el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
-						<el-button @click="handleClick(scope.row)" type="text" size="small">确认</el-button>
+						<el-button
+							v-if="!scope.row.checkState"
+							@click="handleClick(scope.row)"
+							type="text"
+							size="small"
+						>确认</el-button>
+						<el-button v-else type="text" size="small">已确认</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -89,7 +99,11 @@ export default {
   components: {
     ChargeRecordDetail
   },
-  mounted: function() {},
+  mounted: function() {
+    this.beginTime = this.$common.getStartTime();
+    this.endTime = this.$common.getCurrentTime();
+    this.initData();
+  },
   data: function() {
     return {
       isShowAddDialog: false,
@@ -99,7 +113,11 @@ export default {
       total: 10,
       beginTime: null,
       endTime: null,
-      operatorOptions: [],
+      checkedOptions: [
+        { typeStr: 0, typeName: "未确认" },
+        { typeStr: 1, typeName: "已确认" },
+        { typeStr: null, typeName: "全部" }
+      ],
       station: null,
       stationOptions: [],
       operator: null,
@@ -111,7 +129,30 @@ export default {
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    queryBtnAct() {},
+    initData() {
+      var data = {
+        model: {
+          endTime: this.endTime,
+          startTime: this.beginTime
+        },
+        pageIndex: this.pageSize,
+        pageSize: this.pageSize,
+        queryCount: true,
+        start: 0
+      };
+      this.$realAjax
+        .realAlarmData(data)
+        .then(res => {
+          if (res.data.success) {
+            console.log(res.data.model);
+            this.tableData = res.data.model;
+          }
+        })
+        .catch(() => {});
+    },
+    queryBtnAct() {
+      this.initData();
+    },
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
@@ -124,10 +165,12 @@ export default {
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}

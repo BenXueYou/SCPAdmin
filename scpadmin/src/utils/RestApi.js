@@ -1,6 +1,7 @@
 import store from '@/store/store.js';
 
 // let httpUrlHeader = window.config.httpUrlHeader;
+// http://139.129.194.195:8080
 let httpUrlHeader = '/apis';
 export default {
   api: {
@@ -34,7 +35,6 @@ export default {
     RealAjax: {
       realPileData: `${httpUrlHeader}/chargePile/real/time/data`,
       realAlarmData: `${httpUrlHeader}/webAlarm/list-by-page`,
-
       // 告警记录
       getAlarmRecord: `${httpUrlHeader}/webAlarm/list-by-page`
     },
@@ -112,6 +112,9 @@ export default {
       getChargePrice: `${httpUrlHeader}/bill/model/list-by-page`
     },
     // 人脸图片质量检测
-    faceQualityDetection: `/sppc-iacapp-service-v1/image/isQualified`
+    faceQualityDetection: `/sppc-iacapp-service-v1/image/isQualified`,
+
+    // 测试APP登陆接口
+    appLogin: `http://139.129.194.195:8080/SuperBackManage/userManager/loginUser`
   }
 };

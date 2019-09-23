@@ -57,9 +57,9 @@
 					>
 						<el-option
 							v-for="item in operatorOptions"
-							:key="item.typeStr"
-							:label="item.typeName"
-							:value="item.typeStr"
+							:key="item.operatorId"
+							:label="item.operatorName"
+							:value="item.operatorId"
 						></el-option>
 					</el-select>
 				</div>
@@ -73,7 +73,7 @@
 						size="small"
 					>
 						<el-option
-							v-for="item in operatorOptions"
+							v-for="item in chargeMethodOptions"
 							:key="item.typeStr"
 							:label="item.typeName"
 							:value="item.typeStr"
@@ -120,7 +120,12 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-record-detail :visible.sync="isShowAddDialog" :rowData='rowData' @onCancel="close" ref="houseTable" />
+		<charge-record-detail
+			:visible.sync="isShowAddDialog"
+			:rowData="rowData"
+			@onCancel="close"
+			ref="houseTable"
+		/>
 	</el-row>
 </template>
 <script>
@@ -132,6 +137,9 @@ export default {
   mounted: function() {
     this.operatorOptions = this.$store.state.home.operatorArr;
     this.stationOptions = this.$store.state.home.chargeStationArr;
+    this.beginTime = this.$common.getStartTime();
+    this.endTime = this.$common.getCurrentTime();
+    this.initData();
   },
   data: function() {
     return {
@@ -143,6 +151,12 @@ export default {
       beginTime: null,
       endTime: null,
       operatorOptions: [],
+      chargeMethodOptions: [
+        { typeStr: 0, typeName: "APP充电" },
+        { typeStr: 2, typeName: "刷卡充电" },
+        { typeStr: 3, typeName: "微信充电" },
+        { typeStr: 4, typeName: "全部充电" }
+      ],
       station: null,
       stationOptions: [],
       operatorId: null,
@@ -152,7 +166,7 @@ export default {
       userName: null,
       phoneNumber: null,
       chargeMethodId: null,
-      rowData: null
+      rowData: {}
     };
   },
   methods: {

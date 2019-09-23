@@ -10,39 +10,39 @@
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu" style="padding-bottom:10px">
-					<div class="flex-sbw">
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>用户名：</span>
-							<el-input v-model="userName"></el-input>
-						</div>
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>充电桩ID：</span>
-							<el-input v-model="cpId"></el-input>
-						</div>
-						<div class="flex-sbw-div topTitleTxt flex-sbw-item">
-							<span>手机号：</span>
-							<el-input v-model="phoneNumber"></el-input>
-						</div>
-						<div class="dateBox">
-							<span class="topTitleTxt">充电时间：</span>
-							<el-date-picker
-								v-model="beginTime"
-								type="datetime"
-								class="time-interal-date"
-								size="small"
-								placeholder="选择日期"
-								value-format="yyyy-MM-dd HH:mm:ss"
-							></el-date-picker>
-							<span class="time-line">—</span>
-							<el-date-picker
-								v-model="endTime"
-								type="datetime"
-								class="time-interal-date"
-								placeholder="选择日期"
-								size="small"
-								value-format="yyyy-MM-dd HH:mm:ss"
-							></el-date-picker>
-						</div>
+				<div class="flex-sbw">
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>用户名：</span>
+						<el-input v-model="userName"></el-input>
+					</div>
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>充电桩ID：</span>
+						<el-input v-model="cpId"></el-input>
+					</div>
+					<div class="flex-sbw-div topTitleTxt flex-sbw-item">
+						<span>手机号：</span>
+						<el-input v-model="phoneNumber"></el-input>
+					</div>
+					<div class="dateBox">
+						<span class="topTitleTxt">充电时间：</span>
+						<el-date-picker
+							v-model="beginTime"
+							type="datetime"
+							class="time-interal-date"
+							size="small"
+							placeholder="选择日期"
+							value-format="yyyy-MM-dd HH:mm:ss"
+						></el-date-picker>
+						<span class="time-line">—</span>
+						<el-date-picker
+							v-model="endTime"
+							type="datetime"
+							class="time-interal-date"
+							placeholder="选择日期"
+							size="small"
+							value-format="yyyy-MM-dd HH:mm:ss"
+						></el-date-picker>
+					</div>
 				</div>
 			</div>
 			<div class="topMenu flex-st" style="margin-bottom: 15px;">
@@ -50,7 +50,7 @@
 					<span class="topTitleTxt">运营商：</span>
 					<el-select
 						class="left-space time-interal"
-						v-model="operator"
+						v-model="operatorId"
 						clearable
 						placeholder="运营商"
 						size="small"
@@ -67,13 +67,13 @@
 					<span class="topTitleTxt">充电方式：</span>
 					<el-select
 						class="left-space time-interal"
-						v-model="chargeWay"
+						v-model="chargeMethodId"
 						clearable
 						placeholder="充电方式"
 						size="small"
 					>
 						<el-option
-							v-for="item in chargeWayOptions"
+							v-for="item in chargeMethodOptions"
 							:key="item.typeStr"
 							:label="item.typeName"
 							:value="item.typeStr"
@@ -88,23 +88,27 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="zip" label="订单编号" width="300"></el-table-column>
-				<el-table-column prop="id" label="充电桩序列号" width="180"></el-table-column>
-				<el-table-column prop="index" label="枪号" width="60"></el-table-column>
-				<el-table-column prop="name" label="充电站" width="150"></el-table-column>
-				<el-table-column prop="date" label="运营商" width="120"></el-table-column>
-				<el-table-column prop="province" label="充电类型" width="100"></el-table-column>
-				<el-table-column prop="city" label="充电模式" width="100"></el-table-column>
-				<el-table-column prop="zip" label="充电开始时间" width="180"></el-table-column>
-				<el-table-column prop="zip" label="充电结束时间" width="180"></el-table-column>
-				<el-table-column prop="zip" label="交易状态" width="100"></el-table-column>
-				<el-table-column prop="zip" label="用户姓名" width="120"></el-table-column>
+				<el-table-column prop="transactionId" label="订单编号" width="300"></el-table-column>
+				<el-table-column prop="cpId" label="充电桩序列号" width="180"></el-table-column>
+				<el-table-column prop="interfaceId" label="枪号" width="60"></el-table-column>
+				<el-table-column prop="csName" label="充电站" width="150"></el-table-column>
+				<el-table-column prop="operatorName" label="运营商" width="120"></el-table-column>
+				<el-table-column prop="chargeMethodId" label="充电类型" width="100"></el-table-column>
+				<el-table-column prop="chargeModeId" label="充电模式" width="100"></el-table-column>
+				<el-table-column prop="chargeStartTime" label="充电开始时间" width="180"></el-table-column>
+				<el-table-column prop="chargeEndTime" label="充电结束时间" width="180"></el-table-column>
+				<el-table-column prop="chargeFinishedFlag" label="交易状态" width="100"></el-table-column>
+				<el-table-column prop="userName" label="用户姓名" width="120"></el-table-column>
 				<el-table-column prop="zip" label="充电时长" width="180"></el-table-column>
-				<el-table-column prop="zip" label="充电电量" width="120"></el-table-column>
-				<el-table-column prop="zip" label="应扣金额" width="100"></el-table-column>
-				<el-table-column prop="zip" label="充电前金额" width="100"></el-table-column>
-				<el-table-column prop="zip" label="充电后金额" width="100"></el-table-column>
-				<el-table-column prop="zip" label="实扣金额" width="100"></el-table-column>
+				<el-table-column prop="chargeQuantity" label="充电电量" width="120"></el-table-column>
+				<el-table-column prop="chargeMoney" label="应扣金额" width="100"></el-table-column>
+				<el-table-column prop="beforeChargeBalance" label="充电前金额" width="100"></el-table-column>
+				<el-table-column prop="zip" label="充电后金额" width="100">
+					<template
+						slot-scope="scope"
+					>{{scope.row.beforeChargeBalance - scope.row.chargeMoney - scope.row.serviceTip}}</template>
+				</el-table-column>
+				<el-table-column prop="chargeMoney" label="实扣金额" width="100"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">详情</el-button>
@@ -123,7 +127,12 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-record-detail :visible.sync="isShowAddDialog" @onCancel="close()" ref="houseTable" />
+		<charge-record-detail
+			:visible.sync="isShowAddDialog"
+			:rowData="rowData"
+			@onCancel="close"
+			ref="houseTable"
+		/>
 	</el-row>
 </template>
 <script>
@@ -132,7 +141,12 @@ export default {
   components: {
     ChargeRecordDetail
   },
-  mounted: function() {},
+  mounted: function() {
+    this.operatorOptions = this.$store.state.home.operatorArr;
+    this.beginTime = this.$common.getStartTime();
+    this.endTime = this.$common.getCurrentTime();
+    this.initData();
+  },
   data: function() {
     return {
       isShowAddDialog: false,
@@ -147,32 +161,75 @@ export default {
       cpId: null,
       phoneNumber: null,
       chargeWayOptions: [],
-      operator: null,
       mainScreenLoading: false,
-      tableData: window.config.tableData
+      tableData: window.config.tableData,
+      operatorId: null,
+      chargeWay: null,
+      rowData: null,
+      chargeMethodOptions: [
+        { typeStr: 0, typeName: "APP充电" },
+        { typeStr: 2, typeName: "刷卡充电" },
+        { typeStr: 3, typeName: "微信充电" },
+        { typeStr: 4, typeName: "全部充电" }
+      ],
+      chargeMethodId: null
     };
   },
   methods: {
     close() {
       this.isShowAddDialog = !this.isShowAddDialog;
     },
-    queryBtnAct() {},
+    queryBtnAct() {
+      this.initData();
+    },
     addBtnAct() {
       this.isShowAddDialog = !this.isShowAddDialog;
+    },
+    initData() {
+      var data = {
+        model: {
+          chargeEndTime: this.beginTime,
+          chargeMothodId: this.chargeWay,
+          chargeStartTime: this.endTime,
+          deviceId: this.cpId,
+          operatorId: this.operatorId,
+          telephone: this.phoneNumber,
+          userName: this.userName
+        },
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
+        queryCount: true,
+        start: 0
+      };
+      this.$businessAjax
+        .deductRecordList(data)
+        .then(res => {
+          if (res.data.success) {
+            this.tableData = res.data.model;
+          } else {
+            this.$message.warning("数据查询失败");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     deleteBtnAct() {},
     exportBtnAct() {},
     handleClick(row) {
       console.log(row);
+      this.rowData = row;
       this.isShowAddDialog = !this.isShowAddDialog;
     },
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}

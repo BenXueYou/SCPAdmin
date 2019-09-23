@@ -33,6 +33,14 @@ export var businessAjax = {
       data: xhr
     });
   },
+  appLogin(xhr) {
+    let url = `${RestApi.api.appLogin}`;
+    return axios({
+      method: "post",
+      url,
+      data: xhr
+    });
+  },
 };
 
 function install(Vue) {

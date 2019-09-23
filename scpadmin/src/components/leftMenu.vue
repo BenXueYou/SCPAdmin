@@ -121,6 +121,10 @@
 						<el-menu-item index="/Main/ChargeStationStatics">充电站统计</el-menu-item>
 						<el-menu-item index="/Main/OperatorStatics">运营商统计</el-menu-item>
 					</el-submenu>
+					<el-menu-item index="/main/BillModel" style="padding-left:20px;background-color:rgb(53,64,84)">
+						<i class="el-icon-money"></i>
+						计费模型
+					</el-menu-item>
 				</el-menu>
 			</el-col>
 		</el-row>
@@ -177,12 +181,12 @@ export default {
 	right: 18px;
 }
 .left_menu_box .el-submenu .el-menu-item {
-	padding-left: 55px!important;
+	padding-left: 55px !important;
 	font-family: "PingFangSC-Regular";
 	font-size: 13px !important;
 	color: #dddddd;
 	text-align: justify;
-	background-color: rgba(27, 27, 27, 0.6)!important;
+	background-color: rgba(27, 27, 27, 0.6) !important;
 	height: 45px;
 }
 .left_menu_box .access_autn_select {

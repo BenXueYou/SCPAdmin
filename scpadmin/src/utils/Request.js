@@ -52,6 +52,7 @@ service.interceptors.response.use(
         return response;
       } else {
         Toast.error("获取本地资源请求错误！");
+        console.log(response);
         return Promise.reject(new Error('error'));
       }
     }
