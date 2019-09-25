@@ -16,6 +16,7 @@ import staticsAjax from '@/http/staticsAjax.js';
 import realAjax from '@/http/realAjax.js';
 import Toast from "@/utils/Toast.js";
 import Common from '@/utils/Common.js';
+import { EventBusPlugin as EventBus } from '@/utils/Eventbus';
 Vue.prototype.$echarts = echarts;
 Vue.use(Common);
 Vue.use(ElementUI);
@@ -26,6 +27,7 @@ Vue.use(homeAjax);
 Vue.use(userAjax);
 Vue.use(staticsAjax);
 Vue.use(realAjax);
+Vue.use(EventBus);
 Vue.config.productionTip = false;
 Vue.use(Toast);
 /* eslint-disable no-new */

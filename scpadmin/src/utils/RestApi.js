@@ -1,8 +1,7 @@
 import store from '@/store/store.js';
 
-// let httpUrlHeader = window.config.httpUrlHeader;
+let httpUrlHeader = window.config.httpUrlHeader;
 // http://139.129.194.195:8080
-let httpUrlHeader = '/apis';
 export default {
   api: {
     /**

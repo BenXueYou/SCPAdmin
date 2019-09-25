@@ -36,9 +36,12 @@ export var DeviceAjax = {
   getEditOptions(xhr) {
     let url = `${RestApi.api.DeviceAjax.getEditOptions}`;
     return axios({
+      headers: {
+        'content-type': 'application/json'
+      },
       method: "post",
       url,
-      data: xhr
+      params: xhr
     });
   },
   updatePile(xhr) {

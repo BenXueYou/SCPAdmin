@@ -212,13 +212,14 @@ export default {
     },
     exportBtnAct() {},
     handleClick(row) {
+      console.log(row);
       this.rowData = row;
       this.$deviceAjax
-        .getEditOptions()
+        .getEditOptions({cpId: row.cpId})
         .then(res => {
           if (res.data.success) {
             this.rowData = res.data.model;
-            this.isShowAddDialog = !this.rowData;
+            this.isShowAddDialog = !this.isShowAddDialog;
           } else {
             this.$message.warning(res.data.errMsg);
           }

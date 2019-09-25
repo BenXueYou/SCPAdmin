@@ -242,11 +242,13 @@ export default {
   watch: {
     isShow(val) {
       this.isCurrentShow = val;
-      if (val) {
+      if (val && this.rowData.id) {
         this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
         this.formLabelAlign.cpType = Number(this.formLabelAlign.cpType);
         this.formLabelAlign.cpPhase = Number(this.formLabelAlign.cpPhase);
-        this.formLabelAlign.interfaceCount = Number(this.formLabelAlign.interfaceCount);
+        this.formLabelAlign.interfaceCount = Number(
+          this.formLabelAlign.interfaceCount
+        );
         console.log(this.formLabelAlign);
       } else {
         this.formLabelAlign = {};

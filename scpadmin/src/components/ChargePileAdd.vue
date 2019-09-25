@@ -290,6 +290,7 @@ export default {
       this.isCurrentShow = val;
       if (val && this.rowData.cpId) {
         this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
+        Object.assign(this.formLabelAlign, this.formLabelAlign.chargeStationList[0]);
       }
     }
   },

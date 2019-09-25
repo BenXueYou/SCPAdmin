@@ -30,6 +30,7 @@ export default {
     this.getOperatorList();
     this.getChargeStationList({ pageIndex: 1, pageSize: 100000 });
     this.getPileFactoryList({ pageIndex: 1, pageSize: 100000 });
+    this.getProvinceList({pageIndex: 1, pageSize: 100000});
   },
   methods: {
     registerEventbus() {

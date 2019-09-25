@@ -2,7 +2,7 @@
 	<div class="login-div">
 		<div class="login-head">
 			<div style="width: 10%">
-				<!-- <img src="@/assets/images/login/logo_big.png" width="100%" /> -->
+				<img src="@/assets/images/login/login_sk_logo.png" width="100%" />
 			</div>
 		</div>
 		<div class="login-main">
@@ -16,7 +16,8 @@
 							@keyup.enter.native="login"
 							style="width: 100%; margin-top: 34px;"
 						>
-							<img slot="prefix" src="@/assets/images/login/head.png" />
+							<!-- <img slot="prefix" src="@/assets/images/login/head.png" /> -->
+							<i slot="prefix" class="el-icon-user-solid"></i>
 						</el-input>
 					</el-form-item>
 					<el-form-item prop="password">
@@ -27,7 +28,8 @@
 							@keyup.enter.native="login"
 							style="width: 100%;"
 						>
-							<img slot="prefix" src="@/assets/images/login/pwd.png" />
+							<!-- <img slot="prefix" src="@/assets/images/login/pwd.png" /> -->
+							<i slot="prefix" class="el-icon-lock"></i>
 						</el-input>
 					</el-form-item>
 				</el-form>

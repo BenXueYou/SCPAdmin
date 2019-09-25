@@ -19,11 +19,11 @@
 					</div>-->
 					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px;">
 						<span>桩厂商：</span>
-						<el-input style="width:auto" v-model="mfrName"></el-input>
+						<el-input style="width:auto" v-model="mfrName" clearable></el-input>
 					</div>
 					<div class="flex-sbw-div topTitleTxt" style="margin:0 10px;">
 						<span>桩型号：</span>
-						<el-input style="width:auto" v-model="model"></el-input>
+						<el-input style="width:auto" v-model="model" clearable></el-input>
 					</div>
 				</div>
 				<el-button type="primary" @click="queryBtnAct" style="margin-bottom:10px;margin-right:5%">查询</el-button>
