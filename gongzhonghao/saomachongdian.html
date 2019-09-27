@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>扫码充电</title>
+    <style>
+        .scanCode {
+            text-align: center;
+            margin: 50px auto;
+            margin-top: 100px
+        }
+
+        .sign {
+            margin: 50px 0 0 0;
+        }
+
+        .scan {
+            width: 80px;
+            height: 80px;
+            border: 1px solid #3ac663;
+            margin: 30px auto;
+            border-radius: 50%;
+
+            /* box-shadow: 1px 1px 1px 1px; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .number,
+        .number a {
+            font-size: 9px;
+            text-decoration: none
+        }
+
+        .number img {
+            vertical-align: middle
+        }
+
+        .input {
+            position: relative;
+            bottom: 0;
+            left: 0;
+            /* text-align: center; */
+            display: none;
+        }
+
+        input {
+            text-align: center;
+            outline: none
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scanCode">
+
+        <div class="sign">
+            <img src="./imges/fill.png" width="200px">
+        </div>
+
+        <div class="scan">
+            <img src="./imges/scan.jpg" width="20px" alt="">
+
+        </div>
+        <div class="number">
+            <span>您也可以</span> <a href="javascript:;">输入编号</a><span>开始充电</span>
+        </div>
+        <div class="input">
+            <input type="text" type="search" placeholder="请输入桩编号" autofocus>
+        </div>
+
+    </div>
+    <script src="./js/jquery.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script src="./js/xss.min.js"></script>
+
+    <script>
+        
+        let a = document.querySelector("a"),
+            scan = document.querySelector(".scan"),
+            input = document.querySelector(".input"),
+            btn = document.querySelector("button")
+        scan.addEventListener("click", function () {
+            wx.config({
+            debug: true,
+            appId: '', //公众号标志
+            timestamp, //生成签名时间戳
+            nonceStr, //生成签名随机串
+            signature, //签名
+            jsApiList: ["scanQRCode", ] //需要的接口列表
+        })
+        wx.scanQRCode({
+            needResult: 0, //0 代表扫描结果由微信处理，1则直接返回扫描结果
+            scanType: "qrCode", //是二维码还是一维码
+            success: function (res) {
+                let result = res.resultStr;
+            }
+        })
+        wx.error(function (res) {
+            alert("出错了：" + res.errMeg)
+        })
+        })
+        a.addEventListener("click", function () {
+            input.style.display = "block";
+            input.focus()
+            
+        })
+        input.addEventListener("keypress", next)
+        function next() {
+            //确认是否可跳转
+            let keycode = e.keycode
+            if(keycode=='13') {
+                    e.preventDefault();  
+                    window.location.href = ""
+                }
+            var val = filterXSS(input.firstElementChild.value)
+           
+        }
+        
+    </script>
+</body>
+
+</html>

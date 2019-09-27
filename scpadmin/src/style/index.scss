@@ -20,6 +20,15 @@ img,
   text-align: center;
   padding: 5px 0;
 }
+.el-table--border th, .el-table--border td {
+  border-right: 1px solid #dcdfe6;
+}
+.el-table th.is-leaf, .el-table td {
+  border-bottom: 1px solid #c0c4cc;
+}
+.el-table--group, .el-table--border {
+  border: 1px solid #c0c4cc;
+}
 /**************************************滚动条样式*********************************************/
 ::-webkit-scrollbar {
   width: 5px;

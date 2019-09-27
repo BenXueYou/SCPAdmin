@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/dropload.css">
+    <title>充电</title>
+    <style>
+        body {
+            background-color: #fcfafa;
+            margin: 0
+        }
+
+        .elecBall {
+            margin: 30px 0;
+        }
+
+        .balls {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            top: 100%
+        }
+
+        .ball1,
+        .ball2,
+        .ball3 {
+            position: absolute;
+            right: 0;
+            margin-left: -750%;
+            height: 1500%;
+            width: 1500%;
+            border-radius: 50%;
+            left: 50%;
+            /* background-color: #5cffc1;
+             */
+            background: -webkit-radial-gradient(75px 75px, circle, #5cffc1, #8ff6f057);
+        }
+
+        .ball1 {
+            animation: move 5s 0s infinite ease-in-out
+        }
+
+        .ball2 {
+            animation: move 5s 1s infinite ease-in-out
+        }
+
+        .ball3 {
+            animation: move 5s 2s infinite ease-in-out
+        }
+
+        @keyframes move {
+            from {
+                transform: translateX(-8%)
+            }
+
+            to {
+                transform: translateX(8%)
+            }
+        }
+
+        .wrapper {
+            line-height: 150px;
+            text-align: center;
+            width: 150px;
+            height: 150px;
+            margin: 30px 0;
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 20px #5cffc1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .start {
+            position: absolute;
+            top: 0;
+            left: 45px;
+            z-index: 10;
+            /* display: inline-block; */
+        }
+
+        .eleMes {
+            width: 100%;
+            background-color: #fff;
+            min-height: 500px;
+        }
+
+        .divce {
+            background-color: #fff;
+            height: 50px;
+            /* margin: 10px 0; */
+            border-bottom: 1px solid #f2f2f2;
+            box-shadow: 0 0px 25px rgba(0, 0, 0, .1);
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 0 10px;
+            align-items: center;
+            border-radius: 2px;
+            /* text-shadow: #5cffc1 */
+        }
+
+        .eleControl {
+            width: 100%;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .ing,
+        .done {
+            display: none;
+        }
+
+        .pullDown {
+            z-index: 10;
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+        }
+
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(9, 9, 9, 0.63);
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            display: none;
+        }
+
+        .loading img {
+            display: block;
+            margin: 300px auto
+        }
+    </style>
+</head>
+
+<body>
+    <div class="startFill">
+
+        <div class="eleMes started">
+            <div class="number divce">
+                <span>帐单号:</span>
+                <span class="numberValue">11111111111111</span>
+            </div>
+            <div class="monovalent divce">
+                <span>时长:</span>
+                <span class="monovalentValue">111111111111</span>
+            </div>
+            <div class="useTime divce">
+                <span>金额:</span>
+                <span class="useTimeValue">1111111111111</span>
+            </div>
+            <div class="money divce">
+                <span> 电量:</span>
+                <span class="moneyValue">1111111111</span>
+            </div>
+            <div class="Charging divce">
+                <span>完成时间:</span>
+                <span class="ChargingValue">111111111111</span>
+            </div>
+            <div class="detail">
+                <div class="divce">
+                    <span
+                        style="display: inline-block; margin-left: 5em"></span><span>A组</span><span>B组</span><span>C组</span>
+                </div>
+                <div class="divce">
+                    <span>电压（伏）</span><span>0.00</span><span>0.00</span><span>0.00</span>
+                </div>
+                <div class="divce">
+                    <span>电流（安）</span><span>0.00</span><span>0.00</span><span>0.00</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="eleMes ing">
+            <div class="number divce">
+                <span>充电桩编号:</span>
+                <span class="numberValue">11111111111111</span>
+            </div>
+            <div class="useTime divce">
+                <span>充电计时:</span>
+                <span class="useTimeValue">111111111111</span>
+            </div>
+            <div class="paid divce">
+                <span>已充金额(元):</span>
+                <span class="paidValue">1111111111111</span>
+            </div>
+            <div class="quantity divce">
+                <span> 已充电量(度):</span>
+                <span class="quantityValue">1111111111</span>
+            </div>
+            <div class="voltage divce">
+                <span>当前电压(伏):</span>
+                <span class="voltageValue">111111111111</span>
+            </div>
+            <div class="current divce">
+                <span>当前电流(安):</span>
+                <span class="currentValue">111111111111</span>
+            </div>
+
+            <div class="currentTime divce">
+                <span>当前时间:</span>
+                <span class="currentTimeValue">--:--:-- --:--</span>
+            </div>
+        </div>
+        <div class="eleMes done">
+            <div class="number divce">
+                <span>账单编号:</span>
+                <span class="numberValue">11111111111111</span>
+            </div>
+            <div class="chargingTime divce">
+                <span>充电时长：</span>
+                <span class="chargingTimeValue">111111111111</span><span>分</span>
+            </div>
+            <div class="paids divce">
+                <span>充电金额(元):</span>
+                <span class="paidsValue">1111111111111</span>
+            </div>
+            <div class="quantitied divce">
+                <span> 充电电量(度):</span>
+                <span class="quantitiedValue">1111111111</span>
+            </div>
+            <div class="finishTime divce">
+                <span>完成时间:</span>
+                <span class="finishValue">--:--:-- --:--</span>
+            </div>
+        </div>
+        <div class="eleControl">
+            <div class="elecBall">
+                <div class="wrapper">
+                    <span class="start">点击充电</span>
+                    <div class="balls">
+                        <div class="ball1"></div>
+                        <div class="ball2"></div>
+                        <div class="ball3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pullDown">
+        <img src="./imges/restart.gif" width="30px" alt="下拉试试">
+    </div>
+    <div class="loading">
+        <img src="./imges/loading.gif" width="50px" height="50px" alt="">
+    </div>
+    <script src="./js/jquery.js"></script>
+
+    <script src="./js/dropload.min.js"></script>
+    <script>
+        let interval, num = 0,
+            Charging = null,
+            isAC = false,
+            elBalls = document.querySelector(".balls")
+        if (isAC) {
+            $(".elecBall").on("click", function () {
+                event.stopPropagation()
+                clearInterval(Charging)
+                if ($(".start").text() == "点击暂停") {
+                    $(".start").text("点击充电")
+                    clearInterval(Charging)
+                    // elBalls.style.top = num + '%';
+                } else {
+                    $(".start").text("点击暂停")
+                    handleDate()
+                }
+
+            })
+        } else {
+            $(".elecBall").on("click", function () {
+                event.stopPropagation()
+                clearInterval(Charging)
+                Charging = setInterval(function () {
+                    if (num <= 100 && num >= 0) {
+                        num++
+                        elBalls.style.top = (100 - num) + '%'
+                        if (num == 100) {
+                            num = 0
+                            elBalls.style.top = (100 - num) + '%'
+                        }
+                    }
+                }, 500)
+                if ($(".start").text() == "点击暂停") {
+                    $(".start").text("点击充电")
+                    clearInterval(Charging)
+                    elBalls.style.top = 100 + '%';
+                } else {
+                    $(".start").text("点击暂停")
+                }
+            })
+        }
+
+        function handleData() {
+            Charging = setInterval(function () {
+                $.ajax({
+                    url: '',
+                    type: "POST",
+                    contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+                    data: '10',
+                    timeout: 15000,
+                    beforeSend: function () {
+                        $(".loading").show()
+                    },
+                    success: function (data) {
+                        let num = parseFloat(data.num)
+                        if (data.num > 0 & data.num < 100) {
+                            elBalls.style.top = (100 - num) + '%'
+                            $(".eleMes").hide()
+                            $(".ing").show()
+                            $("start").text("点击暂停")
+                            $(".numberValue").text(data.numberValue)
+                            $(".monovalentValue").text(data.monovalentValue)
+                            $(".useTimeValue").text(data.useTimeValue)
+                            $(".moneyValue").text(data.moneyValue)
+                            $(".ChargingValue").text(data.ChargingValue)
+
+                        } else if (data === 100) {
+                            elBalls.style.top = (100 - num) + '%'
+                            $(".eleMes").hide()
+                            $(".done").show()
+                            $("start").text("充电完成")
+                            $(".numberValue").text(data.numberValue)
+                            $(".monovalentValue").text(data.monovalentValue)
+                            $(".useTimeValue").text(data.useTimeValue)
+                            $(".moneyValue").text(data.moneyValue)
+                            $(".ChargingValue").text(data.ChargingValue)
+                        }
+
+                    }
+                })
+            }, interval)
+        }
+       
+    </script>
+
+</body>
+
+</html>

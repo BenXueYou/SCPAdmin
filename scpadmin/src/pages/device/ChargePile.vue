@@ -6,7 +6,7 @@
 	>
 		<div class="titleBox">
 			位置：
-			<span>设备管理／充电站</span>
+			<span>设备管理／充电桩</span>
 		</div>
 		<div class="bodyBox">
 			<div class="topMenu flex-sbw">

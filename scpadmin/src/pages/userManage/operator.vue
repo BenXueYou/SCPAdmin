@@ -27,11 +27,11 @@
 			<el-table :data="tableData" stripe border style="width: 100%">
 				<el-table-column type="selection" width="55"></el-table-column>
 				<el-table-column type="index" width="55" label="序号"></el-table-column>
-				<el-table-column prop="date" label="运营商" width="150"></el-table-column>
-				<el-table-column prop="name" label="联系人" width="150"></el-table-column>
-				<el-table-column prop="province" label="联系电话" width="180"></el-table-column>
-				<el-table-column prop="city" label="邮箱" width="180"></el-table-column>
-				<el-table-column prop="province" label="地址"></el-table-column>
+				<el-table-column prop="operatorName" label="运营商" width="150"></el-table-column>
+				<el-table-column prop="contactName" label="联系人" width="150"></el-table-column>
+				<el-table-column prop="telephone" label="联系电话" width="180"></el-table-column>
+				<el-table-column prop="email" label="邮箱" width="180"></el-table-column>
+				<el-table-column prop="address" label="地址"></el-table-column>
 				<el-table-column label="操作">
 					<template slot-scope="scope">
 						<el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
@@ -50,7 +50,12 @@
 				></el-pagination>
 			</div>
 		</div>
-		<charge-pile-operator-add :isShow="isShowEidtDialog" @onCancel="close" ref="houseTable" />
+		<charge-pile-operator-add
+			:isShow="isShowEidtDialog"
+			:rowData="rowData"
+			@onCancel="close"
+			ref="houseTable"
+		/>
 	</el-row>
 </template>
 <script>
@@ -59,7 +64,9 @@ export default {
   components: {
     chargePileOperatorAdd
   },
-  mounted: function() {},
+  mounted: function() {
+    this.initData();
+  },
   data: function() {
     return {
       isShowEidtDialog: false,
@@ -74,7 +81,8 @@ export default {
       stationOptions: [],
       operator: null,
       mainScreenLoading: false,
-      tableData: window.config.tableData
+      tableData: window.config.tableData,
+      rowData: {}
     };
   },
   methods: {
@@ -85,23 +93,59 @@ export default {
         this.initData();
       }
     },
-    initData() {},
-    queryBtnAct() {},
+    initData() {
+      let data = {
+        model: {
+          operatorId: this.$store.state.home.OperatorId,
+          operatorName: this.operator,
+          telephone: this.phoneNumber
+        },
+        pageIndex: this.currentPage,
+        pageSize: this.pageSize,
+        queryCount: true,
+        start: 0
+      };
+      this.$userAjax
+        .getOperatorList(data)
+        .then(res => {
+          if (res.data.success) {
+            this.tableData = res.data.model;
+          } else {
+            this.$message.wraning("请求失败");
+          }
+        })
+        .catch(() => {});
+    },
+    queryBtnAct() {
+      this.initData();
+    },
     addBtnAct() {
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },
     deleteBtnAct() {},
     exportBtnAct() {},
     handleClick(row) {
-      this.isShowEidtDialog = !this.isShowEidtDialog;
+      this.$userAjax
+        .editOperatorOptions({operatorId: row.operatorId})
+        .then(res => {
+          if (res.data.success) {
+            this.isShowEidtDialog = !this.isShowEidtDialog;
+            this.rowData = res.data.model;
+          } else {
+            this.$message.wraning("请求数据失败");
+          }
+        })
+        .catch(() => {});
     },
     handleCurrentChange(val) {
       console.log("页数发生变化：", val);
       this.currentPage = val;
+      this.initData();
     },
     handleSizeChange(val) {
       console.log("每页条数发生变化：", val);
       this.pageSize = val;
+      this.initData();
     }
   },
   watch: {}

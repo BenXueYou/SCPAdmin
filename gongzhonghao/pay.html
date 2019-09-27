@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>实时支付</title>
+    <style>
+        span {
+            display: inline-block;
+            margin: 0 8px
+        }
+
+        p {
+            text-indent: 2em;
+        }
+
+        input {
+            outline: none;
+            border: none
+        }
+
+        .imPay {
+            width: 100%;
+            height: 100%;
+            /* border:1px solid black; */
+
+        }
+
+        .user,
+        .chooseMoney {
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .12)
+        }
+
+        .user {
+            display: flex;
+            margin-bottom: 10px;
+            background-color: #fff;
+            height: 80px;
+            display: flex;
+            align-items: center;
+
+        }
+
+        .userName,
+        .userMes {
+            padding: 5px;
+            margin-left: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .userName {
+            width: 50px;
+            height: 50px;
+            overflow: hidden;
+            border-radius: 50%;
+            background-image: url("./images/scan.jpg") norepeat;
+            background-color: skyblue;
+        }
+
+        .chooseMoney {
+            background-color: #fff;
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px 0
+        }
+
+        /* 居中 */
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .moneyType {
+            width: 30%;
+            height: 50px;
+            border: 1px solid #3ac663;
+            color: #3ac663;
+            border-radius: 5px;
+            margin: 0 5px 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chooseMoneyContent {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 10px 10px ;
+           
+            width: 100%;
+        }
+
+        .pay {
+            width: 100%;
+            height: 300px;
+            /* display: none; */
+            background-color: #fff;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .pay-head,
+        .payComfirm,
+        .payTypeContent,
+        .paySure {
+            width: 100%;
+            border-bottom: 1px solid #f2f2f2;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            /* margin: 0 10px */
+        }
+
+        .payComfirm {
+            height: 60px;
+            font-size: 14px
+        }
+
+        .pay-head,
+        .paySure {
+            height: 40px;
+            justify-content: space-between;
+        }
+
+        .payTypeContent {
+            height: 150px;
+            font-size: 14px;
+            padding: 0 8px;
+            align-items: left;
+            ;
+        }
+
+        .payType {
+            width: 40%;
+            height: 40px;
+            border: 1px solid #5cffc1;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .paySure {
+            flex-direction: row-reverse
+        }
+
+        .loading {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(9, 9, 9, 0.3);
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            display: none;
+        }
+
+        .btn {
+            width: 100px;
+            height: 30px;
+            background-color: #5cffc1;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 0 8px;
+            cursor: pointer;
+        }
+        .divce {
+            background-color: #fff;
+            height: 40px;
+            /* margin: 10px 0; */
+            border-bottom: 1px solid #f2f2f2;
+            /* box-shadow: 0 0px 25px rgba(0, 0, 0, .1); */
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 0 10px;
+            align-items: center;
+            border-radius: 2px;
+            /* text-shadow: #5cffc1 */
+        }
+    </style>
+</head>
+
+<body style="background-color: #f2f2f2">
+    <div class="imPay">
+        <div class="user">
+            <div class="userName">
+                <img src="" alt="">
+                <span>user</span>
+                <!-- 获取微信头像 -->
+            </div>
+            <div class="userMes">
+                <span>telNum</span>
+            </div>
+        </div>
+        <div class="orderinformation">
+            <div class="divce" style="justify-content: center;">
+                订单信息
+            </div>
+            <div class="divce">
+                <span>站点:</span><div class="station"></div>
+            </div>
+            <div class="divce">
+                <span>桩编号:</span><div class="number"></div>
+            </div>
+                <div class="divce">
+                <span>桩类型:</span><div class="type"></div>
+            </div>
+            
+        </div>
+        <div class="chooseMoney">
+            <div class="">
+                请选择金额
+            </div>
+            <div class="chooseMoneyContent">
+                <div class="moneyType">
+                    <span>10元</span>
+                </div>
+                <div class="moneyType">
+                    <span>20元</span>
+                </div>
+                <div class="moneyType">
+                    <span>30元</span>
+                </div>
+                <div class="moneyType">
+                    <span>40元</span>
+                </div>
+                <div class="moneyType self">
+                    <span>自定义</span>
+                </div>
+            </div>
+
+        </div>
+        <p>如果电量已充满，或者其他意外情况而停止充电，导致充电未完成，系统回自动退回剩余充电金额到您到支付账户</p>
+
+    </div>
+    <div class="loading">
+        <div class="pay">
+            <div class="pay-head">
+                <span>确认付款金额</span>
+                <span class="cancel"><img src="./imges/cancel.jpeg" width="15px" alt=""></span>
+            </div>
+            <!-- 限制input的输入不符合字符 -->
+            <div class="payComfirm">
+                <span>充值金额：</span>¥<input type="text" autofocus oninput="this.value=toThousands(this.value)"
+                    onpropertychange='this.value=toThousands(this.value)'> <span>元</span>
+            </div>
+            <div class="payTypeContent">
+                <div class="payType">
+                    <img src="./imges/weixin.png" alt="" width="15px"
+                        style="vertical-align: middle; display: inline-block; margin-right: 10px">
+                    微信支付
+                </div>
+            </div>
+            <div class="paySure">
+                <span class="btn paying">立即支付</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/jquery.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script>
+        //格式化金额
+        function toThousands(nums) {
+            return (creditUnformatted(nums)).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+        }
+
+        function creditUnformatted(obj) {
+            var value = "";
+            if (typeof obj == "string") {
+                value = obj;
+            } else {
+                alert("请输入数字")
+            }
+            value = value.replace(/,/g, '').replace('.', '');
+            return value;
+        }
+
+
+        $(".moneyType").on("click", function () {
+            if ($(this).children().text() !== "自定义") {
+                switch ($(this).children().text()) {
+                    case "10元":
+                        $(".payComfirm").html("").append(`<span>充值金额：</span>¥<span>10</span><span>元</span>`)
+                        $(".loading").show();
+                        break;
+                    case "20元":
+                        $(".payComfirm").html("").append(`<span>充值金额：</span>¥<span>20</span><span>元</span>`)
+                        $(".loading").show();
+                        break;
+                    case "30元":
+                        $(".payComfirm").html("").append(`<span>充值金额：</span>¥<span>30</span><span>元</span>`)
+                        $(".loading").show();
+                        break;
+                    case "40元":
+                        $(".payComfirm").html("").append(`<span>充值金额：</span>¥<span>40</span><span>元</span>`)
+                        $(".loading").show();
+                        break;
+                }
+            } else {
+                $(".payComfirm").html("").append(`<span>充值金额：</span>¥<input type="text" autofocus oninput="this.value=toThousands(this.value)"
+                        onpropertychange='this.value=toThousands(this.value)'> <span>元</span>`)
+                $(".loading").show()
+            }
+
+        })
+        //点击付款
+        $(".paying").on("click", function () {
+            let num = $("input").val().replace(/,/g, ''),
+                reg = /^[+-]?(0|([1-9]\d*))(\.\d+)?$/g;
+            console.log(num)
+            if (!reg.exec(num)) {
+                alert("请您输入数字")
+                return
+            } else {
+                $.ajax({
+                    url: '',
+                    data: num,
+                    type: "GET",
+                    success: function () {
+                        wx.chooseWXpay({
+
+                        })
+
+                        function onBridgeReady() {
+                            WinxinJsBridge.invoke(
+                                'getBrandWCPayResquest',
+                                //    {
+                                //        'appId',
+                                //        'timeStamp',
+                                //         'nonceStr',
+                                //         'package',
+                                //         'signType',
+                                //         'paySign'
+                                //    },
+                                function (res) {
+                                    if (res.err_msg == 'get_brand_wcpay_request:ok') {
+
+                                    }
+                                })
+                        }
+                        if (typeof WeixinJsBridge == 'underfined') {
+                            if (document.addEventListener) {
+                                document.addEventListener('WeixinJsBridgeReady', onBridgeReady,
+                                    false)
+                            } else if (document.attachEvent) {
+                                document.attachEvent('WeixinJsBridgeReady', onBridgeReady)
+                                document.attachEvent('onWeixinJsBridgeReady', onBridgeReady)
+                            }
+                        } else {
+                            onBridgeReady()
+                        }
+                    }
+
+                })
+            }
+        })
+        $(".cancel").on("click", function () {
+            $(".loading").hide()
+        })
+        //获取头像和昵称
+        $.ajax({
+            url: "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN",
+            type: 'GET',
+            data: json,
+            success:function(json){
+                for(item in json){
+                    $(".userName").css("background-image", `url(item.headimgurl)`)
+                    $(".userName span").text(item.nickname)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

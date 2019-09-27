@@ -20,32 +20,37 @@
 			>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="运营商：" prop="chargePileName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
+						<el-form-item label="运营商：" prop="operatorName">
+							<el-input class="time-interal" v-model="formLabelAlign.operatorName" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="联系人：" prop="chargePileName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
+						<el-form-item label="联系人：" prop="contactName">
+							<el-input class="time-interal" v-model="formLabelAlign.contactName" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
-						<el-form-item label="电话：" prop="chargePileName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
+						<el-form-item label="电话：" prop="telephone">
+							<el-input class="time-interal" v-model="formLabelAlign.telephone" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="邮箱：" prop="chargePileName">
-							<el-input class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
+						<el-form-item label="邮箱：" prop="email">
+							<el-input class="time-interal" v-model="formLabelAlign.email" size="small"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
 					<el-col :span="24">
-						<el-form-item label="地址：" prop="chargeStationModel">
-							<el-input style="width:96.5%" class="time-interal" v-model="formLabelAlign.chargePileName" size="small"></el-input>
+						<el-form-item label="地址：" prop="address">
+							<el-input
+								style="width:96.5%"
+								class="time-interal"
+								v-model="formLabelAlign.address"
+								size="small"
+							></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -69,7 +74,7 @@ export default {
       type: Boolean,
       default: false
     },
-    initTreeRootData: {
+    rowData: {
       type: Object,
       default: () => {}
     }
@@ -84,36 +89,31 @@ export default {
       isCurrentShow: false,
       labelPosition: "right",
       formLabelAlign: {
-        chargeStation: null,
-        business: null,
-        chargePileName: null,
-        chargePileFactory: null,
-        chargePileModel: null,
-        chargePriceModel: null,
-        bulkNumber: null,
-        version: null,
+        address: "",
+        bankCard: "",
+        bankCode: "",
+        bossId: 0,
+        cardUser: "",
+        contactName: "",
+        email: "",
+        operatorId: 0,
+        operatorLoginId: 0,
+        operatorName: "",
+        telephone: "",
+        validFlag: 0,
         bulk: false
       },
       rules: {
-        chargePileName: [
-          { required: true, message: "名称不能为空", trigger: "blur" },
+        operatorName: [
+          { required: true, message: "运营商名称不能为空", trigger: "blur" },
           { whitespace: true, message: "不允许输入空格", trigger: "blur" },
           { min: 1, max: 32, message: "长度在 1 到 32 个字符", trigger: "blur" }
         ],
-        chargeStation: [
-          { required: true, message: "充电站不能为空", trigger: "change" }
+        contactName: [
+          { required: true, message: "联系人不能为空", trigger: "change" }
         ],
-        chargePriceModel: [
-          { required: true, message: "计费模板不能为空", trigger: "change" }
-        ],
-        chargePileFactory: [
-          { required: true, message: "充电桩厂商不能为空", trigger: "change" }
-        ],
-        chargePileModel: [
-          { required: true, message: "充电桩型号不能为空", trigger: "change" }
-        ],
-        business: [
-          { required: true, message: "运营商不能为空", trigger: "change" }
+        telephone: [
+          { required: true, message: "电话不能为空", trigger: "change" }
         ]
       }
     };
@@ -124,8 +124,23 @@ export default {
   },
   methods: {
     initData() {
-      this.houseTypeOptions = [];
-      this.houseUseOptions = [];
+      /**
+       *     "id": 2,
+    "operatorId": 34,
+    "operatorName": "尙宽",
+    "bossId": 0,
+    "telephone": "15251877737",
+    "email": "",
+    "address": "山西省太原市小店区尚宽电气集团",
+    "validFlag": 1,
+    "contactName": "tes",
+    "bankCard": "6222621020010875574",
+    "bankCode": "1020",
+    "cardUser": "赵文昌",
+    "gmtCreate": "2019-07-31 21:22:54",
+    "gmtModify": "2019-07-31 21:23:58",
+    "isDeleted": 0
+       */
     },
     setUseData() {},
     onClickCancel() {
@@ -134,18 +149,61 @@ export default {
     onClickConfirm() {
       this.$refs.addHouseForm.validate(valid => {
         if (valid) {
-          this.addHouse();
+          if (this.formLabelAlign.operatorId) {
+            this.updateOperator(this.formLabelAlign);
+          } else {
+            this.addOperator(this.formLabelAlign);
+          }
         } else {
           this.$cToast.error("请正确填写内容");
         }
       });
     },
-    addHouse() {},
-    addHouseSuccessResponse(body) {}
+    addOperator(data) {
+      this.$userAjax
+        .addOperator(data)
+        .then(res => {
+          if (res.data.success) {
+            this.$message.success("添加成功！");
+            this.$emit("onCancel", true);
+          }
+        })
+        .catch(() => {});
+    },
+    updateOperator(data) {
+      this.$userAjax
+        .updateOperator(data)
+        .then(res => {
+          if (res.data.success) {
+            this.$message.success("修改成功");
+            this.$emit("onCancel", true);
+          }
+        })
+        .catch(() => {});
+    }
   },
   watch: {
     isShow(val) {
       this.isCurrentShow = val;
+      if (val) {
+        this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
+      } else {
+        this.formLabelAlign = {
+          address: "",
+          bankCard: "",
+          bankCode: "",
+          bossId: 0,
+          cardUser: "",
+          contactName: "",
+          email: "",
+          operatorId: 0,
+          operatorLoginId: 0,
+          operatorName: "",
+          telephone: "",
+          validFlag: 0,
+          bulk: false
+        };
+      }
     }
   },
   destroyed() {}

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .map {
+            min-width: 600px;
+            min-height: 600px;
+            border: 1px solid #3ac663;
+            position: relative;
+        }
+
+        .nav {
+            width: 100px;
+            height: 30px;
+            background-color: #fff;
+            padding: 5px 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* display: flex; */
+            /* align-self: center; */
+        }
+        input{
+            border: 1px solid #3ac663;
+            border-radius: 5px;
+            outline: none;
+            padding:0 5px;
+           
+           
+        }
+        .describle{
+            width: 100%;
+            height: 20px;
+        }
+    </style>
+    <script src="./js/jquery.js"></script>
+    <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"></script>
+    <script>
+        // wx.config({
+        //     debug,
+        //     appId,
+        //     timestamp,
+        //     nonceStr,
+        //     signature,
+        //     jsApiList: [
+        //         'getLocation',
+        //     ]
+        // });
+        // wx.ready(function () {
+        //     wx.checkJsApi({
+        //         jsApiList: [
+        //             'getLocation'
+        //         ],
+        //         success: function (res) {
+        //             if (res.checkResult.getLocation == false) {
+        //                 alert('你的微信版本太低，请升级到最新的微信版本！');
+        //                 return;
+        //             }
+        //         }
+        //     });
+        //     wx.error(function (res) {
+        //         alert("接口调取失败")
+        //     });
+        //     wx.getLocation({
+        //         success: function (res) {
+        //             function init() {
+        //                 var map = new qq.maps.Map($(".map"), {
+        //                     center: JSON.stringify(res),
+        //                 })
+        //             }
+        //         },
+        //         cancel: function (res) {
+        //             alert('用户拒绝授权获取地理位置');
+        //         }
+        //     });
+        // });
+        // window.onload=function(){
+        // init()
+
+        function init() {
+            var center = new qq.maps.LatLng(39.916527, 116.397128)
+            var map = new qq.maps.Map(document.querySelector(".map"), {
+                center: center,
+                zoom: 14
+            })
+            var marker = new qq.maps.Marker({
+                position: center,
+                map: map,
+                draggable: true,
+            })
+            var info = new qq.maps.InfoWindow({
+                map: map
+            })
+            qq.maps.event.addListener(marker,"click", function(){
+                let describle = `
+                        <div class="describle">
+                           <span>xxx充电站</span> 
+                           <span>充电桩编号：</span><span class="number">xxxxxx</span>  <span class="state">[可用]</span>
+                           <span>快：</span> <span class="fast">2/2</span><span>慢：</span> <span class="slow">2/2</span> 
+                        </div>
+                `
+                info.open();
+                info.setContent(describle)
+                info.setPosition(center)
+            })
+           
+        
+        }
+       
+    </script>
+</head>
+
+<body onload="init()">
+    <div class="nav">
+        <input type="text" placeholder="输入目的地">
+    </div>
+    <div class="map">
+
+    </div>
+
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+    <script>
+        // var citylocation, map, marker = null;
+        //给外层的a标签加上url，方便一会点击小地图的时候直接跳转。
+        // function newMapGo(id, lat, lng) {
+        //     var markUrl = 'https://apis.map.qq.com/tools/poimarker' +
+        //         '?marker=coord:' + lat + ',' + lng +
+        //         '&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77&referer=myapp';
+        //     //给位置展示组件赋值
+        //     document.getElementById(id).href = markUrl;
+        // }
+        //需要外层元素id和对应地址的经纬度
+        // function newMap(id, lat, lng) {
+        //     var center = new qq.maps.LatLng(lat, lng);
+        //     var map = new qq.maps.Map(document.getElementById(id), {
+        //         center: center,
+        //         zoom: 18
+        //     });
+        //     //调用城市服务信息
+        //     citylocation = new qq.maps.CityService({
+        //         complete: function (results) {
+        //             map.setCenter(results.detail.latLng);
+        //             if (marker != null) {
+        //                 // marker.setMap(null);
+        //             }
+        //             //设置marker标记
+        //             marker = new qq.maps.Marker({
+        //                 map: map,
+        //                 position: results.detail.latLng
+        //             });
+        //         }
+        //     });
+        //     citylocation.searchCityByLatLng(center);
+        //     newMapGo('aToMap', lat, lng);
+        // }
+        // //给id,经纬度
+        // newMap('map-container', 23.12463, 113.36199)
+    </script>
+    <script>
+     let describle = document.querySelector(".describle")
+            qq.maps.event.addDomListener(describle,"click",function(){
+                console.log("this")
+            })
+    //获取及时位置
+    wx.getLocation({
+        type,
+        success: function(res){
+            res.latitude;
+            res.longitude;
+        }
+    })
+    </script>
+</body>
+
+</html>
