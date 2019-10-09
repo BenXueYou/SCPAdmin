@@ -27,6 +27,15 @@ const SwitchData = () => import(/* webpackChunkName: "group-foo" */ '@/pages/rea
 
 const BillModel = () => import(/* webpackChunkName: "group-foo" */ '@/pages/priceSet/BillModel');
 const Home = () => import(/* webpackChunkName: "group-foo" */ '@/pages/home/Home');
+
+const CaseProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/CaseProductionTable');
+const ReservationTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/ReservationTable');
+const RentProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/RentProductionTable');
+const PileProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/PileProductionTable');
+const AlignProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/AlignProductionTable');
+const ActivityProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/ActivityProductionTable');
+const CarProductionTable = () => import(/* webpackChunkName: "production" */ '@/pages/production/CarProductionTable');
+
 Vue.use(Router);
 
 export default new Router({
@@ -45,6 +54,48 @@ export default new Router({
       name: 'Main',
       component: Main,
       children: [
+        {
+          path: "ActivityProductionTable",
+          name: "ActivityProductionTable",
+          component: ActivityProductionTable,
+          title: "优惠活动"
+        },
+        {
+          path: "AlignProductionTable",
+          name: "AlignProductionTable",
+          component: AlignProductionTable,
+          title: "加盟方案"
+        },
+        {
+          path: "CarProductionTable",
+          name: "CarProductionTable",
+          component: CarProductionTable,
+          title: "车辆发布"
+        },
+        {
+          path: "PileProductionTable",
+          name: "PileProductionTable",
+          component: PileProductionTable,
+          title: "充电桩发布"
+        },
+        {
+          path: "RentProductionTable",
+          name: "RentProductionTable",
+          component: RentProductionTable,
+          title: "租赁方案"
+        },
+        {
+          path: "ReservationTable",
+          name: "ReservationTable",
+          component: ReservationTable,
+          title: "预约信息"
+        },
+        {
+          path: "CaseProductionTable",
+          name: "CaseProductionTable",
+          component: CaseProductionTable,
+          title: "优秀案例"
+        },
         {
           path: "ChargePile",
           name: "ChargePile",

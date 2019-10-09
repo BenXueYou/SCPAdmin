@@ -44,34 +44,8 @@
 					</el-col>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-form-item style="margin-bottom:0px!important" label="开放时间:" required>
-						<el-col :span="10">
-							<el-form-item prop="startTime">
-								<el-time-picker
-									type="date"
-									value-format="HH:mm:ss"
-									placeholder="选择开始时间"
-									v-model="formLabelAlign.startTime"
-									class="timePickerClass"
-								></el-time-picker>
-							</el-form-item>
-						</el-col>
-						<el-col class="line" :span="3" style="color:#dcdfe6;padding:0 8px;text-align:center">—</el-col>
-						<el-col :span="10">
-							<el-form-item prop="endTime">
-								<el-time-picker
-									placeholder="选择结束时间"
-									value-format="HH:mm:ss"
-									v-model="formLabelAlign.endTime"
-									class="timePickerClass"
-								></el-time-picker>
-							</el-form-item>
-						</el-col>
-					</el-form-item>
-				</el-row>
-				<el-row type="flex" justify="space-between">
-					<el-form-item label="省市区：" prop="provinceId">
-						<el-col :span="8">
+					<el-col :span="12">
+						<el-form-item label="省：" prop="provinceId">
 							<el-select
 								class="time-interal"
 								v-model="formLabelAlign.provinceId"
@@ -87,8 +61,10 @@
 									:value="item.provinceId"
 								></el-option>
 							</el-select>
-						</el-col>
-						<el-col :span="8">
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="市：" prop="cityId">
 							<el-select
 								class="time-interal"
 								v-model="formLabelAlign.cityId"
@@ -104,14 +80,19 @@
 									:value="item.cityId"
 								></el-option>
 							</el-select>
-						</el-col>
-						<el-col :span="8">
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row type="flex" justify="space-between">
+					<el-col :span="12">
+						<el-form-item label="区/县：" prop="areaId">
 							<el-select
 								class="time-interal"
 								v-model="formLabelAlign.areaId"
 								size="small"
 								clearable
 								placeholder="请选择区/县"
+								@change="areaChangeAct"
 							>
 								<el-option
 									v-for="item in areaOptions"
@@ -120,28 +101,60 @@
 									:value="item.areaId"
 								></el-option>
 							</el-select>
+						</el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="地址：" prop="addressId">
+							<el-select
+								class="time-interal"
+								v-model="formLabelAlign.addressId"
+								size="small"
+								clearable
+								placeholder="请选择地址"
+							>
+								<el-option
+									v-for="item in addressOptions"
+									:key="item.addressId"
+									:label="item.addressName"
+									:value="item.addressId"
+								></el-option>
+							</el-select>
+						</el-form-item>
+					</el-col>
+				</el-row>
+				<el-row type="flex" justify="space-between">
+					<el-form-item style="margin-bottom:0px!important" label="开放时间:" required>
+						<el-col :span="10">
+							<el-form-item prop="startTime">
+								<el-time-picker
+									type="date"
+									value-format="HH:mm"
+									placeholder="选择开始时间"
+									v-model="formLabelAlign.startTime"
+									class="timePickerClass"
+								></el-time-picker>
+							</el-form-item>
+						</el-col>
+						<el-col class="line" :span="3" style="color:#dcdfe6;padding:0 8px;text-align:center">—</el-col>
+						<el-col :span="10">
+							<el-form-item prop="endTime">
+								<el-time-picker
+									placeholder="选择结束时间"
+									value-format="HH:mm"
+									v-model="formLabelAlign.endTime"
+									class="timePickerClass"
+								></el-time-picker>
+							</el-form-item>
 						</el-col>
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-col :span="24">
-						<el-form-item label="地址：" prop="location">
-							<el-input
-								class="time-interal"
-								style="width:96%;box-sizing: border-box;"
-								v-model="formLabelAlign.location"
-								size="small"
-							></el-input>
-						</el-form-item>
-					</el-col>
-				</el-row>
-				<el-row type="flex" justify="space-between">
 					<el-col :span="12">
 						<el-form-item label="停车收费:">
-							<el-switch v-model="formLabelAlign.parkFee"></el-switch>
+							<el-switch v-model="isParkFee"></el-switch>
 						</el-form-item>
 					</el-col>
-					<el-col :span="12" v-if="formLabelAlign.parkFee">
+					<el-col :span="12" v-if="isParkFee">
 						<el-form-item label="停车费(元/时)：" prop="roomsType">
 							<el-input class="time-interal" v-model="formLabelAlign.parkFee" size="small"></el-input>
 						</el-form-item>
@@ -181,35 +194,34 @@ export default {
     return {
       endTimeOptions: [],
       provinceOptions: [],
+      addressOptions: [],
       areaOptions: [],
       cityOptions: [],
       operatorOptions: [],
       isCurrentShow: false,
       labelPosition: "right",
+      isParkFee: false,
       formLabelAlign: {
         openTime: "00:00-23:59",
         startTime: "00:00",
-        location: null,
+        addressName: null,
         endTime: "23:59",
         csName: null,
         operatorId: null,
-        parkFee: false,
+        parkFee: null,
         addressId: null,
         provinceId: 0,
         cityId: 0,
         areaId: 0
       },
       rules: {
-        location: [
+        addressName: [
           { required: true, message: "地址不能为空", trigger: "blur" },
           { whitespace: true, message: "不允许输入空格", trigger: "blur" },
-          { min: 1, max: 32, message: "长度在 1 到 32 个字符", trigger: "blur" }
+          { min: 1, max: 32, message: "长度在 1 到 64 个字符", trigger: "blur" }
         ],
-        openTime: [
+        startTime: [
           { required: true, message: "开放开始时间不能为空", trigger: "change" }
-        ],
-        chargePriceModel: [
-          { required: true, message: "计费模板不能为空", trigger: "change" }
         ],
         endTime: [
           { required: true, message: "结束时间不能为空", trigger: "change" }
@@ -219,6 +231,21 @@ export default {
         ],
         operatorId: [
           { required: true, message: "运营商不能为空", trigger: "change" }
+        ],
+        provinceId: [
+          { required: true, message: "请选择省", trigger: "change" },
+          { min: 1, max: 6, message: "请选择省", trigger: "blur" }
+        ],
+        cityId: [
+          { required: true, message: "请选择市", trigger: "change" },
+          { min: 1, max: 6, message: "请选择市", trigger: "blur" }
+        ],
+        areaId: [
+          { required: true, message: "请选择区/县", trigger: "change" },
+          { min: 1, max: 6, message: "请选择区/县", trigger: "blur" }
+        ],
+        addressId: [
+          { required: true, message: "地址不能为空", trigger: "change" }
         ]
       }
     };
@@ -239,7 +266,7 @@ export default {
         csId: 0,
         csName: "string",
         endTime: "string",
-        location: "string",
+        addressName: "string",
         openTime: "string",
         operatorId: 0,
         parkFee: 0,
@@ -254,7 +281,6 @@ export default {
         this.formLabelAlign.endTime
       ].join("-");
       Object.assign(data, this.formLabelAlign);
-      console.log(data);
       if (this.formLabelAlign.id) {
         this.updateChargeStation(data);
       } else {
@@ -326,6 +352,18 @@ export default {
           }
         })
         .catch(() => {});
+    },
+    areaChangeAct() {
+      this.$deviceAjax
+        .getAddressListByAreaId({ areaId: this.formLabelAlign.areaId })
+        .then(res => {
+          if (res.data.success) {
+            this.addressOptions = res.data.model;
+          } else {
+            this.$message({ type: "warning", message: res.data.errMsg });
+          }
+        })
+        .catch(() => {});
     }
   },
   watch: {
@@ -342,13 +380,13 @@ export default {
         )[0];
       } else {
         this.formLabelAlign = {
-          openTime: "00:00-23:59",
-          startTime: "00:00",
-          location: null,
-          endTime: "23:59",
+          openTime: null,
+          startTime: null,
+          addressName: null,
+          endTime: null,
           csName: null,
           operatorId: null,
-          parkFee: false,
+          parkFee: 0,
           addressId: null,
           provinceId: 0,
           cityId: 0,

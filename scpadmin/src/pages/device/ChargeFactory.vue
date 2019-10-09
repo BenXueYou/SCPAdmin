@@ -175,7 +175,6 @@ export default {
       this.$deviceAjax
         .editPileFactoryOptions({ id: row.id })
         .then(res => {
-          // debugger;
           if (res.data.success) {
             this.rowData = res.data.model;
             this.isShowEidtDialog = !this.isShowEidtDialog;

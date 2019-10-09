@@ -94,6 +94,7 @@ export default {
       }
     },
     initData() {
+      console.log(this.$store.state.home.OperatorId);
       let data = {
         model: {
           operatorId: this.$store.state.home.OperatorId,

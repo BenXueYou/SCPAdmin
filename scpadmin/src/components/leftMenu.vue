@@ -121,6 +121,30 @@
 						<el-menu-item index="/Main/ChargeStationStatics">充电站统计</el-menu-item>
 						<el-menu-item index="/Main/OperatorStatics">运营商统计</el-menu-item>
 					</el-submenu>
+					<el-submenu index="7" :class="menuTitle === '7'? 'submenuActiveClass' : ''">
+						<template slot="title">
+							<i class="el-icon-menu"></i>
+							<span slot="title">微信商城</span>
+							<img
+								v-show="menuTitle === '6'"
+								class="left_menu_box_right_icon"
+								src="@/assets/images/select-down.png"
+							/>
+							<img
+								v-show="menuTitle !== '6'"
+								class="left_menu_box_right_icon"
+								src="@/assets/images/leftMenu/left_menu_down_icon.png"
+								alt
+							/>
+						</template>
+						<el-menu-item index="/Main/ReservationTable">预约信息</el-menu-item>
+						<el-menu-item index="/Main/CarProductionTable">车辆发布</el-menu-item>
+						<el-menu-item index="/Main/PileProductionTable">充电桩发布</el-menu-item>
+						<el-menu-item index="/Main/RentProductionTable">租赁方案</el-menu-item>
+						<el-menu-item index="/Main/ActivityProductionTable">优惠活动</el-menu-item>
+						<el-menu-item index="/Main/CaseProductionTable">优秀案例</el-menu-item>
+						<el-menu-item index="/Main/AlignProductionTable">加盟方案</el-menu-item>
+					</el-submenu>
 					<el-menu-item index="/main/BillModel" style="padding-left:20px;background-color:rgb(53,64,84)">
 						<i class="el-icon-money"></i>
 						计费模型

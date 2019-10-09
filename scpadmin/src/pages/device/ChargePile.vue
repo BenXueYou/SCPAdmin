@@ -79,7 +79,7 @@
 				<el-table-column prop="operatorName" label="运营商"></el-table-column>
 				<el-table-column prop="csName" label="充电站"></el-table-column>
 				<el-table-column prop="rateId" width="85" label="费率模板"></el-table-column>
-				<el-table-column prop="zip" label="桩厂商"></el-table-column>
+				<el-table-column prop="mfrName" label="桩厂商"></el-table-column>
 				<el-table-column prop="model" label="桩型号"></el-table-column>
 				<el-table-column prop="gmtCreate" label="建桩日期"></el-table-column>
 				<el-table-column prop="location" label="详细地址" show-overflow-tooltip></el-table-column>

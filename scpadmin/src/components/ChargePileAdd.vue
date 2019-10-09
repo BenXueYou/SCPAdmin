@@ -213,6 +213,7 @@ export default {
   methods: {
     // 新增充电桩的时候Options
     getAddOptions() {
+      console.log(this.$store.state.home.OperatorId);
       this.$deviceAjax
         .getAddOptions({ operatorLoginId: this.$store.state.home.OperatorId })
         .then(res => {
@@ -290,7 +291,10 @@ export default {
       this.isCurrentShow = val;
       if (val && this.rowData.cpId) {
         this.formLabelAlign = JSON.parse(JSON.stringify(this.rowData));
-        Object.assign(this.formLabelAlign, this.formLabelAlign.chargeStationList[0]);
+        Object.assign(
+          this.formLabelAlign,
+          this.formLabelAlign.chargeStationList[0]
+        );
       }
     }
   },

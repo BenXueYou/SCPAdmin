@@ -98,6 +98,9 @@ export var DeviceAjax = {
   deletePileFactory(xhr) {
     let url = `${RestApi.api.DeviceAjax.deletePileFactory}`;
     return axios({
+      headers: {
+        'content-type': 'application/json'
+      },
       method: "post",
       url,
       data: xhr.id

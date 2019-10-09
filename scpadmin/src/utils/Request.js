@@ -23,7 +23,7 @@ service.interceptors.request.use(
     let operatorId = store.state.home.OperatorId;
     config.headers["token"] = Authorization;
     config.headers["operatorId"] = operatorId;
-    config.headers["content-type"] = 'application/json';
+    // config.headers["content-type"] = 'application/json';
     return config;
   },
   error => {

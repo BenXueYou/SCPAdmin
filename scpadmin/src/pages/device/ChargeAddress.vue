@@ -11,6 +11,7 @@
 		<div class="bodyBox">
 			<div class="topMenu flex-sbw">
 				<div class="flex-sbw">
+					<el-button type="primary" @click="addBtnAct" style="margin:0 10px;">新增</el-button>
 					<div class="flex-sbw-div">
 						<span class="topTitleTxt">省：</span>
 						<el-select
@@ -164,6 +165,7 @@ export default {
         .catch(() => {});
     },
     provinceChangeAct() {
+      if (!this.province) return;
       this.$deviceAjax
         .getCityByProvinceId({ provinceId: this.province })
         .then(res => {
@@ -176,6 +178,7 @@ export default {
         .catch(() => {});
     },
     cityChangeAct() {
+      if (!this.city) return;
       this.$deviceAjax
         .getAreaListByCityId({ cityId: this.city })
         .then(res => {
@@ -209,6 +212,7 @@ export default {
       this.initData();
     },
     addBtnAct() {
+      this.rowData = {};
       this.isShowEidtDialog = !this.isShowEidtDialog;
     },
     deleteBtnAct() {},

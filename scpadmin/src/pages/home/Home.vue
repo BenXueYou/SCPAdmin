@@ -177,7 +177,10 @@ export default {
             let arr = res.data.model;
             this.dayArr = [];
             this.trendLineDataList = [];
-            if (!arr && !arr.length) return;
+            if (!arr.length) {
+              this.$message({type: 'warning', message: '查询结果为空'});
+              return;
+            }
             for (let i = 0; i < arr.length; i++) {
               this.dayArr.push(arr[i].day);
               this.trendLineDataList.push(arr[i].data);

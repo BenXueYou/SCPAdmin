@@ -19,7 +19,7 @@
 				class="info-form"
 			>
 				<el-row type="flex" justify="space-between">
-					<el-form-item label="省：" prop="province">
+					<el-form-item label="省：" prop="provinceId">
 						<el-select
 							class="time-interal"
 							v-model="formLabelAlign.provinceId"
@@ -38,7 +38,7 @@
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-form-item label="市：" prop="city">
+					<el-form-item label="市：" prop="cityId">
 						<el-select
 							class="time-interal"
 							v-model="formLabelAlign.cityId"
@@ -57,7 +57,7 @@
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-form-item label="区：" prop="area">
+					<el-form-item label="区：" prop="areaId">
 						<el-select
 							class="time-interal"
 							v-model="formLabelAlign.areaId"
@@ -75,7 +75,7 @@
 					</el-form-item>
 				</el-row>
 				<el-row type="flex" justify="space-between">
-					<el-form-item label="地址：" prop="address">
+					<el-form-item label="地址：" prop="addressName">
 						<el-input style="width:auto" v-model="formLabelAlign.addressName"></el-input>
 					</el-form-item>
 				</el-row>
@@ -121,21 +121,14 @@ export default {
         addressName: null
       },
       rules: {
-        openingHours: [
-          { required: true, message: "充电站不能为空", trigger: "change" }
+        provinceId: [
+          { required: true, message: "省份不能为空", trigger: "change" }
         ],
-        chargePriceModel: [
-          { required: true, message: "计费模板不能为空", trigger: "change" }
+        cityId: [{ required: true, message: "市不能为空", trigger: "change" }],
+        addressName: [
+          { required: true, message: "地址不能为空", trigger: "change" }
         ],
-        endHours: [
-          { required: true, message: "充电桩厂商不能为空", trigger: "change" }
-        ],
-        chargeStationModel: [
-          { required: true, message: "充电桩型号不能为空", trigger: "change" }
-        ],
-        business: [
-          { required: true, message: "运营商不能为空", trigger: "change" }
-        ]
+        areaId: [{ required: true, message: "区域不能为空", trigger: "change" }]
       }
     };
   },
@@ -159,14 +152,32 @@ export default {
         provinceId: this.formLabelAlign.provinceId
       };
       Object.assign(data, this.formLabelAlign);
-      console.log(data);
-
+      if (this.formLabelAlign.addressId) {
+        this.updateChargeAddress(data);
+      } else {
+        this.postChargeAddress(data);
+      }
+    },
+    updateChargeAddress(data) {
       this.$deviceAjax
         .updateChargeAddress(data)
         .then(res => {
           if (res.data.success) {
             this.$emit("onCancel", true);
-            this.$message.success("操作成功");
+            this.$message.success("修改成功");
+          } else {
+            this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
+    },
+    addChargeAddress(data) {
+      this.$deviceAjax
+        .postChargeAddress(data)
+        .then(res => {
+          if (res.data.success) {
+            this.$emit("onCancel", true);
+            this.$message.success("新增成功");
           } else {
             this.$message.warning(res.data.errMsg);
           }
@@ -194,7 +205,6 @@ export default {
           if (res.data.success) {
             this.areaOptions = res.data.model;
             this.formLabelAlign.areaId = this.areaOptions[0].areaId;
-            this.formLabelAlign.addressName = null;
           } else {
             this.$message({ type: "warning", message: res.data.errMsg });
           }

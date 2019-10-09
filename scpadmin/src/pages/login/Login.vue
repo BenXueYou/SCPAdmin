@@ -161,6 +161,7 @@ export default {
     },
     loginSuccessResponse(body) {
       if (body) {
+        debugger;
         if (this.isRembAccount) {
           this.$store.dispatch("setAccount", this.formLabelAlign.username);
           this.$store.dispatch("SET_USERUUID", this.formLabelAlign.useruuid);
