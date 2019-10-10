@@ -14,7 +14,7 @@ export var DeviceAjax = {
     return axios({
       method: "post",
       url,
-      data: xhr
+      params: {cpIdList: xhr.toString()}
     });
   },
   addPile(xhr) {

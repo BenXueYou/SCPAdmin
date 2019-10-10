@@ -103,7 +103,10 @@ export default {
        * 运营统计
        */
     StaticsAjax: {
-      getAppUser: `${httpUrlHeader}/statistics/user`
+      getAppUser: `${httpUrlHeader}/statistics/user`,
+      getOperator: `${httpUrlHeader}/statistics/operator`,
+      getChargeStation: `${httpUrlHeader}/statistics/chargeStation`,
+      getChargePile: `${httpUrlHeader}/statistics/chargePile`,
     },
 
     /**
