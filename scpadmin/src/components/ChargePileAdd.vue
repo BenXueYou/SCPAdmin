@@ -27,6 +27,7 @@
 								size="small"
 								clearable
 								placeholder="请选择"
+								@change="operatorChangeAct"
 							>
 								<el-option
 									v-for="item in businessOptions"
@@ -70,6 +71,7 @@
 								size="small"
 								clearable
 								placeholder="请选择"
+								@change="mfrIdChangeAct"
 							>
 								<el-option
 									v-for="item in chargePileFactoryOptions"
@@ -248,7 +250,6 @@ export default {
             rateId: 0
           };
           Object.assign(data, this.formLabelAlign);
-          console.log(data);
           if (this.rowData.cpId) {
             this.updatePile(data);
           } else {
@@ -281,6 +282,26 @@ export default {
             this.$message.success("修改成功");
           } else {
             this.$message.warning(res.data.errMsg);
+          }
+        })
+        .catch(() => {});
+    },
+    operatorChangeAct() {
+      this.$deviceAjax
+        .getChargeStationListByOperatorId(this.formLabelAlign.operatorId)
+        .then(res => {
+          if (res.data.success) {
+            this.chargeStationOptions = res.data.model;
+          }
+        })
+        .catch(() => {});
+    },
+    mfrIdChangeAct() {
+      this.$deviceAjax
+        .getPileModelListById(this.formLabelAlign.mfrId)
+        .then(res => {
+          if (res.data.success) {
+            this.chargePileModelOptions = res.data.model;
           }
         })
         .catch(() => {});
