@@ -86,6 +86,12 @@ export default {
       exportChargeRecord: `${httpUrlHeader}/charge/record/export`,
       getChargeRecordList: `${httpUrlHeader}/charge/record/list-by-page`,
       deductRecordList: `${httpUrlHeader}/deduct/record/list`,
+
+      getRechargeRecord: `${httpUrlHeader}/weChat/deposit/record`,
+      exportRechargeRecord: `${httpUrlHeader}/weChat/export/deposit-record`,
+
+      getRefrundRecord: `${httpUrlHeader}/weChat/withdraw-list-by-page`,
+
     },
 
     /**
